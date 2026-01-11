@@ -997,3 +997,146 @@ p {
         padding: 0 1.5rem;
     }
 }
+
+/* Cartoon Animals in Hero */
+.hero-animals {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.animal {
+    position: absolute;
+    filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3));
+}
+
+/* Flamingo - standing by the pool edge, bottom left */
+.flamingo {
+    width: 100px;
+    height: auto;
+    bottom: 5%;
+    left: 8%;
+    animation: flamingo-sway 3s ease-in-out infinite;
+}
+
+@keyframes flamingo-sway {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
+}
+
+/* Cat on float - floating in pool area, center-right */
+.cat {
+    width: 160px;
+    height: auto;
+    bottom: 15%;
+    right: 10%;
+    animation: cat-float 4s ease-in-out infinite;
+}
+
+@keyframes cat-float {
+    0%, 100% { transform: translateY(0) rotate(-1deg); }
+    50% { transform: translateY(-10px) rotate(1deg); }
+}
+
+/* Dog - bottom right, playing */
+.dog {
+    width: 120px;
+    height: auto;
+    bottom: 8%;
+    right: 35%;
+    animation: dog-bounce 0.8s ease-in-out infinite;
+}
+
+@keyframes dog-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* Tropical bird - top right corner */
+.bird {
+    width: 70px;
+    height: auto;
+    top: 20%;
+    right: 5%;
+    animation: bird-bob 2s ease-in-out infinite;
+}
+
+@keyframes bird-bob {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-5px) rotate(3deg); }
+    75% { transform: translateY(3px) rotate(-3deg); }
+}
+
+/* Responsive adjustments for animals */
+@media (max-width: 992px) {
+    .flamingo {
+        width: 80px;
+        left: 5%;
+        bottom: 8%;
+    }
+
+    .cat {
+        width: 130px;
+        right: 5%;
+        bottom: 12%;
+    }
+
+    .dog {
+        width: 100px;
+        right: 40%;
+        bottom: 5%;
+    }
+
+    .bird {
+        width: 55px;
+        top: 18%;
+    }
+}
+
+@media (max-width: 768px) {
+    .flamingo {
+        width: 60px;
+        left: 3%;
+        bottom: 10%;
+    }
+
+    .cat {
+        width: 100px;
+        right: 3%;
+        bottom: 15%;
+    }
+
+    .dog {
+        width: 80px;
+        right: 35%;
+        bottom: 3%;
+    }
+
+    .bird {
+        width: 45px;
+        top: 15%;
+        right: 3%;
+    }
+}
+
+@media (max-width: 480px) {
+    .flamingo {
+        width: 50px;
+        bottom: 12%;
+    }
+
+    .cat {
+        width: 80px;
+        bottom: 18%;
+    }
+
+    .dog {
+        display: none;
+    }
+
+    .bird {
+        width: 35px;
+    }
+}
