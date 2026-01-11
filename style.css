@@ -998,7 +998,7 @@ p {
     }
 }
 
-/* Cartoon Animals in Hero */
+/* Pack of Happy Dogs in Hero */
 .hero-animals {
     position: absolute;
     inset: 0;
@@ -1009,134 +1009,163 @@ p {
 
 .animal {
     position: absolute;
-    filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3));
+    filter: drop-shadow(3px 5px 8px rgba(0,0,0,0.4));
 }
 
-/* Flamingo - standing by the pool edge, bottom left */
-.flamingo {
-    width: 100px;
-    height: auto;
-    bottom: 5%;
-    left: 8%;
-    animation: flamingo-sway 3s ease-in-out infinite;
-}
-
-@keyframes flamingo-sway {
-    0%, 100% { transform: rotate(-2deg); }
-    50% { transform: rotate(2deg); }
-}
-
-/* Cat on float - floating in pool area, center-right */
-.cat {
-    width: 160px;
-    height: auto;
-    bottom: 15%;
-    right: 10%;
-    animation: cat-float 4s ease-in-out infinite;
-}
-
-@keyframes cat-float {
-    0%, 100% { transform: translateY(0) rotate(-1deg); }
-    50% { transform: translateY(-10px) rotate(1deg); }
-}
-
-/* Dog - bottom right, playing */
-.dog {
-    width: 120px;
+/* Dog 1: Golden Retriever floating in pool - center of the action */
+.dog-float {
+    width: 180px;
     height: auto;
     bottom: 8%;
-    right: 35%;
-    animation: dog-bounce 0.8s ease-in-out infinite;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: dog-float 4s ease-in-out infinite;
 }
 
-@keyframes dog-bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
+@keyframes dog-float {
+    0%, 100% { transform: translateX(-50%) translateY(0) rotate(-1deg); }
+    50% { transform: translateX(-50%) translateY(-8px) rotate(1deg); }
 }
 
-/* Tropical bird - top right corner */
-.bird {
-    width: 70px;
+/* Dog 2: Corgi on lounger - right side, poolside */
+.dog-lounger {
+    width: 140px;
     height: auto;
-    top: 20%;
+    bottom: 5%;
     right: 5%;
-    animation: bird-bob 2s ease-in-out infinite;
+    animation: corgi-chill 3s ease-in-out infinite;
 }
 
-@keyframes bird-bob {
+@keyframes corgi-chill {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+/* Dog 3: Dalmatian swimming - left side of pool */
+.dog-swim {
+    width: 160px;
+    height: auto;
+    bottom: 18%;
+    left: 3%;
+    animation: dog-splash 1.5s ease-in-out infinite;
+}
+
+@keyframes dog-splash {
     0%, 100% { transform: translateY(0) rotate(0deg); }
-    25% { transform: translateY(-5px) rotate(3deg); }
-    75% { transform: translateY(3px) rotate(-3deg); }
+    25% { transform: translateY(-5px) rotate(2deg); }
+    75% { transform: translateY(3px) rotate(-2deg); }
 }
 
-/* Responsive adjustments for animals */
+/* Dog 4: Pug with pool noodle - front center-left */
+.dog-toy {
+    width: 100px;
+    height: auto;
+    bottom: 3%;
+    left: 20%;
+    animation: pug-bob 2s ease-in-out infinite;
+}
+
+@keyframes pug-bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+/* Dog 5: Husky peeking - top right, watching the fun */
+.dog-peek {
+    width: 90px;
+    height: auto;
+    top: 18%;
+    right: 8%;
+    animation: husky-watch 2.5s ease-in-out infinite;
+}
+
+@keyframes husky-watch {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+}
+
+/* Responsive adjustments for dog pack */
 @media (max-width: 992px) {
-    .flamingo {
-        width: 80px;
-        left: 5%;
-        bottom: 8%;
+    .dog-float {
+        width: 150px;
+        bottom: 10%;
     }
 
-    .cat {
+    .dog-lounger {
+        width: 120px;
+        right: 3%;
+        bottom: 3%;
+    }
+
+    .dog-swim {
         width: 130px;
+        bottom: 15%;
+        left: 2%;
+    }
+
+    .dog-toy {
+        width: 85px;
+        left: 18%;
+    }
+
+    .dog-peek {
+        width: 75px;
+        top: 15%;
         right: 5%;
-        bottom: 12%;
-    }
-
-    .dog {
-        width: 100px;
-        right: 40%;
-        bottom: 5%;
-    }
-
-    .bird {
-        width: 55px;
-        top: 18%;
     }
 }
 
 @media (max-width: 768px) {
-    .flamingo {
-        width: 60px;
-        left: 3%;
-        bottom: 10%;
+    .dog-float {
+        width: 120px;
+        bottom: 12%;
     }
 
-    .cat {
+    .dog-lounger {
         width: 100px;
-        right: 3%;
-        bottom: 15%;
+        right: 2%;
+        bottom: 2%;
     }
 
-    .dog {
-        width: 80px;
-        right: 35%;
-        bottom: 3%;
+    .dog-swim {
+        width: 110px;
+        bottom: 18%;
+        left: 1%;
     }
 
-    .bird {
-        width: 45px;
-        top: 15%;
+    .dog-toy {
+        width: 70px;
+        left: 15%;
+        bottom: 2%;
+    }
+
+    .dog-peek {
+        width: 60px;
+        top: 12%;
         right: 3%;
     }
 }
 
 @media (max-width: 480px) {
-    .flamingo {
-        width: 50px;
-        bottom: 12%;
+    .dog-float {
+        width: 100px;
+        bottom: 15%;
     }
 
-    .cat {
+    .dog-lounger {
         width: 80px;
-        bottom: 18%;
     }
 
-    .dog {
+    .dog-swim {
         display: none;
     }
 
-    .bird {
-        width: 35px;
+    .dog-toy {
+        display: none;
+    }
+
+    .dog-peek {
+        width: 50px;
+        top: 10%;
     }
 }
