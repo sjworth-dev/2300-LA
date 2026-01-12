@@ -515,73 +515,26 @@ p {
     margin: 0;
 }
 
-/* Sleeping Arrangements Section */
-.sleeping-section {
+/* Layout Section (Floor Plan + Sleeping) */
+.layout-section {
     padding: 6rem 0;
-    background: var(--white);
+    background: var(--cream);
     text-align: center;
 }
 
-.sleeping-intro {
+.layout-intro {
     color: var(--gray);
-    max-width: 500px;
+    max-width: 700px;
     margin: 0 auto 3rem;
     font-size: 1.1rem;
 }
 
-.sleeping-grid {
+.layout-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1.5rem;
-}
-
-.bedroom-card {
-    background: var(--cream);
-    padding: 2rem 1.5rem;
-    border-radius: 12px;
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-.bedroom-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-}
-
-.bedroom-icon {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-}
-
-.bedroom-card h3 {
-    font-size: 1.1rem;
-    color: var(--charcoal);
-    margin-bottom: 0.5rem;
-}
-
-.bedroom-card p {
-    font-size: 0.9rem;
-    color: var(--gray);
-    margin: 0;
-}
-
-/* Floor Plan Section */
-.floorplan-section {
-    padding: 6rem 0;
-    background: var(--cream);
-    text-align: center;
-}
-
-.floorplan-intro {
-    color: var(--gray);
-    max-width: 600px;
-    margin: 0 auto 3rem;
-    font-size: 1.1rem;
-}
-
-.floorplan-image {
-    max-width: 900px;
-    margin: 0 auto;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    text-align: left;
 }
 
 .floorplan-image img {
@@ -589,6 +542,76 @@ p {
     height: auto;
     border-radius: 8px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+}
+
+.sleeping-breakdown {
+    background: var(--white);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.sleeping-breakdown h3 {
+    font-size: 1.8rem;
+    color: var(--charcoal);
+    margin-bottom: 0.25rem;
+}
+
+.sleeping-subtitle {
+    color: var(--gray);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+}
+
+.bedroom-list {
+    margin-bottom: 2rem;
+}
+
+.bedroom-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.bedroom-item:last-child {
+    border-bottom: none;
+}
+
+.bedroom-name {
+    font-weight: 500;
+    color: var(--charcoal);
+}
+
+.bedroom-beds {
+    color: var(--gray);
+}
+
+.layout-stats {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--olive-green);
+}
+
+.layout-stat {
+    text-align: center;
+}
+
+.layout-stat-number {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: var(--olive-green);
+    line-height: 1;
+}
+
+.layout-stat-label {
+    font-size: 0.75rem;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 /* Explore New Orleans Section - Visual */
@@ -951,8 +974,13 @@ p {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .sleeping-grid {
-        grid-template-columns: repeat(3, 1fr);
+    .layout-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .sleeping-breakdown {
+        order: -1;
     }
 
     .gallery-grid {
@@ -1035,10 +1063,6 @@ p {
     .amenities-grid,
     .use-cases-grid {
         grid-template-columns: 1fr;
-    }
-
-    .sleeping-grid {
-        grid-template-columns: repeat(2, 1fr);
     }
 
     .gallery-grid {
