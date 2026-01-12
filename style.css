@@ -515,10 +515,60 @@ p {
     margin: 0;
 }
 
+/* Sleeping Arrangements Section */
+.sleeping-section {
+    padding: 6rem 0;
+    background: var(--white);
+    text-align: center;
+}
+
+.sleeping-intro {
+    color: var(--gray);
+    max-width: 500px;
+    margin: 0 auto 3rem;
+    font-size: 1.1rem;
+}
+
+.sleeping-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+}
+
+.bedroom-card {
+    background: var(--cream);
+    padding: 2rem 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.bedroom-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.bedroom-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.bedroom-card h3 {
+    font-size: 1.1rem;
+    color: var(--charcoal);
+    margin-bottom: 0.5rem;
+}
+
+.bedroom-card p {
+    font-size: 0.9rem;
+    color: var(--gray);
+    margin: 0;
+}
+
 /* Floor Plan Section */
 .floorplan-section {
     padding: 6rem 0;
-    background: var(--white);
+    background: var(--cream);
     text-align: center;
 }
 
@@ -667,10 +717,10 @@ p {
 
 .rules-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
     margin-top: 3rem;
-    max-width: 900px;
+    max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -792,6 +842,38 @@ p {
     font-size: 0.85rem;
 }
 
+/* Superhost Badge */
+.superhost-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    max-width: 280px;
+}
+
+.superhost-icon {
+    font-size: 1.5rem;
+}
+
+.superhost-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.superhost-title {
+    font-weight: 600;
+    color: var(--coral);
+    font-size: 0.9rem;
+}
+
+.superhost-rating {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.7);
+}
+
 /* Mobile Menu */
 .mobile-menu {
     position: fixed;
@@ -861,9 +943,16 @@ p {
     }
 
     .amenities-grid,
-    .rules-grid,
     .use-cases-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .rules-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sleeping-grid {
+        grid-template-columns: repeat(3, 1fr);
     }
 
     .gallery-grid {
@@ -946,6 +1035,10 @@ p {
     .amenities-grid,
     .use-cases-grid {
         grid-template-columns: 1fr;
+    }
+
+    .sleeping-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .gallery-grid {
