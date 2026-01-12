@@ -568,14 +568,32 @@ p {
 }
 
 .bedroom-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem 0;
+    display: grid;
+    grid-template-columns: 1fr 0.6fr 1fr;
+    gap: 1rem;
+    padding: 0.85rem 0;
     border-bottom: 1px solid rgba(0,0,0,0.08);
+    align-items: center;
 }
 
 .bedroom-item:last-child {
     border-bottom: none;
+}
+
+.bedroom-header {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gray);
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(0,0,0,0.1);
+}
+
+.bedroom-header .bedroom-name,
+.bedroom-header .bedroom-floor,
+.bedroom-header .bedroom-beds {
+    font-weight: 500;
+    color: var(--gray);
 }
 
 .bedroom-name {
@@ -583,7 +601,14 @@ p {
     color: var(--charcoal);
 }
 
+.bedroom-floor {
+    text-align: center;
+    color: var(--olive-green);
+    font-weight: 500;
+}
+
 .bedroom-beds {
+    text-align: right;
     color: var(--gray);
 }
 
