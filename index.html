@@ -719,14 +719,100 @@
             <div class="section-label">Reserve Your Dates</div>
             <h2>Book Your Stay</h2>
             <p class="booking-intro">Check availability and book directly below. Secure your New Orleans escape today.</p>
-        </div>
-        <div class="booking-embed-container">
-            <iframe
-                src="https://marais.guestybookings.com/en/properties/637d17a91ea4b0002f3801a3"
-                class="booking-iframe"
-                title="Book Your Stay at 2300 Louisiana"
-                loading="lazy">
-            </iframe>
+
+            <div class="booking-widget">
+                <div class="booking-form">
+                    <div class="booking-inputs">
+                        <div class="booking-field">
+                            <label for="check-in">Check In</label>
+                            <input type="date" id="check-in" name="check-in" required>
+                        </div>
+                        <div class="booking-field">
+                            <label for="check-out">Check Out</label>
+                            <input type="date" id="check-out" name="check-out" required>
+                        </div>
+                        <div class="booking-field">
+                            <label for="guests">Guests</label>
+                            <select id="guests" name="guests">
+                                <option value="1">1 Guest</option>
+                                <option value="2" selected>2 Guests</option>
+                                <option value="3">3 Guests</option>
+                                <option value="4">4 Guests</option>
+                                <option value="5">5 Guests</option>
+                                <option value="6">6 Guests</option>
+                                <option value="7">7 Guests</option>
+                                <option value="8">8 Guests</option>
+                                <option value="9">9 Guests</option>
+                                <option value="10">10 Guests</option>
+                            </select>
+                        </div>
+                        <button type="button" id="check-availability" class="btn-check-availability">
+                            Check Availability
+                        </button>
+                    </div>
+
+                    <div id="quote-result" class="quote-result hidden">
+                        <div class="quote-loading hidden">
+                            <div class="spinner"></div>
+                            <span>Checking availability...</span>
+                        </div>
+                        <div class="quote-details hidden">
+                            <div class="quote-summary">
+                                <div class="quote-dates">
+                                    <span id="quote-checkin"></span> → <span id="quote-checkout"></span>
+                                </div>
+                                <div class="quote-nights"><span id="quote-nights-count"></span> nights</div>
+                            </div>
+                            <div class="quote-breakdown">
+                                <div class="quote-line">
+                                    <span>Nightly Rate</span>
+                                    <span id="quote-nightly"></span>
+                                </div>
+                                <div class="quote-line">
+                                    <span>Cleaning Fee</span>
+                                    <span id="quote-cleaning"></span>
+                                </div>
+                                <div class="quote-line">
+                                    <span>Service Fee</span>
+                                    <span id="quote-service"></span>
+                                </div>
+                                <div class="quote-line quote-total">
+                                    <span>Total</span>
+                                    <span id="quote-total"></span>
+                                </div>
+                            </div>
+                            <a id="book-now-link" href="#" target="_blank" class="btn-book-now">
+                                Book Now
+                            </a>
+                        </div>
+                        <div class="quote-error hidden">
+                            <span id="quote-error-message"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="availability-calendar">
+                    <div class="calendar-header">
+                        <button id="prev-month" class="calendar-nav">&larr;</button>
+                        <h3 id="calendar-month-year"></h3>
+                        <button id="next-month" class="calendar-nav">&rarr;</button>
+                    </div>
+                    <div class="calendar-grid">
+                        <div class="calendar-day-header">Sun</div>
+                        <div class="calendar-day-header">Mon</div>
+                        <div class="calendar-day-header">Tue</div>
+                        <div class="calendar-day-header">Wed</div>
+                        <div class="calendar-day-header">Thu</div>
+                        <div class="calendar-day-header">Fri</div>
+                        <div class="calendar-day-header">Sat</div>
+                    </div>
+                    <div id="calendar-days" class="calendar-days"></div>
+                    <div class="calendar-legend">
+                        <span class="legend-item"><span class="legend-available"></span> Available</span>
+                        <span class="legend-item"><span class="legend-unavailable"></span> Unavailable</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -804,6 +890,269 @@
                 navbar.classList.remove('scrolled');
             }
         });
+
+        // ============================================
+        // BOOKING WIDGET - Guesty API Integration
+        // ============================================
+
+        const GUESTY_LISTING_ID = '637d17a91ea4b0002f3801a3';
+        const GUESTY_BOOKING_URL = 'https://marais.guestybookings.com/en/properties/' + GUESTY_LISTING_ID;
+
+        // Calendar state
+        let currentMonth = new Date();
+        let availabilityData = {};
+        let selectedCheckIn = null;
+        let selectedCheckOut = null;
+
+        // DOM Elements
+        const checkInInput = document.getElementById('check-in');
+        const checkOutInput = document.getElementById('check-out');
+        const guestsSelect = document.getElementById('guests');
+        const checkAvailabilityBtn = document.getElementById('check-availability');
+        const quoteResult = document.getElementById('quote-result');
+        const quoteLoading = quoteResult.querySelector('.quote-loading');
+        const quoteDetails = quoteResult.querySelector('.quote-details');
+        const quoteError = quoteResult.querySelector('.quote-error');
+        const calendarDays = document.getElementById('calendar-days');
+        const calendarMonthYear = document.getElementById('calendar-month-year');
+        const prevMonthBtn = document.getElementById('prev-month');
+        const nextMonthBtn = document.getElementById('next-month');
+
+        // Set minimum date to today
+        const today = new Date();
+        const todayStr = today.toISOString().split('T')[0];
+        checkInInput.min = todayStr;
+        checkOutInput.min = todayStr;
+
+        // Fetch availability from API
+        async function fetchAvailability() {
+            try {
+                const response = await fetch('/.netlify/functions/get-availability');
+                if (response.ok) {
+                    const data = await response.json();
+                    // Convert to lookup object by date
+                    if (data.data) {
+                        data.data.forEach(day => {
+                            availabilityData[day.date] = day;
+                        });
+                    }
+                    renderCalendar();
+                }
+            } catch (error) {
+                console.log('Running locally - calendar shows all dates as available');
+                renderCalendar();
+            }
+        }
+
+        // Render calendar
+        function renderCalendar() {
+            const year = currentMonth.getFullYear();
+            const month = currentMonth.getMonth();
+
+            // Update header
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                               'July', 'August', 'September', 'October', 'November', 'December'];
+            calendarMonthYear.textContent = `${monthNames[month]} ${year}`;
+
+            // Get first day of month and total days
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            // Clear calendar
+            calendarDays.innerHTML = '';
+
+            // Add empty cells for days before first of month
+            for (let i = 0; i < firstDay; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.className = 'calendar-day empty';
+                calendarDays.appendChild(emptyCell);
+            }
+
+            // Add days
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateObj = new Date(year, month, day);
+                const dateStr = dateObj.toISOString().split('T')[0];
+                const dayCell = document.createElement('div');
+                dayCell.className = 'calendar-day';
+                dayCell.textContent = day;
+
+                // Check if past
+                if (dateObj < new Date(today.getFullYear(), today.getMonth(), today.getDate())) {
+                    dayCell.classList.add('past');
+                } else {
+                    // Check availability
+                    const availability = availabilityData[dateStr];
+                    if (availability && availability.status === 'unavailable') {
+                        dayCell.classList.add('unavailable');
+                    } else {
+                        // Clickable day
+                        dayCell.addEventListener('click', () => selectDate(dateStr, dayCell));
+                    }
+                }
+
+                // Highlight selected dates
+                if (selectedCheckIn === dateStr || selectedCheckOut === dateStr) {
+                    dayCell.classList.add('selected');
+                } else if (selectedCheckIn && selectedCheckOut) {
+                    const current = new Date(dateStr);
+                    const start = new Date(selectedCheckIn);
+                    const end = new Date(selectedCheckOut);
+                    if (current > start && current < end) {
+                        dayCell.classList.add('in-range');
+                    }
+                }
+
+                calendarDays.appendChild(dayCell);
+            }
+        }
+
+        // Select date from calendar
+        function selectDate(dateStr, dayCell) {
+            if (!selectedCheckIn || (selectedCheckIn && selectedCheckOut)) {
+                // Start new selection
+                selectedCheckIn = dateStr;
+                selectedCheckOut = null;
+                checkInInput.value = dateStr;
+                checkOutInput.value = '';
+            } else {
+                // Complete selection
+                if (new Date(dateStr) > new Date(selectedCheckIn)) {
+                    selectedCheckOut = dateStr;
+                    checkOutInput.value = dateStr;
+                } else {
+                    // Clicked date before check-in, restart
+                    selectedCheckIn = dateStr;
+                    selectedCheckOut = null;
+                    checkInInput.value = dateStr;
+                    checkOutInput.value = '';
+                }
+            }
+            renderCalendar();
+        }
+
+        // Sync date inputs with calendar selection
+        checkInInput.addEventListener('change', () => {
+            selectedCheckIn = checkInInput.value;
+            if (selectedCheckOut && new Date(selectedCheckOut) <= new Date(selectedCheckIn)) {
+                selectedCheckOut = null;
+                checkOutInput.value = '';
+            }
+            renderCalendar();
+        });
+
+        checkOutInput.addEventListener('change', () => {
+            selectedCheckOut = checkOutInput.value;
+            renderCalendar();
+        });
+
+        // Navigate months
+        prevMonthBtn.addEventListener('click', () => {
+            currentMonth.setMonth(currentMonth.getMonth() - 1);
+            renderCalendar();
+        });
+
+        nextMonthBtn.addEventListener('click', () => {
+            currentMonth.setMonth(currentMonth.getMonth() + 1);
+            renderCalendar();
+        });
+
+        // Check availability button
+        checkAvailabilityBtn.addEventListener('click', async () => {
+            const checkIn = checkInInput.value;
+            const checkOut = checkOutInput.value;
+            const guests = guestsSelect.value;
+
+            if (!checkIn || !checkOut) {
+                alert('Please select check-in and check-out dates');
+                return;
+            }
+
+            if (new Date(checkOut) <= new Date(checkIn)) {
+                alert('Check-out must be after check-in');
+                return;
+            }
+
+            // Show loading
+            quoteResult.classList.remove('hidden');
+            quoteLoading.classList.remove('hidden');
+            quoteDetails.classList.add('hidden');
+            quoteError.classList.add('hidden');
+
+            try {
+                const response = await fetch(`/.netlify/functions/get-quote?checkIn=${checkIn}&checkOut=${checkOut}&guests=${guests}`);
+                const data = await response.json();
+
+                if (response.ok && data) {
+                    showQuote(data, checkIn, checkOut);
+                } else {
+                    throw new Error(data.error || 'Unable to get quote');
+                }
+            } catch (error) {
+                // Fallback - redirect to Guesty booking page
+                quoteLoading.classList.add('hidden');
+
+                // Calculate nights
+                const nights = Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24));
+
+                // Show basic info and link
+                document.getElementById('quote-checkin').textContent = formatDate(checkIn);
+                document.getElementById('quote-checkout').textContent = formatDate(checkOut);
+                document.getElementById('quote-nights-count').textContent = nights;
+                document.getElementById('quote-nightly').textContent = 'View on booking page';
+                document.getElementById('quote-cleaning').textContent = '-';
+                document.getElementById('quote-service').textContent = '-';
+                document.getElementById('quote-total').textContent = 'View pricing';
+
+                const bookingUrl = `${GUESTY_BOOKING_URL}?checkIn=${checkIn}&checkOut=${checkOut}&guests=${guests}`;
+                document.getElementById('book-now-link').href = bookingUrl;
+
+                quoteDetails.classList.remove('hidden');
+            }
+        });
+
+        // Show quote details
+        function showQuote(data, checkIn, checkOut) {
+            quoteLoading.classList.add('hidden');
+
+            const nights = Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24));
+
+            document.getElementById('quote-checkin').textContent = formatDate(checkIn);
+            document.getElementById('quote-checkout').textContent = formatDate(checkOut);
+            document.getElementById('quote-nights-count').textContent = nights;
+
+            // Parse pricing from quote response
+            const money = data.money || data.rates || {};
+            const fareAccommodation = money.fareAccommodation || money.accommodationFare || 0;
+            const cleaningFee = money.cleaningFee || 0;
+            const serviceFee = money.hostServiceFee || money.serviceFee || 0;
+            const total = money.hostPayout || money.totalPrice || fareAccommodation + cleaningFee;
+
+            document.getElementById('quote-nightly').textContent = formatCurrency(fareAccommodation / nights) + '/night';
+            document.getElementById('quote-cleaning').textContent = formatCurrency(cleaningFee);
+            document.getElementById('quote-service').textContent = formatCurrency(serviceFee);
+            document.getElementById('quote-total').textContent = formatCurrency(total);
+
+            // Build booking URL with dates
+            const bookingUrl = `${GUESTY_BOOKING_URL}?checkIn=${checkIn}&checkOut=${checkOut}`;
+            document.getElementById('book-now-link').href = bookingUrl;
+
+            quoteDetails.classList.remove('hidden');
+        }
+
+        // Format date
+        function formatDate(dateStr) {
+            const date = new Date(dateStr + 'T00:00:00');
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        // Format currency
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+        }
+
+        // Initialize
+        fetchAvailability();
+        renderCalendar();
     </script>
 </body>
 </html>
