@@ -11,7 +11,16 @@ async function getAccessToken() {
       client_secret: process.env.GUESTY_CLIENT_SECRET
     })
   });
+
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(`Token failed: ${response.status} - ${text}`);
+  }
+
   const data = await response.json();
+  if (!data.access_token) {
+    throw new Error(`No token in response: ${JSON.stringify(data)}`);
+  }
   return data.access_token;
 }
 
@@ -21,6 +30,11 @@ exports.handler = async (event) => {
   }
 
   try {
+    // Check env vars
+    if (!process.env.GUESTY_CLIENT_ID || !process.env.GUESTY_CLIENT_SECRET) {
+      throw new Error('Missing GUESTY_CLIENT_ID or GUESTY_CLIENT_SECRET environment variables');
+    }
+
     const token = await getAccessToken();
 
     // Get calendar for next 12 months
@@ -42,7 +56,8 @@ exports.handler = async (event) => {
     );
 
     if (!response.ok) {
-      throw new Error(`Calendar request failed: ${response.status}`);
+      const text = await response.text();
+      throw new Error(`Calendar failed: ${response.status} - ${text}`);
     }
 
     const calendar = await response.json();
@@ -55,6 +70,7 @@ exports.handler = async (event) => {
   } catch (error) {
     return {
       statusCode: 500,
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ error: error.message })
     };
   }
