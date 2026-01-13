@@ -246,6 +246,150 @@
         </div>
     </section>
 
+    <!-- Book Your Stay Section -->
+    <section id="book" class="booking-section">
+        <div class="booking-hero-bg"></div>
+        <div class="container">
+            <div class="booking-header">
+                <div class="section-label">Reserve Your Dates</div>
+                <h2>Book Your Stay</h2>
+                <p class="booking-intro">Select your dates and see instant pricing for your New Orleans escape.</p>
+            </div>
+
+            <div class="booking-widget">
+                <div class="booking-card">
+                    <div class="booking-card-header">
+                        <svg class="booking-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="3" y="4" width="18" height="18" rx="2"/>
+                            <path d="M16 2v4M8 2v4M3 10h18"/>
+                            <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/>
+                        </svg>
+                        <span>Check Availability</span>
+                    </div>
+                    <div class="booking-inputs">
+                        <div class="booking-field">
+                            <label for="check-in">Check In</label>
+                            <input type="date" id="check-in" name="check-in" required>
+                        </div>
+                        <div class="booking-field">
+                            <label for="check-out">Check Out</label>
+                            <input type="date" id="check-out" name="check-out" required>
+                        </div>
+                        <div class="booking-field">
+                            <label for="guests">Guests</label>
+                            <select id="guests" name="guests">
+                                <option value="1">1 Guest</option>
+                                <option value="2" selected>2 Guests</option>
+                                <option value="3">3 Guests</option>
+                                <option value="4">4 Guests</option>
+                                <option value="5">5 Guests</option>
+                                <option value="6">6 Guests</option>
+                                <option value="7">7 Guests</option>
+                                <option value="8">8 Guests</option>
+                                <option value="9">9 Guests</option>
+                                <option value="10">10 Guests</option>
+                            </select>
+                        </div>
+                        <button type="button" id="check-availability" class="btn-check-availability">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/>
+                                <path d="M21 21l-4.35-4.35"/>
+                            </svg>
+                            Check Prices
+                        </button>
+                    </div>
+
+                    <div id="quote-result" class="quote-result hidden">
+                        <div class="quote-loading hidden">
+                            <div class="spinner"></div>
+                            <span>Checking availability...</span>
+                        </div>
+                        <div class="quote-details hidden">
+                            <div class="quote-summary">
+                                <div class="quote-dates">
+                                    <span id="quote-checkin"></span> → <span id="quote-checkout"></span>
+                                </div>
+                                <div class="quote-nights"><span id="quote-nights-count"></span> nights</div>
+                            </div>
+                            <div class="quote-breakdown">
+                                <div class="quote-line">
+                                    <span>Nightly Rate</span>
+                                    <span id="quote-nightly"></span>
+                                </div>
+                                <div class="quote-line">
+                                    <span>Cleaning Fee</span>
+                                    <span id="quote-cleaning"></span>
+                                </div>
+                                <div class="quote-line">
+                                    <span>Service Fee</span>
+                                    <span id="quote-service"></span>
+                                </div>
+                                <div class="quote-line quote-total">
+                                    <span>Total</span>
+                                    <span id="quote-total"></span>
+                                </div>
+                            </div>
+                            <a id="book-now-link" href="#" target="_blank" class="btn-book-now">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                                Complete Booking
+                            </a>
+                        </div>
+                        <div class="quote-error hidden">
+                            <span id="quote-error-message"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="booking-card calendar-card">
+                    <div class="calendar-header">
+                        <button id="prev-month" class="calendar-nav">&larr;</button>
+                        <h3 id="calendar-month-year"></h3>
+                        <button id="next-month" class="calendar-nav">&rarr;</button>
+                    </div>
+                    <div class="calendar-grid">
+                        <div class="calendar-day-header">Sun</div>
+                        <div class="calendar-day-header">Mon</div>
+                        <div class="calendar-day-header">Tue</div>
+                        <div class="calendar-day-header">Wed</div>
+                        <div class="calendar-day-header">Thu</div>
+                        <div class="calendar-day-header">Fri</div>
+                        <div class="calendar-day-header">Sat</div>
+                    </div>
+                    <div id="calendar-days" class="calendar-days"></div>
+                    <div class="calendar-legend">
+                        <span class="legend-item"><span class="legend-available"></span> Available</span>
+                        <span class="legend-item"><span class="legend-unavailable"></span> Unavailable</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="booking-features">
+                <div class="booking-feature">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                        <path d="M22 4L12 14.01l-3-3"/>
+                    </svg>
+                    <span>Instant Confirmation</span>
+                </div>
+                <div class="booking-feature">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect x="3" y="11" width="18" height="11" rx="2"/>
+                        <path d="M7 11V7a5 5 0 0110 0v4"/>
+                    </svg>
+                    <span>Secure Payment</span>
+                </div>
+                <div class="booking-feature">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    <span>Free Cancellation</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- About Section -->
     <section id="about" class="about-section">
         <div class="container">
@@ -707,109 +851,6 @@
                     <div>
                         <strong>Self Check-in</strong>
                         <p>Smart lock entry</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Book Your Stay Section -->
-    <section id="book" class="booking-section">
-        <div class="container">
-            <div class="section-label">Reserve Your Dates</div>
-            <h2>Book Your Stay</h2>
-            <p class="booking-intro">Check availability and book directly below. Secure your New Orleans escape today.</p>
-
-            <div class="booking-widget">
-                <div class="booking-form">
-                    <div class="booking-inputs">
-                        <div class="booking-field">
-                            <label for="check-in">Check In</label>
-                            <input type="date" id="check-in" name="check-in" required>
-                        </div>
-                        <div class="booking-field">
-                            <label for="check-out">Check Out</label>
-                            <input type="date" id="check-out" name="check-out" required>
-                        </div>
-                        <div class="booking-field">
-                            <label for="guests">Guests</label>
-                            <select id="guests" name="guests">
-                                <option value="1">1 Guest</option>
-                                <option value="2" selected>2 Guests</option>
-                                <option value="3">3 Guests</option>
-                                <option value="4">4 Guests</option>
-                                <option value="5">5 Guests</option>
-                                <option value="6">6 Guests</option>
-                                <option value="7">7 Guests</option>
-                                <option value="8">8 Guests</option>
-                                <option value="9">9 Guests</option>
-                                <option value="10">10 Guests</option>
-                            </select>
-                        </div>
-                        <button type="button" id="check-availability" class="btn-check-availability">
-                            Check Availability
-                        </button>
-                    </div>
-
-                    <div id="quote-result" class="quote-result hidden">
-                        <div class="quote-loading hidden">
-                            <div class="spinner"></div>
-                            <span>Checking availability...</span>
-                        </div>
-                        <div class="quote-details hidden">
-                            <div class="quote-summary">
-                                <div class="quote-dates">
-                                    <span id="quote-checkin"></span> → <span id="quote-checkout"></span>
-                                </div>
-                                <div class="quote-nights"><span id="quote-nights-count"></span> nights</div>
-                            </div>
-                            <div class="quote-breakdown">
-                                <div class="quote-line">
-                                    <span>Nightly Rate</span>
-                                    <span id="quote-nightly"></span>
-                                </div>
-                                <div class="quote-line">
-                                    <span>Cleaning Fee</span>
-                                    <span id="quote-cleaning"></span>
-                                </div>
-                                <div class="quote-line">
-                                    <span>Service Fee</span>
-                                    <span id="quote-service"></span>
-                                </div>
-                                <div class="quote-line quote-total">
-                                    <span>Total</span>
-                                    <span id="quote-total"></span>
-                                </div>
-                            </div>
-                            <a id="book-now-link" href="#" target="_blank" class="btn-book-now">
-                                Book Now
-                            </a>
-                        </div>
-                        <div class="quote-error hidden">
-                            <span id="quote-error-message"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="availability-calendar">
-                    <div class="calendar-header">
-                        <button id="prev-month" class="calendar-nav">&larr;</button>
-                        <h3 id="calendar-month-year"></h3>
-                        <button id="next-month" class="calendar-nav">&rarr;</button>
-                    </div>
-                    <div class="calendar-grid">
-                        <div class="calendar-day-header">Sun</div>
-                        <div class="calendar-day-header">Mon</div>
-                        <div class="calendar-day-header">Tue</div>
-                        <div class="calendar-day-header">Wed</div>
-                        <div class="calendar-day-header">Thu</div>
-                        <div class="calendar-day-header">Fri</div>
-                        <div class="calendar-day-header">Sat</div>
-                    </div>
-                    <div id="calendar-days" class="calendar-days"></div>
-                    <div class="calendar-legend">
-                        <span class="legend-item"><span class="legend-available"></span> Available</span>
-                        <span class="legend-item"><span class="legend-unavailable"></span> Unavailable</span>
                     </div>
                 </div>
             </div>
