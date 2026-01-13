@@ -1,6 +1,16 @@
 const LISTING_ID = '637d17a91ea4b0002f3801a3';
 
+// Token cache - persists across warm function invocations
+let cachedToken = null;
+let tokenExpiry = 0;
+
 async function getAccessToken() {
+  // Return cached token if still valid (with 1 hour buffer)
+  const now = Date.now();
+  if (cachedToken && now < tokenExpiry - 3600000) {
+    return cachedToken;
+  }
+
   const response = await fetch('https://booking.guesty.com/oauth2/token', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -21,7 +31,12 @@ async function getAccessToken() {
   if (!data.access_token) {
     throw new Error(`No token in response: ${JSON.stringify(data)}`);
   }
-  return data.access_token;
+
+  // Cache token (expires_in is usually 86400 seconds = 24 hours)
+  cachedToken = data.access_token;
+  tokenExpiry = now + (data.expires_in * 1000);
+
+  return cachedToken;
 }
 
 exports.handler = async (event) => {
