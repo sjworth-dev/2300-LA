@@ -1024,6 +1024,9 @@
 
             try {
                 const response = await fetch('/.netlify/functions/get-availability');
+                if (response.ok) {
+                    const data = await response.json();
+                    cacheAvailability(data);
                     processAvailabilityData(data);
                     availabilityFetched = true;
                 }
