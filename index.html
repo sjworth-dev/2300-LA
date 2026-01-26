@@ -1285,6 +1285,7 @@
             // Parse pricing from quote response
             let fareAccommodation = 0;
             let cleaningFee = 0;
+            let serviceFee = 0;
             let taxes = 0;
             let total = 0;
 
@@ -1292,21 +1293,27 @@
             const ratePlan = data.rates?.ratePlans?.[0]?.ratePlan;
             const money = ratePlan?.money || data.money;
 
+            // Debug: log the full response to see all available fields
+            console.log('Quote API response:', JSON.stringify(data, null, 2));
+            console.log('Money object:', money);
+
             if (money) {
                 fareAccommodation = money.fareAccommodation || 0;
                 cleaningFee = money.fareCleaning || 0;
+                serviceFee = money.fareService || money.guestServiceFee || 0;
                 taxes = money.totalTaxes || 0;
-                total = money.hostPayout || 0;
+                // Use invoiceTotal for guest-facing total, fallback to calculating it
+                total = money.invoiceTotal || money.subTotalPrice || (fareAccommodation + cleaningFee + serviceFee + taxes);
             }
 
             // Fallback: calculate from daily rates if no money object
             if (!fareAccommodation && data.rates?.ratePlans?.[0]?.days) {
                 const days = data.rates.ratePlans[0].days;
                 fareAccommodation = days.reduce((sum, day) => sum + (day.price || 0), 0);
-                total = fareAccommodation + cleaningFee + taxes;
+                total = fareAccommodation + cleaningFee + serviceFee + taxes;
             }
 
-            const subtotalBeforeTax = fareAccommodation + cleaningFee;
+            const subtotalBeforeTax = fareAccommodation + cleaningFee + serviceFee;
 
             // Populate pricing breakdown
             document.getElementById('quote-subtotal').textContent = formatCurrency(fareAccommodation);
