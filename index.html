@@ -1293,9 +1293,12 @@
             const ratePlan = data.rates?.ratePlans?.[0]?.ratePlan;
             const money = ratePlan?.money || data.money;
 
-            // Debug: log the full response to see all available fields
+            // Debug: log the full response and rate limits
             console.log('Quote API response:', JSON.stringify(data, null, 2));
             console.log('Money object:', money);
+            if (data._rateLimits) {
+                console.log('🚦 Rate Limits - Remaining:', data._rateLimits);
+            }
 
             if (money) {
                 fareAccommodation = money.fareAccommodation || 0;

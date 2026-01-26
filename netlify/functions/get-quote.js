@@ -104,6 +104,14 @@ exports.handler = async (event) => {
 
     const quote = await response.json();
 
+    // Log rate limit info for monitoring
+    const rateLimitInfo = {
+      remainingSecond: response.headers.get('X-RateLimit-Remaining-Second'),
+      remainingMinute: response.headers.get('X-RateLimit-Remaining-Minute'),
+      remainingHour: response.headers.get('X-RateLimit-Remaining-Hour')
+    };
+    console.log('Guesty Rate Limits (quote):', rateLimitInfo);
+
     return {
       statusCode: 200,
       headers: {
@@ -111,7 +119,10 @@ exports.handler = async (event) => {
         'Cache-Control': 'no-store, no-cache, must-revalidate',
         'Pragma': 'no-cache'
       },
-      body: JSON.stringify(quote)
+      body: JSON.stringify({
+        ...quote,
+        _rateLimits: rateLimitInfo
+      })
     };
   } catch (error) {
     return {

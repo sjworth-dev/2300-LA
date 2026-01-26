@@ -128,14 +128,22 @@ exports.handler = async (event) => {
 
     const calendar = await response.json();
 
+    // Log rate limit info for monitoring
+    const rateLimitInfo = {
+      remainingSecond: response.headers.get('X-RateLimit-Remaining-Second'),
+      remainingMinute: response.headers.get('X-RateLimit-Remaining-Minute'),
+      remainingHour: response.headers.get('X-RateLimit-Remaining-Hour')
+    };
+    console.log('Guesty Rate Limits (availability):', rateLimitInfo);
+
     // Cache the availability data
-    cachedAvailability = calendar;
+    cachedAvailability = { ...calendar, _rateLimits: rateLimitInfo };
     availabilityCacheTime = now;
 
     return {
       statusCode: 200,
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(calendar)
+      body: JSON.stringify({ ...calendar, _rateLimits: rateLimitInfo })
     };
   } catch (error) {
     // Return cached data on error if available
