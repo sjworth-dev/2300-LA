@@ -1386,9 +1386,6 @@
                 document.getElementById('quote-taxes').textContent = '-';
                 document.getElementById('quote-total').textContent = 'View pricing';
 
-                const checkoutUrl = `${GUESTY_CHECKOUT_URL}?minOccupancy=${guests}&checkIn=${checkIn}&checkOut=${checkOut}`;
-                document.getElementById('book-now-link').href = checkoutUrl;
-
                 quoteDetails.classList.remove('hidden');
             }
         });
@@ -1447,10 +1444,6 @@
             document.getElementById('quote-before-tax').textContent = formatCurrency(subtotalBeforeTax);
             document.getElementById('quote-taxes').textContent = formatCurrency(taxes);
             document.getElementById('quote-total').textContent = formatCurrency(total);
-
-            // Build checkout URL (direct to Guesty checkout)
-            const checkoutUrl = `${GUESTY_CHECKOUT_URL}?minOccupancy=${guests}&checkIn=${checkIn}&checkOut=${checkOut}`;
-            document.getElementById('book-now-link').href = checkoutUrl;
 
             quoteDetails.classList.remove('hidden');
         }
