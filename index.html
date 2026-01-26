@@ -1063,42 +1063,22 @@
             let taxes = 0;
             let total = 0;
 
-            // Try money object first (has full breakdown)
-            if (data.money) {
-                fareAccommodation = data.money.fareAccommodation || data.money.accommodation || 0;
-                cleaningFee = data.money.fareCleaning || data.money.cleaningFee || 0;
-                taxes = data.money.totalTaxes || data.money.taxes || 0;
-                total = data.money.hostPayout || data.money.total || data.money.grandTotal || 0;
+            // Guesty nests money inside rates.ratePlans[0].ratePlan.money
+            const ratePlan = data.rates?.ratePlans?.[0]?.ratePlan;
+            const money = ratePlan?.money || data.money;
 
-                // If total is 0, calculate it
-                if (!total) {
-                    total = fareAccommodation + cleaningFee + taxes;
-                }
+            if (money) {
+                fareAccommodation = money.fareAccommodation || 0;
+                cleaningFee = money.fareCleaning || 0;
+                taxes = money.totalTaxes || 0;
+                total = money.hostPayout || 0;
             }
 
-            // Try invoiceItems array (common Guesty format)
-            if (data.invoiceItems && Array.isArray(data.invoiceItems)) {
-                data.invoiceItems.forEach(item => {
-                    if (item.type === 'ACCOMMODATION' || item.title?.toLowerCase().includes('night')) {
-                        fareAccommodation += item.amount || 0;
-                    } else if (item.type === 'CLEANING_FEE' || item.title?.toLowerCase().includes('clean')) {
-                        cleaningFee += item.amount || 0;
-                    } else if (item.type === 'TAX' || item.title?.toLowerCase().includes('tax')) {
-                        taxes += item.amount || 0;
-                    }
-                });
-                total = data.totalPrice || (fareAccommodation + cleaningFee + taxes);
-            }
-
-            // Fallback: calculate from daily rates
-            if (!fareAccommodation && data.rates && data.rates.ratePlans && data.rates.ratePlans[0] && data.rates.ratePlans[0].days) {
+            // Fallback: calculate from daily rates if no money object
+            if (!fareAccommodation && data.rates?.ratePlans?.[0]?.days) {
                 const days = data.rates.ratePlans[0].days;
                 fareAccommodation = days.reduce((sum, day) => sum + (day.price || 0), 0);
-            }
-
-            // Final fallback for total
-            if (!total) {
-                total = data.totalPrice || data.total || (fareAccommodation + cleaningFee + taxes);
+                total = fareAccommodation + cleaningFee + taxes;
             }
 
             document.getElementById('quote-nightly').textContent = formatCurrency(fareAccommodation / nights) + '/night';
