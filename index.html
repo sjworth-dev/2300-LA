@@ -1154,6 +1154,8 @@
         // Show quote details
         function showQuote(data, checkIn, checkOut) {
             quoteLoading.classList.add('hidden');
+            console.log('Quote data received:', data);
+            console.log('Money object:', data.money);
 
             const nights = Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24));
 
@@ -1163,6 +1165,7 @@
 
             // Parse pricing from quote response
             const money = data.money || {};
+            console.log('fareAccommodation:', money.fareAccommodation);
             const fareAccommodation = money.fareAccommodation || 0;
             const cleaningFee = money.fareCleaning || 0;
             const taxes = money.totalTaxes || 0;
