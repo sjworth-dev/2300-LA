@@ -1154,8 +1154,6 @@
         // Show quote details
         function showQuote(data, checkIn, checkOut) {
             quoteLoading.classList.add('hidden');
-            console.log('Quote data received:', data);
-            console.log('Money object:', data.money);
 
             const nights = Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24));
 
@@ -1164,17 +1162,32 @@
             document.getElementById('quote-nights-count').textContent = nights;
 
             // Parse pricing from quote response
-            const money = data.money || {};
-            console.log('fareAccommodation:', money.fareAccommodation);
-            const fareAccommodation = money.fareAccommodation || 0;
-            const cleaningFee = money.fareCleaning || 0;
-            const taxes = money.totalTaxes || 0;
-            const total = money.hostPayout || (fareAccommodation + cleaningFee + taxes);
+            let fareAccommodation = 0;
+            let cleaningFee = 0;
+            let taxes = 0;
+            let total = 0;
+
+            // Try new format: rates.ratePlans[0].days
+            if (data.rates && data.rates.ratePlans && data.rates.ratePlans[0] && data.rates.ratePlans[0].days) {
+                const days = data.rates.ratePlans[0].days;
+                fareAccommodation = days.reduce((sum, day) => sum + (day.price || 0), 0);
+                // Cleaning and taxes not available in this format - will show at checkout
+                cleaningFee = 0;
+                taxes = 0;
+                total = fareAccommodation;
+            }
+            // Fallback to old format: money object
+            else if (data.money) {
+                fareAccommodation = data.money.fareAccommodation || 0;
+                cleaningFee = data.money.fareCleaning || 0;
+                taxes = data.money.totalTaxes || 0;
+                total = data.money.hostPayout || (fareAccommodation + cleaningFee + taxes);
+            }
 
             document.getElementById('quote-nightly').textContent = formatCurrency(fareAccommodation / nights) + '/night';
-            document.getElementById('quote-cleaning').textContent = formatCurrency(cleaningFee);
-            document.getElementById('quote-service').textContent = formatCurrency(taxes);
-            document.getElementById('quote-total').textContent = formatCurrency(total);
+            document.getElementById('quote-cleaning').textContent = cleaningFee ? formatCurrency(cleaningFee) : 'At checkout';
+            document.getElementById('quote-service').textContent = taxes ? formatCurrency(taxes) : 'At checkout';
+            document.getElementById('quote-total').textContent = formatCurrency(total) + (cleaningFee === 0 ? ' + fees' : '');
 
             // Build booking URL with dates
             const bookingUrl = `${GUESTY_BOOKING_URL}?checkIn=${checkIn}&checkOut=${checkOut}`;
