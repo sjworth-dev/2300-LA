@@ -62,8 +62,8 @@ exports.handler = async (event) => {
       },
       body: JSON.stringify({
         listingId: LISTING_ID,
-        checkIn: checkIn,
-        checkOut: checkOut,
+        checkInDateLocalized: checkIn,
+        checkOutDateLocalized: checkOut,
         guestsCount: parseInt(guests) || 2
       })
     });
