@@ -784,6 +784,7 @@
 
         const GUESTY_LISTING_ID = '637d17a91ea4b0002f3801a3';
         const GUESTY_BOOKING_URL = 'https://marais.guestybookings.com/en/properties/' + GUESTY_LISTING_ID;
+        const GUESTY_CHECKOUT_URL = 'https://marais.guestybookings.com/en/properties/' + GUESTY_LISTING_ID + '/checkout';
 
         // Calendar state
         let currentMonth = new Date();
@@ -1039,7 +1040,7 @@
                 document.getElementById('quote-service').textContent = '-';
                 document.getElementById('quote-total').textContent = 'View pricing';
 
-                const bookingUrl = `${GUESTY_BOOKING_URL}?checkIn=${checkIn}&checkOut=${checkOut}&guests=${guests}`;
+                const bookingUrl = `${GUESTY_CHECKOUT_URL}?checkIn=${checkIn}&checkOut=${checkOut}&guests=${guests}`;
                 document.getElementById('book-now-link').href = bookingUrl;
 
                 quoteDetails.classList.remove('hidden');
@@ -1084,7 +1085,7 @@
             document.getElementById('quote-total').textContent = formatCurrency(total);
 
             // Build booking URL with dates
-            const bookingUrl = `${GUESTY_BOOKING_URL}?checkIn=${checkIn}&checkOut=${checkOut}`;
+            const bookingUrl = `${GUESTY_CHECKOUT_URL}?checkIn=${checkIn}&checkOut=${checkOut}`;
             document.getElementById('book-now-link').href = bookingUrl;
 
             quoteDetails.classList.remove('hidden');
