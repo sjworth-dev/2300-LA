@@ -1123,6 +1123,7 @@
                 const response = await fetch(`/.netlify/functions/get-quote?checkIn=${checkIn}&checkOut=${checkOut}&guests=${guests}`);
                 const data = await response.json();
 
+                console.log('API response:', response.ok, data);
                 if (response.ok && data) {
                     showQuote(data, checkIn, checkOut);
                 } else {
@@ -1130,6 +1131,7 @@
                 }
             } catch (error) {
                 // Fallback - redirect to Guesty booking page
+                console.log('Quote error:', error);
                 quoteLoading.classList.add('hidden');
 
                 // Calculate nights
