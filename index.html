@@ -39,20 +39,6 @@
             <h1>Outdoor Living in New Orleans</h1>
             <p class="hero-subtitle">A private indoor-outdoor paradise with heated pool, minutes from the French Quarter</p>
             <a href="#book" class="btn-book-hero">Book Your Stay</a>
-
-            <!-- Custom Booking Bar -->
-            <div class="hero-booking-bar">
-                <div class="booking-bar-field">
-                    <label>Check In</label>
-                    <input type="date" id="hero-checkin" placeholder="Add Date">
-                </div>
-                <div class="booking-bar-divider"></div>
-                <div class="booking-bar-field">
-                    <label>Check Out</label>
-                    <input type="date" id="hero-checkout" placeholder="Add Date">
-                </div>
-                <button type="button" id="hero-book-btn" class="booking-bar-btn">Book Now</button>
-            </div>
         </div>
         <div class="hero-overlay"></div>
 
@@ -1208,45 +1194,6 @@
         // Initialize
         fetchAvailability();
         renderCalendar();
-
-        // ============================================
-        // HERO BOOKING BAR
-        // ============================================
-        const heroCheckin = document.getElementById('hero-checkin');
-        const heroCheckout = document.getElementById('hero-checkout');
-        const heroBookBtn = document.getElementById('hero-book-btn');
-
-        // Set minimum date to today
-        heroCheckin.min = todayStr;
-        heroCheckout.min = todayStr;
-
-        // When check-in changes, update check-out minimum
-        heroCheckin.addEventListener('change', () => {
-            if (heroCheckin.value) {
-                heroCheckout.min = heroCheckin.value;
-                if (heroCheckout.value && heroCheckout.value <= heroCheckin.value) {
-                    heroCheckout.value = '';
-                }
-            }
-        });
-
-        // Book button - redirect to Guesty
-        heroBookBtn.addEventListener('click', () => {
-            const checkIn = heroCheckin.value;
-            const checkOut = heroCheckout.value;
-
-            let bookingUrl = GUESTY_BOOKING_URL;
-            const params = [];
-
-            if (checkIn) params.push(`checkIn=${checkIn}`);
-            if (checkOut) params.push(`checkOut=${checkOut}`);
-
-            if (params.length > 0) {
-                bookingUrl += '?' + params.join('&');
-            }
-
-            window.open(bookingUrl, '_blank');
-        });
     </script>
 </body>
 </html>
