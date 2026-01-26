@@ -225,35 +225,52 @@
                             <span>Checking availability...</span>
                         </div>
                         <div class="quote-details hidden">
-                            <div class="quote-summary">
-                                <div class="quote-dates">
-                                    <span id="quote-checkin"></span> → <span id="quote-checkout"></span>
+                            <div class="quote-property-name">Outdoor Living in New Orleans | Heated Pool</div>
+
+                            <div class="quote-header-grid">
+                                <div class="quote-header-item">
+                                    <span class="quote-header-label">Check In</span>
+                                    <span class="quote-header-value" id="quote-checkin"></span>
                                 </div>
-                                <div class="quote-nights"><span id="quote-nights-count"></span> nights</div>
+                                <div class="quote-header-item">
+                                    <span class="quote-header-label">Check Out</span>
+                                    <span class="quote-header-value" id="quote-checkout"></span>
+                                </div>
+                                <div class="quote-header-item">
+                                    <span class="quote-header-label">Nights</span>
+                                    <span class="quote-header-value" id="quote-nights-count"></span>
+                                </div>
+                                <div class="quote-header-item">
+                                    <span class="quote-header-label">Guests</span>
+                                    <span class="quote-header-value" id="quote-guests-count"></span>
+                                </div>
                             </div>
+
                             <div class="quote-breakdown">
                                 <div class="quote-line">
-                                    <span>Nightly Rate</span>
-                                    <span id="quote-nightly"></span>
+                                    <span>Subtotal</span>
+                                    <span id="quote-subtotal"></span>
                                 </div>
                                 <div class="quote-line">
-                                    <span>Cleaning Fee</span>
-                                    <span id="quote-cleaning"></span>
+                                    <span>Fees</span>
+                                    <span id="quote-fees"></span>
+                                </div>
+                                <div class="quote-line quote-subtotal-line">
+                                    <span>Subtotal before taxes</span>
+                                    <span id="quote-before-tax"></span>
                                 </div>
                                 <div class="quote-line">
                                     <span>Taxes</span>
-                                    <span id="quote-service"></span>
+                                    <span id="quote-taxes"></span>
                                 </div>
                                 <div class="quote-line quote-total">
                                     <span>Total</span>
                                     <span id="quote-total"></span>
                                 </div>
                             </div>
+
                             <a id="book-now-link" href="#" target="_blank" class="btn-book-now">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                                </svg>
-                                Complete Booking
+                                Book Now
                             </a>
                         </div>
                         <div class="quote-error hidden">
@@ -1229,23 +1246,25 @@
                     throw new Error(data.error || 'Unable to get quote');
                 }
             } catch (error) {
-                // Fallback - redirect to Guesty booking page
+                // Fallback - show basic info and link to Guesty
                 quoteLoading.classList.add('hidden');
 
-                // Calculate nights
                 const nights = Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24));
 
-                // Show basic info and link
-                document.getElementById('quote-checkin').textContent = formatDate(checkIn);
-                document.getElementById('quote-checkout').textContent = formatDate(checkOut);
-                document.getElementById('quote-nights-count').textContent = nights;
-                document.getElementById('quote-nightly').textContent = 'View on booking page';
-                document.getElementById('quote-cleaning').textContent = '-';
-                document.getElementById('quote-service').textContent = '-';
+                document.getElementById('quote-checkin').textContent = formatDateShort(checkIn);
+                document.getElementById('quote-checkout').textContent = formatDateShort(checkOut);
+                document.getElementById('quote-nights-count').textContent = nights + ' Night' + (nights > 1 ? 's' : '');
+                document.getElementById('quote-guests-count').textContent = guests;
+
+                // Show placeholder pricing
+                document.getElementById('quote-subtotal').textContent = 'View on booking page';
+                document.getElementById('quote-fees').textContent = '-';
+                document.getElementById('quote-before-tax').textContent = '-';
+                document.getElementById('quote-taxes').textContent = '-';
                 document.getElementById('quote-total').textContent = 'View pricing';
 
-                const bookingUrl = `${GUESTY_BOOKING_URL}?checkIn=${checkIn}&checkOut=${checkOut}&guests=${guests}`;
-                document.getElementById('book-now-link').href = bookingUrl;
+                const checkoutUrl = `${GUESTY_CHECKOUT_URL}?minOccupancy=${guests}&checkIn=${checkIn}&checkOut=${checkOut}`;
+                document.getElementById('book-now-link').href = checkoutUrl;
 
                 quoteDetails.classList.remove('hidden');
             }
@@ -1257,9 +1276,11 @@
 
             const nights = Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24));
 
-            document.getElementById('quote-checkin').textContent = formatDate(checkIn);
-            document.getElementById('quote-checkout').textContent = formatDate(checkOut);
-            document.getElementById('quote-nights-count').textContent = nights;
+            // Populate header grid
+            document.getElementById('quote-checkin').textContent = formatDateShort(checkIn);
+            document.getElementById('quote-checkout').textContent = formatDateShort(checkOut);
+            document.getElementById('quote-nights-count').textContent = nights + ' Night' + (nights > 1 ? 's' : '');
+            document.getElementById('quote-guests-count').textContent = guests;
 
             // Parse pricing from quote response
             let fareAccommodation = 0;
@@ -1285,20 +1306,24 @@
                 total = fareAccommodation + cleaningFee + taxes;
             }
 
-            document.getElementById('quote-nightly').textContent = formatCurrency(fareAccommodation / nights) + '/night';
-            document.getElementById('quote-cleaning').textContent = formatCurrency(cleaningFee);
-            document.getElementById('quote-service').textContent = formatCurrency(taxes);
+            const subtotalBeforeTax = fareAccommodation + cleaningFee;
+
+            // Populate pricing breakdown
+            document.getElementById('quote-subtotal').textContent = formatCurrency(fareAccommodation);
+            document.getElementById('quote-fees').textContent = formatCurrency(cleaningFee);
+            document.getElementById('quote-before-tax').textContent = formatCurrency(subtotalBeforeTax);
+            document.getElementById('quote-taxes').textContent = formatCurrency(taxes);
             document.getElementById('quote-total').textContent = formatCurrency(total);
 
-            // Build booking URL with dates and guests
-            const bookingUrl = `${GUESTY_BOOKING_URL}?checkIn=${checkIn}&checkOut=${checkOut}&guests=${guests}`;
-            document.getElementById('book-now-link').href = bookingUrl;
+            // Build checkout URL (direct to Guesty checkout)
+            const checkoutUrl = `${GUESTY_CHECKOUT_URL}?minOccupancy=${guests}&checkIn=${checkIn}&checkOut=${checkOut}`;
+            document.getElementById('book-now-link').href = checkoutUrl;
 
             quoteDetails.classList.remove('hidden');
         }
 
-        // Format date
-        function formatDate(dateStr) {
+        // Format date (Feb 16, 2026)
+        function formatDateShort(dateStr) {
             const date = new Date(dateStr + 'T00:00:00');
             return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
         }
