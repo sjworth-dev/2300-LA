@@ -335,7 +335,7 @@
                                     <span id="quote-cleaning"></span>
                                 </div>
                                 <div class="quote-line">
-                                    <span>Service Fee</span>
+                                    <span>Taxes</span>
                                     <span id="quote-service"></span>
                                 </div>
                                 <div class="quote-line quote-total">
@@ -1176,15 +1176,15 @@
             document.getElementById('quote-nights-count').textContent = nights;
 
             // Parse pricing from quote response
-            const money = data.money || data.rates || {};
-            const fareAccommodation = money.fareAccommodation || money.accommodationFare || 0;
-            const cleaningFee = money.cleaningFee || 0;
-            const serviceFee = money.hostServiceFee || money.serviceFee || 0;
-            const total = money.hostPayout || money.totalPrice || fareAccommodation + cleaningFee;
+            const money = data.money || {};
+            const fareAccommodation = money.fareAccommodation || 0;
+            const cleaningFee = money.fareCleaning || 0;
+            const taxes = money.totalTaxes || 0;
+            const total = money.hostPayout || (fareAccommodation + cleaningFee + taxes);
 
             document.getElementById('quote-nightly').textContent = formatCurrency(fareAccommodation / nights) + '/night';
             document.getElementById('quote-cleaning').textContent = formatCurrency(cleaningFee);
-            document.getElementById('quote-service').textContent = formatCurrency(serviceFee);
+            document.getElementById('quote-service').textContent = formatCurrency(taxes);
             document.getElementById('quote-total').textContent = formatCurrency(total);
 
             // Build booking URL with dates
