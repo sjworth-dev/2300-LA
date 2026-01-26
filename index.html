@@ -51,22 +51,6 @@
                     <label>Check Out</label>
                     <input type="date" id="hero-checkout" placeholder="Add Date">
                 </div>
-                <div class="booking-bar-divider"></div>
-                <div class="booking-bar-field">
-                    <label>Guests</label>
-                    <select id="hero-guests">
-                        <option value="2">2 Guests</option>
-                        <option value="1">1 Guest</option>
-                        <option value="3">3 Guests</option>
-                        <option value="4">4 Guests</option>
-                        <option value="5">5 Guests</option>
-                        <option value="6">6 Guests</option>
-                        <option value="7">7 Guests</option>
-                        <option value="8">8 Guests</option>
-                        <option value="9">9 Guests</option>
-                        <option value="10">10 Guests</option>
-                    </select>
-                </div>
                 <button type="button" id="hero-book-btn" class="booking-bar-btn">Book Now</button>
             </div>
         </div>
@@ -1230,7 +1214,6 @@
         // ============================================
         const heroCheckin = document.getElementById('hero-checkin');
         const heroCheckout = document.getElementById('hero-checkout');
-        const heroGuests = document.getElementById('hero-guests');
         const heroBookBtn = document.getElementById('hero-book-btn');
 
         // Set minimum date to today
@@ -1251,14 +1234,12 @@
         heroBookBtn.addEventListener('click', () => {
             const checkIn = heroCheckin.value;
             const checkOut = heroCheckout.value;
-            const guests = heroGuests.value;
 
             let bookingUrl = GUESTY_BOOKING_URL;
             const params = [];
 
             if (checkIn) params.push(`checkIn=${checkIn}`);
             if (checkOut) params.push(`checkOut=${checkOut}`);
-            if (guests) params.push(`adults=${guests}`);
 
             if (params.length > 0) {
                 bookingUrl += '?' + params.join('&');
