@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -269,9 +270,131 @@
                                 </div>
                             </div>
 
-                            <a id="book-now-link" href="#" target="_blank" class="btn-book-now">
+                            <button type="button" id="book-now-btn" class="btn-book-now">
                                 Book Now
-                            </a>
+                            </button>
+                        </div>
+
+                        <!-- Checkout Form (shown after clicking Book Now) -->
+                        <div id="checkout-form" class="checkout-form hidden">
+                            <div class="checkout-header">
+                                <button type="button" id="checkout-back-btn" class="checkout-back-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                                    </svg>
+                                    Back to Quote
+                                </button>
+                                <h3>Complete Your Booking</h3>
+                            </div>
+
+                            <!-- Checkout Summary -->
+                            <div class="checkout-summary">
+                                <div class="checkout-summary-row">
+                                    <span>Check-in</span>
+                                    <span id="checkout-checkin"></span>
+                                </div>
+                                <div class="checkout-summary-row">
+                                    <span>Check-out</span>
+                                    <span id="checkout-checkout"></span>
+                                </div>
+                                <div class="checkout-summary-row">
+                                    <span>Guests</span>
+                                    <span id="checkout-guests"></span>
+                                </div>
+                                <div class="checkout-summary-row checkout-summary-total">
+                                    <span>Total</span>
+                                    <span id="checkout-total"></span>
+                                </div>
+                            </div>
+
+                            <!-- Guest Information -->
+                            <div class="checkout-section">
+                                <h4>Guest Information</h4>
+                                <div class="checkout-fields">
+                                    <div class="checkout-field-row">
+                                        <div class="checkout-field">
+                                            <label for="guest-first-name">First Name</label>
+                                            <input type="text" id="guest-first-name" required>
+                                        </div>
+                                        <div class="checkout-field">
+                                            <label for="guest-last-name">Last Name</label>
+                                            <input type="text" id="guest-last-name" required>
+                                        </div>
+                                    </div>
+                                    <div class="checkout-field">
+                                        <label for="guest-email">Email</label>
+                                        <input type="email" id="guest-email" required>
+                                    </div>
+                                    <div class="checkout-field">
+                                        <label for="guest-phone">Phone</label>
+                                        <input type="tel" id="guest-phone" placeholder="Optional">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Payment Information -->
+                            <div class="checkout-section">
+                                <h4>Payment Details</h4>
+                                <div class="checkout-field">
+                                    <label>Card</label>
+                                    <div id="card-element"></div>
+                                    <div id="card-errors" class="card-errors"></div>
+                                </div>
+                                <p class="payment-note">Your card will be charged according to the payment schedule. Guesty securely processes all payments.</p>
+                            </div>
+
+                            <!-- Terms -->
+                            <div class="checkout-terms">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="accept-terms" required>
+                                    <span class="checkbox-custom"></span>
+                                    <span>I agree to the <a href="#rules" target="_blank">house rules</a> and cancellation policy</span>
+                                </label>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="button" id="submit-booking" class="btn-submit-booking" disabled>
+                                <span class="btn-text">Confirm Booking</span>
+                                <span class="btn-loading hidden">
+                                    <span class="spinner-small"></span>
+                                    Processing...
+                                </span>
+                            </button>
+
+                            <!-- Checkout Error -->
+                            <div id="checkout-error" class="checkout-error hidden"></div>
+                        </div>
+
+                        <!-- Booking Confirmation (shown after successful booking) -->
+                        <div id="booking-confirmation" class="booking-confirmation hidden">
+                            <div class="confirmation-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                                    <path d="M22 4L12 14.01l-3-3"/>
+                                </svg>
+                            </div>
+                            <h3>Booking Confirmed!</h3>
+                            <p class="confirmation-message">Your reservation has been successfully created.</p>
+                            <div class="confirmation-details">
+                                <div class="confirmation-row">
+                                    <span>Confirmation #</span>
+                                    <span id="confirmation-number"></span>
+                                </div>
+                                <div class="confirmation-row">
+                                    <span>Check-in</span>
+                                    <span id="confirmation-checkin"></span>
+                                </div>
+                                <div class="confirmation-row">
+                                    <span>Check-out</span>
+                                    <span id="confirmation-checkout"></span>
+                                </div>
+                                <div class="confirmation-row">
+                                    <span>Total</span>
+                                    <span id="confirmation-total"></span>
+                                </div>
+                            </div>
+                            <p class="confirmation-email">A confirmation email has been sent to <strong id="confirmation-email-address"></strong></p>
+                            <a href="#" class="btn-new-booking" onclick="location.reload(); return false;">Make Another Booking</a>
                         </div>
                         <div class="quote-error hidden">
                             <span id="quote-error-message"></span>
@@ -1358,6 +1481,240 @@
 
         // Initialize calendar (without API call)
         renderCalendar();
+
+        // ============================================
+        // STRIPE CHECKOUT INTEGRATION
+        // ============================================
+
+        // Store quote data for checkout
+        let currentQuoteData = null;
+        let stripeInstance = null;
+        let cardElement = null;
+
+        // Initialize Stripe (lazy load when needed)
+        function initializeStripe() {
+            if (stripeInstance) return stripeInstance;
+
+            // Stripe publishable key
+            stripeInstance = Stripe('pk_live_LKZLJ4NxjahxWDx9hYlD2lNm00ZBKE4pVm');
+            return stripeInstance;
+        }
+
+        // Initialize Stripe Elements card input
+        function initializeCardElement() {
+            if (cardElement) return;
+
+            const stripe = initializeStripe();
+            const elements = stripe.elements();
+
+            const style = {
+                base: {
+                    color: '#2D2D2D',
+                    fontFamily: '"Montserrat", sans-serif',
+                    fontSmoothing: 'antialiased',
+                    fontSize: '16px',
+                    '::placeholder': {
+                        color: '#A0A0A0'
+                    }
+                },
+                invalid: {
+                    color: '#b44',
+                    iconColor: '#b44'
+                }
+            };
+
+            cardElement = elements.create('card', { style });
+            cardElement.mount('#card-element');
+
+            // Handle card errors
+            cardElement.on('change', (event) => {
+                const errorDisplay = document.getElementById('card-errors');
+                if (event.error) {
+                    errorDisplay.textContent = event.error.message;
+                    errorDisplay.classList.remove('hidden');
+                } else {
+                    errorDisplay.textContent = '';
+                    errorDisplay.classList.add('hidden');
+                }
+                updateSubmitButtonState();
+            });
+        }
+
+        // DOM elements for checkout
+        const bookNowBtn = document.getElementById('book-now-btn');
+        const checkoutForm = document.getElementById('checkout-form');
+        const checkoutBackBtn = document.getElementById('checkout-back-btn');
+        const submitBookingBtn = document.getElementById('submit-booking');
+        const acceptTermsCheckbox = document.getElementById('accept-terms');
+        const bookingConfirmation = document.getElementById('booking-confirmation');
+
+        // Update submit button state based on form validity
+        function updateSubmitButtonState() {
+            const firstName = document.getElementById('guest-first-name').value.trim();
+            const lastName = document.getElementById('guest-last-name').value.trim();
+            const email = document.getElementById('guest-email').value.trim();
+            const termsAccepted = acceptTermsCheckbox.checked;
+            const cardErrors = document.getElementById('card-errors').textContent;
+
+            const isValid = firstName && lastName && email && termsAccepted && !cardErrors;
+            submitBookingBtn.disabled = !isValid;
+        }
+
+        // Add event listeners for form validation
+        ['guest-first-name', 'guest-last-name', 'guest-email', 'guest-phone'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.addEventListener('input', updateSubmitButtonState);
+            }
+        });
+        acceptTermsCheckbox.addEventListener('change', updateSubmitButtonState);
+
+        // Show checkout form when "Book Now" is clicked
+        bookNowBtn.addEventListener('click', () => {
+            if (!currentQuoteData) {
+                alert('Please check prices first');
+                return;
+            }
+
+            // Populate checkout summary
+            document.getElementById('checkout-checkin').textContent = document.getElementById('quote-checkin').textContent;
+            document.getElementById('checkout-checkout').textContent = document.getElementById('quote-checkout').textContent;
+            document.getElementById('checkout-guests').textContent = document.getElementById('quote-guests-count').textContent;
+            document.getElementById('checkout-total').textContent = document.getElementById('quote-total').textContent;
+
+            // Show checkout form, hide quote details
+            quoteDetails.classList.add('hidden');
+            checkoutForm.classList.remove('hidden');
+            bookingConfirmation.classList.add('hidden');
+
+            // Initialize Stripe card element
+            initializeCardElement();
+
+            // Scroll to checkout form
+            checkoutForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        // Back button returns to quote
+        checkoutBackBtn.addEventListener('click', () => {
+            checkoutForm.classList.add('hidden');
+            quoteDetails.classList.remove('hidden');
+        });
+
+        // Handle booking submission
+        submitBookingBtn.addEventListener('click', async () => {
+            if (submitBookingBtn.disabled) return;
+
+            const firstName = document.getElementById('guest-first-name').value.trim();
+            const lastName = document.getElementById('guest-last-name').value.trim();
+            const email = document.getElementById('guest-email').value.trim();
+            const phone = document.getElementById('guest-phone').value.trim();
+
+            // Show loading state
+            submitBookingBtn.disabled = true;
+            submitBookingBtn.querySelector('.btn-text').classList.add('hidden');
+            submitBookingBtn.querySelector('.btn-loading').classList.remove('hidden');
+
+            const checkoutError = document.getElementById('checkout-error');
+            checkoutError.classList.add('hidden');
+
+            try {
+                const stripe = initializeStripe();
+
+                // Create payment method (tokenize card)
+                const { paymentMethod, error } = await stripe.createPaymentMethod({
+                    type: 'card',
+                    card: cardElement,
+                    billing_details: {
+                        name: `${firstName} ${lastName}`,
+                        email: email,
+                        phone: phone || undefined
+                    }
+                });
+
+                if (error) {
+                    throw new Error(error.message);
+                }
+
+                // Get quoteId and ratePlanId from stored quote data
+                const quoteId = currentQuoteData._id || currentQuoteData.id;
+                const ratePlanId = currentQuoteData.rates?.ratePlans?.[0]?.ratePlan?._id ||
+                                   currentQuoteData.rates?.ratePlans?.[0]?._id;
+
+                if (!quoteId) {
+                    throw new Error('Quote ID not found. Please check prices again.');
+                }
+
+                // Create reservation via our backend
+                const response = await fetch('/.netlify/functions/create-reservation', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        quoteId: quoteId,
+                        ratePlanId: ratePlanId,
+                        ccToken: paymentMethod.id,
+                        guest: {
+                            firstName,
+                            lastName,
+                            email,
+                            phone
+                        }
+                    })
+                });
+
+                const result = await response.json();
+
+                if (!response.ok || result.error) {
+                    throw new Error(result.error || 'Failed to create reservation');
+                }
+
+                // Show confirmation
+                showBookingConfirmation(result, email);
+
+            } catch (error) {
+                console.error('Booking error:', error);
+                checkoutError.textContent = error.message || 'An error occurred. Please try again.';
+                checkoutError.classList.remove('hidden');
+
+                // Reset button state
+                submitBookingBtn.disabled = false;
+                submitBookingBtn.querySelector('.btn-text').classList.remove('hidden');
+                submitBookingBtn.querySelector('.btn-loading').classList.add('hidden');
+            }
+        });
+
+        // Show booking confirmation
+        function showBookingConfirmation(result, email) {
+            const reservation = result.reservation || result;
+
+            // Populate confirmation details
+            document.getElementById('confirmation-number').textContent =
+                reservation.confirmationCode || reservation._id || 'Confirmed';
+            document.getElementById('confirmation-checkin').textContent =
+                document.getElementById('checkout-checkin').textContent;
+            document.getElementById('confirmation-checkout').textContent =
+                document.getElementById('checkout-checkout').textContent;
+            document.getElementById('confirmation-total').textContent =
+                document.getElementById('checkout-total').textContent;
+            document.getElementById('confirmation-email-address').textContent = email;
+
+            // Hide checkout form, show confirmation
+            checkoutForm.classList.add('hidden');
+            bookingConfirmation.classList.remove('hidden');
+
+            // Scroll to confirmation
+            bookingConfirmation.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Store quote data when showing quote (modify existing showQuote function)
+        const originalShowQuote = showQuote;
+        showQuote = function(data, checkIn, checkOut, guests) {
+            // Store quote data for checkout
+            currentQuoteData = data;
+            // Call original function
+            originalShowQuote(data, checkIn, checkOut, guests);
+        };
     </script>
 </body>
 </html>
