@@ -4,36 +4,54 @@ const LISTING_ID = '637d17a91ea4b0002f3801a3';
 let cachedToken = null;
 let tokenExpiry = 0;
 
-async function getAccessToken() {
-  // Return cached token if still valid (with 1 hour buffer)
+// Simple delay function
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+async function getAccessToken(retryCount = 0) {
+  // Return cached token if still valid (with 5 min buffer)
   const now = Date.now();
-  if (cachedToken && now < tokenExpiry - 3600000) {
+  if (cachedToken && now < tokenExpiry - 300000) {
     return cachedToken;
   }
 
-  const response = await fetch('https://booking.guesty.com/oauth2/token', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({
-      grant_type: 'client_credentials',
-      scope: 'booking_engine:api',
-      client_id: process.env.GUESTY_CLIENT_ID,
-      client_secret: process.env.GUESTY_CLIENT_SECRET
-    })
-  });
+  try {
+    const response = await fetch('https://booking.guesty.com/oauth2/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        grant_type: 'client_credentials',
+        scope: 'booking_engine:api',
+        client_id: process.env.GUESTY_CLIENT_ID,
+        client_secret: process.env.GUESTY_CLIENT_SECRET
+      })
+    });
 
-  if (!response.ok) {
-    const text = await response.text();
-    throw new Error(`Token failed: ${response.status} - ${text}`);
+    // Handle rate limiting with retry
+    if (response.status === 429 && retryCount < 3) {
+      const waitTime = Math.pow(2, retryCount) * 1000; // 1s, 2s, 4s
+      await delay(waitTime);
+      return getAccessToken(retryCount + 1);
+    }
+
+    if (!response.ok) {
+      const text = await response.text();
+      throw new Error(`Token failed: ${response.status} - ${text}`);
+    }
+
+    const data = await response.json();
+
+    // Cache token (expires_in is usually 86400 seconds = 24 hours)
+    cachedToken = data.access_token;
+    tokenExpiry = now + (data.expires_in * 1000);
+
+    return cachedToken;
+  } catch (error) {
+    // If we have a cached token that's not too old, use it as fallback
+    if (cachedToken && now < tokenExpiry + 3600000) {
+      return cachedToken;
+    }
+    throw error;
   }
-
-  const data = await response.json();
-
-  // Cache token (expires_in is usually 86400 seconds = 24 hours)
-  cachedToken = data.access_token;
-  tokenExpiry = now + (data.expires_in * 1000);
-
-  return cachedToken;
 }
 
 exports.handler = async (event) => {
@@ -67,6 +85,17 @@ exports.handler = async (event) => {
         guestsCount: parseInt(guests) || 2
       })
     });
+
+    // Handle rate limiting on quote request
+    if (response.status === 429) {
+      return {
+        statusCode: 429,
+        body: JSON.stringify({
+          error: 'Service is busy. Please try again in a moment.',
+          retryAfter: 5
+        })
+      };
+    }
 
     if (!response.ok) {
       const errorText = await response.text();
