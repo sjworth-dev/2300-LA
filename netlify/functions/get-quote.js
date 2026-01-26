@@ -69,8 +69,8 @@ exports.handler = async (event) => {
     });
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.message || `Quote request failed: ${response.status}`);
+      const errorText = await response.text();
+      throw new Error(`Quote request failed: ${response.status} - ${errorText}`);
     }
 
     const quote = await response.json();
