@@ -1020,7 +1020,7 @@
                 const data = await response.json();
 
                 if (response.ok && data) {
-                    showQuote(data, checkIn, checkOut);
+                    showQuote(data, checkIn, checkOut, guests);
                 } else {
                     throw new Error(data.error || 'Unable to get quote');
                 }
@@ -1048,10 +1048,11 @@
         });
 
         // Show quote details
-        function showQuote(data, checkIn, checkOut) {
+        function showQuote(data, checkIn, checkOut, guests) {
             quoteLoading.classList.add('hidden');
 
             const nights = Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24));
+            const quoteId = data._id || data.id || null;
 
             document.getElementById('quote-checkin').textContent = formatDate(checkIn);
             document.getElementById('quote-checkout').textContent = formatDate(checkOut);
@@ -1084,8 +1085,11 @@
             document.getElementById('quote-service').textContent = formatCurrency(taxes);
             document.getElementById('quote-total').textContent = formatCurrency(total);
 
-            // Build booking URL with dates
-            const bookingUrl = `${GUESTY_CHECKOUT_URL}?checkIn=${checkIn}&checkOut=${checkOut}`;
+            // Build booking URL with dates, guests, and quote ID
+            let bookingUrl = `${GUESTY_CHECKOUT_URL}?checkIn=${checkIn}&checkOut=${checkOut}&guests=${guests}`;
+            if (quoteId) {
+                bookingUrl += `&quoteId=${quoteId}`;
+            }
             document.getElementById('book-now-link').href = bookingUrl;
 
             quoteDetails.classList.remove('hidden');
