@@ -160,13 +160,13 @@
                             <span>Enhance Your Stay</span>
                         </div>
                         <div class="addons-list">
-                            <label class="addon-item">
-                                <input type="checkbox" name="addon" value="cold-plunge" data-price="150">
+                            <label class="addon-item" id="addon-hot-tub" style="display: none;">
+                                <input type="checkbox" name="addon" value="hot-tub" data-price="150">
                                 <div class="addon-content">
-                                    <span class="addon-emoji">🧊</span>
+                                    <span class="addon-emoji">♨️</span>
                                     <div class="addon-info">
-                                        <strong>Cold Plunge</strong>
-                                        <span>Portable ice bath for recovery & wellness</span>
+                                        <strong>Heated Pool to Hot Tub</strong>
+                                        <span>Convert the pool to a toasty hot tub (Oct-Apr only)</span>
                                     </div>
                                     <span class="addon-price">+$150</span>
                                 </div>
@@ -1111,6 +1111,18 @@
             if (new Date(checkOut) <= new Date(checkIn)) {
                 alert('Check-out must be after check-in');
                 return;
+            }
+
+            // Check if hot tub add-on should be shown (Oct-Apr only)
+            const hotTubAddon = document.getElementById('addon-hot-tub');
+            const checkInDate = new Date(checkIn);
+            const checkInMonth = checkInDate.getMonth(); // 0-11
+            // Show hot tub if check-in is Oct (9), Nov (10), Dec (11), Jan (0), Feb (1), Mar (2), Apr (3)
+            const isWinterSeason = checkInMonth >= 9 || checkInMonth <= 3;
+            hotTubAddon.style.display = isWinterSeason ? 'block' : 'none';
+            // Uncheck if hidden
+            if (!isWinterSeason) {
+                hotTubAddon.querySelector('input').checked = false;
             }
 
             // Check for events during stay
