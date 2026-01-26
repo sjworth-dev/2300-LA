@@ -34,45 +34,61 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <span class="hero-label">New Orleans Private Retreat</span>
-            <h1>Your Outdoor Paradise Awaits</h1>
-            <p class="hero-subtitle">5 bedrooms, heated pool, steps from Magazine Street</p>
-
-            <!-- Horizontal Booking Bar -->
-            <div class="hero-booking-bar">
-                <div class="booking-bar-field">
-                    <label for="hero-check-in">Check In</label>
-                    <input type="date" id="hero-check-in" name="check-in">
+    <!-- Hero Section - Saint Vincent Inspired -->
+    <header class="hero hero-artwork">
+        <div class="hero-artwork-frame">
+            <div class="hero-artwork-image">
+                <img src="Copy of 1.jpg" alt="Louisiana Egret Artwork">
+            </div>
+            <div class="hero-artwork-border"></div>
+        </div>
+        <div class="hero-content-side">
+            <div class="hero-text-block">
+                <span class="hero-eyebrow">New Orleans</span>
+                <h1 class="hero-title">Marais</h1>
+                <p class="hero-tagline">A private retreat in the heart of the Garden District</p>
+                <div class="hero-details">
+                    <span>5 Bedrooms</span>
+                    <span class="hero-dot"></span>
+                    <span>Heated Pool</span>
+                    <span class="hero-dot"></span>
+                    <span>Magazine Street</span>
                 </div>
-                <div class="booking-bar-divider"></div>
-                <div class="booking-bar-field">
-                    <label for="hero-check-out">Check Out</label>
-                    <input type="date" id="hero-check-out" name="check-out">
+            </div>
+            <div class="hero-booking-minimal">
+                <div class="booking-field-group">
+                    <div class="booking-field-minimal">
+                        <label for="hero-check-in">Arrive</label>
+                        <input type="date" id="hero-check-in" name="check-in">
+                    </div>
+                    <div class="booking-field-minimal">
+                        <label for="hero-check-out">Depart</label>
+                        <input type="date" id="hero-check-out" name="check-out">
+                    </div>
+                    <div class="booking-field-minimal">
+                        <label for="hero-guests">Guests</label>
+                        <select id="hero-guests" name="guests">
+                            <option value="1">1</option>
+                            <option value="2" selected>2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="booking-bar-divider"></div>
-                <div class="booking-bar-field">
-                    <label for="hero-guests">Guests</label>
-                    <select id="hero-guests" name="guests">
-                        <option value="1">1 Guest</option>
-                        <option value="2" selected>2 Guests</option>
-                        <option value="3">3 Guests</option>
-                        <option value="4">4 Guests</option>
-                        <option value="5">5 Guests</option>
-                        <option value="6">6 Guests</option>
-                        <option value="7">7 Guests</option>
-                        <option value="8">8 Guests</option>
-                        <option value="9">9 Guests</option>
-                        <option value="10">10 Guests</option>
-                    </select>
-                </div>
-                <button type="button" id="hero-search-btn" class="booking-bar-btn">
-                    Search
+                <button type="button" id="hero-search-btn" class="btn-check-availability">
+                    Check Availability
                 </button>
             </div>
+        </div>
+        <div class="hero-scroll-indicator">
+            <span>Scroll to explore</span>
+            <div class="scroll-line"></div>
         </div>
     </header>
 
