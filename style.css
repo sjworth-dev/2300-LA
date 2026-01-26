@@ -1812,3 +1812,113 @@ p {
         top: 10%;
     }
 }
+
+/* ============================================
+   Guesty Search Widget Custom Styles
+   ============================================ */
+.guesty-widget {
+    margin-top: 2.5rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Override Guesty widget styles */
+#search-widget_IO312PWQ {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* Style the Guesty form container */
+#search-widget_IO312PWQ .guesty-search-bar,
+#search-widget_IO312PWQ [class*="search-bar"] {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Style input fields */
+#search-widget_IO312PWQ input,
+#search-widget_IO312PWQ select {
+    background: var(--cream) !important;
+    border: 2px solid transparent !important;
+    border-radius: 10px !important;
+    padding: 1rem !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 0.95rem !important;
+    color: var(--charcoal) !important;
+    transition: all 0.3s ease !important;
+}
+
+#search-widget_IO312PWQ input:focus,
+#search-widget_IO312PWQ select:focus {
+    border-color: var(--olive-green) !important;
+    background: var(--white) !important;
+    outline: none !important;
+}
+
+#search-widget_IO312PWQ input::placeholder {
+    color: var(--gray) !important;
+}
+
+/* Style the search/submit button */
+#search-widget_IO312PWQ button,
+#search-widget_IO312PWQ [class*="submit"],
+#search-widget_IO312PWQ [class*="search-button"],
+#search-widget_IO312PWQ [type="submit"] {
+    background: linear-gradient(135deg, var(--olive-green) 0%, var(--olive-dark) 100%) !important;
+    color: var(--white) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 1rem 2rem !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+}
+
+#search-widget_IO312PWQ button:hover,
+#search-widget_IO312PWQ [class*="submit"]:hover,
+#search-widget_IO312PWQ [class*="search-button"]:hover,
+#search-widget_IO312PWQ [type="submit"]:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 10px 30px rgba(93, 97, 69, 0.4) !important;
+}
+
+/* Style labels */
+#search-widget_IO312PWQ label {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 0.75rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    color: var(--gray) !important;
+    font-weight: 500 !important;
+}
+
+/* Calendar/datepicker styling */
+#search-widget_IO312PWQ [class*="calendar"],
+#search-widget_IO312PWQ [class*="datepicker"] {
+    border-radius: 12px !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15) !important;
+    border: none !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .guesty-widget {
+        margin-top: 2rem;
+        max-width: 100%;
+        padding: 0 1rem;
+    }
+
+    #search-widget_IO312PWQ {
+        padding: 1rem;
+        border-radius: 12px;
+    }
+}
