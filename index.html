@@ -1052,7 +1052,6 @@
             quoteLoading.classList.add('hidden');
 
             const nights = Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24));
-            const quoteId = data._id || data.id || null;
 
             document.getElementById('quote-checkin').textContent = formatDate(checkIn);
             document.getElementById('quote-checkout').textContent = formatDate(checkOut);
@@ -1085,11 +1084,8 @@
             document.getElementById('quote-service').textContent = formatCurrency(taxes);
             document.getElementById('quote-total').textContent = formatCurrency(total);
 
-            // Build booking URL with dates, guests, and quote ID
-            let bookingUrl = `${GUESTY_CHECKOUT_URL}?checkIn=${checkIn}&checkOut=${checkOut}&guests=${guests}`;
-            if (quoteId) {
-                bookingUrl += `&quoteId=${quoteId}`;
-            }
+            // Build booking URL with dates and guests
+            const bookingUrl = `${GUESTY_CHECKOUT_URL}?checkIn=${checkIn}&checkOut=${checkOut}&guests=${guests}`;
             document.getElementById('book-now-link').href = bookingUrl;
 
             quoteDetails.classList.remove('hidden');
