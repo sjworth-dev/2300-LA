@@ -1708,6 +1708,128 @@
             // Call original function
             originalShowQuote(data, checkIn, checkOut, guests);
         };
+
+        // ============================================
+        // SCROLL ANIMATIONS
+        // ============================================
+
+        // Elements to animate on scroll
+        const animateElements = () => {
+            // Section headers
+            document.querySelectorAll('.section-label, section h2, .booking-header').forEach(el => {
+                el.classList.add('animate-on-scroll');
+            });
+
+            // About section
+            document.querySelectorAll('.about-image, .about-content').forEach((el, i) => {
+                el.classList.add('animate-on-scroll');
+                el.classList.add(i === 0 ? 'animate-fade-right' : 'animate-fade-left');
+            });
+
+            // Amenity cards with stagger
+            document.querySelectorAll('.amenity-card').forEach((el, i) => {
+                el.classList.add('animate-on-scroll');
+                el.classList.add(`stagger-${(i % 4) + 1}`);
+            });
+
+            // Gallery images with stagger
+            document.querySelectorAll('.gallery-img').forEach((el, i) => {
+                el.classList.add('animate-on-scroll', 'animate-scale');
+                el.classList.add(`stagger-${(i % 4) + 1}`);
+            });
+
+            // Use case cards with stagger
+            document.querySelectorAll('.use-case-card').forEach((el, i) => {
+                el.classList.add('animate-on-scroll');
+                el.classList.add(`stagger-${(i % 3) + 1}`);
+            });
+
+            // Rules with stagger
+            document.querySelectorAll('.rule').forEach((el, i) => {
+                el.classList.add('animate-on-scroll');
+                el.classList.add(`stagger-${(i % 4) + 1}`);
+            });
+
+            // Explore tiles
+            document.querySelectorAll('.explore-tile').forEach((el, i) => {
+                el.classList.add('animate-on-scroll', 'animate-scale');
+                el.classList.add(`stagger-${(i % 3) + 1}`);
+            });
+
+            // Location content
+            document.querySelectorAll('.location-text, .location-map').forEach((el, i) => {
+                el.classList.add('animate-on-scroll');
+                el.classList.add(i === 0 ? 'animate-fade-right' : 'animate-fade-left');
+            });
+
+            // Pool feature
+            document.querySelectorAll('.pool-feature-text').forEach(el => {
+                el.classList.add('animate-on-scroll');
+            });
+
+            // Layout section
+            document.querySelectorAll('.floorplan-image, .sleeping-breakdown').forEach((el, i) => {
+                el.classList.add('animate-on-scroll');
+                el.classList.add(i === 0 ? 'animate-fade-right' : 'animate-fade-left');
+            });
+
+            // Booking features
+            document.querySelectorAll('.booking-feature').forEach((el, i) => {
+                el.classList.add('animate-on-scroll');
+                el.classList.add(`stagger-${i + 1}`);
+            });
+
+            // Property stats
+            document.querySelectorAll('.stat').forEach((el, i) => {
+                el.classList.add('animate-on-scroll');
+                el.classList.add(`stagger-${i + 1}`);
+            });
+        };
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const animationObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                    // Optional: unobserve after animation
+                    // animationObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Initialize animations after DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            animateElements();
+
+            // Observe all animated elements
+            document.querySelectorAll('.animate-on-scroll, .animate-fade-up, .animate-fade-left, .animate-fade-right, .animate-scale').forEach(el => {
+                animationObserver.observe(el);
+            });
+        });
+
+        // Parallax effect on scroll
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const scrolled = window.pageYOffset;
+
+                    // Subtle parallax on hero
+                    const hero = document.querySelector('.hero::before');
+                    if (hero) {
+                        hero.style.transform = `scale(1) translateY(${scrolled * 0.3}px)`;
+                    }
+
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
     </script>
 </body>
 </html>

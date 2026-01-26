@@ -32,6 +32,82 @@ html {
     scroll-behavior: smooth;
 }
 
+/* ============================================
+   ANIMATION UTILITIES
+   ============================================ */
+
+/* Base state for scroll animations */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.animate-on-scroll.animated {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger delays for grid items */
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
+.stagger-5 { transition-delay: 0.5s; }
+.stagger-6 { transition-delay: 0.6s; }
+
+/* Fade in from different directions */
+.animate-fade-up {
+    opacity: 0;
+    transform: translateY(60px);
+}
+
+.animate-fade-left {
+    opacity: 0;
+    transform: translateX(-60px);
+}
+
+.animate-fade-right {
+    opacity: 0;
+    transform: translateX(60px);
+}
+
+.animate-fade-up.animated,
+.animate-fade-left.animated,
+.animate-fade-right.animated {
+    opacity: 1;
+    transform: translate(0);
+}
+
+/* Scale in animation */
+.animate-scale {
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.animate-scale.animated {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Parallax base */
+.parallax-container {
+    overflow: hidden;
+    position: relative;
+}
+
+.parallax-bg {
+    position: absolute;
+    top: -20%;
+    left: 0;
+    right: 0;
+    bottom: -20%;
+    background-size: cover;
+    background-position: center;
+    will-change: transform;
+}
+
 body {
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
@@ -213,12 +289,20 @@ p {
     background: var(--coral);
     border-color: var(--coral);
     color: var(--white) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(232, 168, 152, 0.4);
 }
 
 .navbar.scrolled .btn-book:hover {
     background: var(--coral);
     border-color: var(--coral);
     color: var(--white) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(232, 168, 152, 0.4);
+}
+
+.btn-book {
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Mobile Menu Button */
@@ -317,6 +401,65 @@ p {
 }
 
 /* ============================================
+   HERO ENTRANCE ANIMATIONS
+   ============================================ */
+
+/* Background zoom animation */
+.hero::before {
+    animation: heroZoom 20s ease-out forwards;
+}
+
+@keyframes heroZoom {
+    0% {
+        transform: scale(1.1);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.85;
+    }
+}
+
+/* Staggered text entrance */
+.hero-label {
+    animation: heroFadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+}
+
+.hero h1 {
+    animation: heroFadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+}
+
+.hero-subtitle {
+    animation: heroFadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.7s both;
+}
+
+.hero-booking-bar {
+    animation: heroSlideUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.9s both;
+}
+
+@keyframes heroFadeUp {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heroSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(60px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
    HERO BOOKING BAR - Hoxton Style
    ============================================ */
 
@@ -383,8 +526,30 @@ p {
     transition: all 0.3s ease;
 }
 
+.booking-bar-btn {
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.booking-bar-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
 .booking-bar-btn:hover {
     background: var(--coral-dark);
+    transform: scale(1.02);
+}
+
+.booking-bar-btn:hover::before {
+    left: 100%;
 }
 
 /* ============================================
@@ -410,6 +575,19 @@ p {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pool-image-large:hover img {
+    transform: scale(1.05);
+}
+
+.pool-image-stack img {
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pool-image-stack img:hover {
+    transform: scale(1.03);
 }
 
 .pool-image-stack {
@@ -590,6 +768,16 @@ p {
 
 .btn-check-availability:hover {
     background: var(--olive-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(93, 97, 69, 0.3);
+}
+
+.btn-check-availability {
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn-check-availability:active {
+    transform: translateY(0);
 }
 
 /* Calendar Card */
@@ -1035,8 +1223,31 @@ p {
     margin-top: 0.5rem;
 }
 
+.btn-book-now {
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-book-now::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    transition: left 0.6s;
+}
+
 .btn-book-now:hover {
     background: var(--olive-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(93, 97, 69, 0.4);
+}
+
+.btn-book-now:hover::before {
+    left: 100%;
 }
 
 .quote-error {
@@ -1582,12 +1793,40 @@ p {
 .amenity-card {
     padding: 2.5rem 1.5rem;
     background: var(--cream);
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
     border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.amenity-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--coral);
+    transform: scaleX(0);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .amenity-card:hover {
     border-color: var(--olive-green);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.amenity-card:hover::before {
+    transform: scaleX(1);
+}
+
+.amenity-card:hover .amenity-icon {
+    transform: scale(1.1);
+}
+
+.amenity-icon {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .amenity-icon {
@@ -1635,11 +1874,18 @@ p {
     aspect-ratio: 1;
     object-fit: cover;
     cursor: pointer;
-    transition: all 0.4s ease;
+    transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    position: relative;
+}
+
+.gallery-grid {
+    overflow: hidden;
 }
 
 .gallery-img:hover {
-    opacity: 0.9;
+    transform: scale(1.05);
+    z-index: 2;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
 /* ============================================
@@ -1663,12 +1909,23 @@ p {
     background: var(--cream);
     padding: 3rem 2rem;
     text-align: left;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
     border: 1px solid transparent;
+    position: relative;
 }
 
 .use-case-card:hover {
     border-color: var(--olive-green);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.use-case-icon {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.use-case-card:hover .use-case-icon {
+    transform: scale(1.2) rotate(-5deg);
 }
 
 .use-case-icon {
@@ -1867,6 +2124,23 @@ p {
     background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.1) 100%);
 }
 
+.explore-tile {
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.explore-tile:hover {
+    transform: scale(1.02);
+    z-index: 2;
+}
+
+.explore-tile-content h3 {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.explore-tile:hover .explore-tile-content h3 {
+    transform: translateY(-5px);
+}
+
 .explore-tile-content {
     position: absolute;
     bottom: 0;
@@ -1973,6 +2247,21 @@ p {
     padding: 1.75rem;
     background: var(--white);
     border: 1px solid var(--gray-lighter);
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rule:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+    border-color: var(--coral-light);
+}
+
+.rule-icon {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rule:hover .rule-icon {
+    transform: scale(1.2);
 }
 
 .rule-icon {
@@ -2025,9 +2314,32 @@ p {
     transition: all 0.3s ease;
 }
 
+.btn-book-cta {
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-book-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
 .btn-book-cta:hover {
     background: var(--white);
     color: var(--olive-green);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.btn-book-cta:hover::before {
+    left: 100%;
 }
 
 /* ============================================
