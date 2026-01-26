@@ -3,142 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Outdoor Living in New Orleans | Marais</title>
+    <title>Marais | A New Orleans Art House</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="https://www.staymarais.com" class="logo">
-                <span class="logo-text">Marais</span>
-                <span class="logo-tagline">artful vacation stays</span>
-            </a>
-            <div class="nav-links">
-                <a href="#about">About</a>
-                <a href="#amenities">Amenities</a>
-                <a href="#gallery">Gallery</a>
-                <a href="#explore">Explore NOLA</a>
-                <a href="#location">Location</a>
-                <a href="#book" class="btn-book">Book Now</a>
-            </div>
-            <button class="mobile-menu-btn" id="mobile-menu-btn">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+    <!-- Minimal Navigation - Appears on scroll -->
+    <nav class="nav-minimal" id="nav">
+        <a href="#" class="nav-logo">Marais</a>
+        <div class="nav-right">
+            <a href="#book" class="nav-book-btn">Reserve</a>
         </div>
     </nav>
 
-    <!-- Hero Section - Saint Vincent Inspired -->
-    <header class="hero hero-artwork">
-        <div class="hero-artwork-frame">
-            <div class="hero-artwork-image">
-                <img src="Copy of 1.jpg" alt="Louisiana Egret Artwork">
-            </div>
-            <div class="hero-artwork-border"></div>
+    <!-- Scene 1: The Invitation -->
+    <section class="scene scene-invitation" id="home">
+        <div class="invitation-bg">
+            <div class="invitation-overlay"></div>
         </div>
-        <div class="hero-content-side">
-            <div class="hero-text-block">
-                <span class="hero-eyebrow">New Orleans</span>
-                <h1 class="hero-title">Marais</h1>
-                <p class="hero-tagline">A private retreat in the heart of the Garden District</p>
-                <div class="hero-details">
-                    <span>5 Bedrooms</span>
-                    <span class="hero-dot"></span>
-                    <span>Heated Pool</span>
-                    <span class="hero-dot"></span>
-                    <span>Magazine Street</span>
-                </div>
+        <div class="invitation-content">
+            <span class="invitation-location">New Orleans, Louisiana</span>
+            <h1 class="invitation-title">Marais</h1>
+            <p class="invitation-subtitle">Where Art Lives</p>
+            <div class="invitation-scroll">
+                <span>Enter</span>
+                <div class="scroll-arrow"></div>
             </div>
-            <div class="hero-booking-minimal">
-                <div class="booking-field-group">
-                    <div class="booking-field-minimal">
-                        <label for="hero-check-in">Arrive</label>
-                        <input type="date" id="hero-check-in" name="check-in">
-                    </div>
-                    <div class="booking-field-minimal">
-                        <label for="hero-check-out">Depart</label>
-                        <input type="date" id="hero-check-out" name="check-out">
-                    </div>
-                    <div class="booking-field-minimal">
-                        <label for="hero-guests">Guests</label>
-                        <select id="hero-guests" name="guests">
-                            <option value="1">1</option>
-                            <option value="2" selected>2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                        </select>
-                    </div>
-                </div>
-                <button type="button" id="hero-search-btn" class="btn-check-availability">
-                    Check Availability
-                </button>
-            </div>
-        </div>
-        <div class="hero-scroll-indicator">
-            <span>Scroll to explore</span>
-            <div class="scroll-line"></div>
-        </div>
-    </header>
-
-    <!-- Pool Feature Section - Full Width -->
-    <section class="pool-feature">
-        <div class="pool-feature-grid">
-            <div class="pool-image-large">
-                <img src="Copy of 50.jpg" alt="Pool & Outdoor Living">
-            </div>
-            <div class="pool-image-stack">
-                <img src="Copy of 45.jpg" alt="Pool Deck">
-                <img src="Copy of 35.jpg" alt="Balcony">
-            </div>
-        </div>
-        <div class="pool-feature-text">
-            <h2>Your Private Outdoor Paradise</h2>
-            <p>This indoor-outdoor residence features a year-round heated pool, tiki bar, indoor/outdoor speakers, BBQ grill, and tropical garden. The perfect setting for poolside gatherings, lazy afternoons, and unforgettable New Orleans evenings.</p>
         </div>
     </section>
 
-    <!-- Book Your Stay Section -->
-    <section id="book" class="booking-section">
-        <div class="booking-hero-bg"></div>
-        <div class="container">
-            <div class="booking-header">
-                <div class="section-label">Reserve Your Dates</div>
-                <h2>Book Your Stay</h2>
-                <p class="booking-intro">Select your dates and see instant pricing for your New Orleans escape.</p>
+    <!-- Scene 2: The Art - Egret Reveal -->
+    <section class="scene scene-art" id="art">
+        <div class="art-container">
+            <div class="art-frame">
+                <img src="Copy of 1.jpg" alt="Louisiana Egret" class="art-image">
+            </div>
+            <div class="art-text">
+                <span class="scene-label">The Art</span>
+                <h2>Every wall tells a story</h2>
+                <p>Original Louisiana artwork adorns this home—from the hand-painted egret watching over the living room to murals of moss-draped oaks. This isn't a rental. It's a gallery you can sleep in.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scene 3: The Space - Living Areas -->
+    <section class="scene scene-space" id="space">
+        <div class="space-gallery">
+            <div class="space-image space-image-main">
+                <img src="Copy of 3.jpg" alt="Living Space">
+            </div>
+            <div class="space-image space-image-secondary">
+                <img src="Copy of 6.jpg" alt="Interior Detail">
+            </div>
+        </div>
+        <div class="space-content">
+            <span class="scene-label">The Space</span>
+            <h2>Five bedrooms.<br>Endless light.</h2>
+            <p>Soaring ceilings, walls of glass, and a layout designed for gathering. Modern architecture meets Southern warmth—every corner invites you to stay a while.</p>
+        </div>
+    </section>
+
+    <!-- Scene 4: The Water - Pool Paradise -->
+    <section class="scene scene-water" id="water">
+        <div class="water-bg">
+            <img src="Copy of 50.jpg" alt="Pool">
+        </div>
+        <div class="water-overlay"></div>
+        <div class="water-content">
+            <span class="scene-label">The Water</span>
+            <h2>Your private paradise</h2>
+            <p>A heated pool for every season. A tiki bar for every mood. Tropical gardens, outdoor speakers, and evenings that stretch into New Orleans nights.</p>
+        </div>
+    </section>
+
+    <!-- Scene 5: The Details - Horizontal Scroll -->
+    <section class="scene scene-details" id="details">
+        <div class="details-header">
+            <span class="scene-label">The Details</span>
+            <h2>Everything you need, nothing you don't</h2>
+        </div>
+        <div class="details-scroll-container">
+            <div class="details-track">
+                <div class="detail-card">
+                    <div class="detail-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                        </svg>
+                    </div>
+                    <h3>5 Bedrooms</h3>
+                    <p>King beds, luxury linens, room to breathe</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                        </svg>
+                    </div>
+                    <h3>Heated Pool</h3>
+                    <p>Year-round swimming under Louisiana skies</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
+                        </svg>
+                    </div>
+                    <h3>Indoor/Outdoor Sound</h3>
+                    <p>Speakers throughout for your soundtrack</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                    </div>
+                    <h3>Sleeps 10</h3>
+                    <p>Gather the whole crew</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"/>
+                            <circle cx="12" cy="12" r="4"/>
+                        </svg>
+                    </div>
+                    <h3>Tiki Bar</h3>
+                    <p>Mix drinks, make memories</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="2" y="7" width="20" height="14" rx="2"/>
+                            <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/>
+                        </svg>
+                    </div>
+                    <h3>Work-Ready</h3>
+                    <p>Fast WiFi, dedicated workspace</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scene 6: The Neighborhood -->
+    <section class="scene scene-neighborhood" id="neighborhood">
+        <div class="neighborhood-grid">
+            <div class="neighborhood-image">
+                <img src="nola-magazine.jpg" alt="Magazine Street">
+            </div>
+            <div class="neighborhood-content">
+                <span class="scene-label">The Neighborhood</span>
+                <h2>Steps from Magazine Street</h2>
+                <p>You're in the Irish Channel—one of New Orleans' most vibrant neighborhoods. Walk to world-class restaurants, dive bars, antique shops, and live music. The French Quarter is a short streetcar ride away.</p>
+                <div class="neighborhood-highlights">
+                    <div class="highlight">
+                        <span class="highlight-distance">2 min walk</span>
+                        <span class="highlight-name">Magazine Street</span>
+                    </div>
+                    <div class="highlight">
+                        <span class="highlight-distance">10 min</span>
+                        <span class="highlight-name">Garden District</span>
+                    </div>
+                    <div class="highlight">
+                        <span class="highlight-distance">15 min</span>
+                        <span class="highlight-name">French Quarter</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scene 7: The Gallery - More Images -->
+    <section class="scene scene-gallery" id="gallery">
+        <div class="gallery-header">
+            <span class="scene-label">The Gallery</span>
+            <h2>See more</h2>
+        </div>
+        <div class="gallery-mosaic">
+            <div class="mosaic-item mosaic-large">
+                <img src="Copy of 45.jpg" alt="Pool deck">
+            </div>
+            <div class="mosaic-item">
+                <img src="Copy of 10.jpg" alt="Bedroom">
+            </div>
+            <div class="mosaic-item">
+                <img src="Copy of 17.jpg" alt="Kitchen">
+            </div>
+            <div class="mosaic-item mosaic-tall">
+                <img src="Copy of 21.jpg" alt="Bathroom">
+            </div>
+            <div class="mosaic-item">
+                <img src="Copy of 35.jpg" alt="Outdoor">
+            </div>
+            <div class="mosaic-item mosaic-wide">
+                <img src="Copy of 40.jpg" alt="Evening">
+            </div>
+            <div class="mosaic-item">
+                <img src="Copy of 28.jpg" alt="Detail">
+            </div>
+            <div class="mosaic-item">
+                <img src="Copy of 32.jpg" alt="Living">
+            </div>
+        </div>
+    </section>
+
+    <!-- Scene 8: Book Your Stay -->
+    <section class="scene scene-book" id="book">
+        <div class="book-container">
+            <div class="book-intro">
+                <span class="scene-label">Your Stay</span>
+                <h2>Ready to experience Marais?</h2>
+                <p>Select your dates and we'll show you the rest.</p>
             </div>
 
-            <div class="booking-widget">
-                <div class="booking-card">
-                    <div class="booking-card-header">
-                        <svg class="booking-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <rect x="3" y="4" width="18" height="18" rx="2"/>
-                            <path d="M16 2v4M8 2v4M3 10h18"/>
-                            <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/>
-                        </svg>
-                        <span>Check Availability</span>
-                    </div>
-                    <div class="booking-inputs">
-                        <div class="booking-field">
-                            <label for="check-in">Check In</label>
-                            <input type="date" id="check-in" name="check-in" required>
+            <div class="book-widget">
+                <div class="book-card">
+                    <div class="book-inputs">
+                        <div class="book-field">
+                            <label for="check-in">Arrive</label>
+                            <input type="date" id="check-in" name="check-in">
                         </div>
-                        <div class="booking-field">
-                            <label for="check-out">Check Out</label>
-                            <input type="date" id="check-out" name="check-out" required>
+                        <div class="book-field">
+                            <label for="check-out">Depart</label>
+                            <input type="date" id="check-out" name="check-out">
                         </div>
-                        <div class="booking-field">
+                        <div class="book-field">
                             <label for="guests">Guests</label>
                             <select id="guests" name="guests">
                                 <option value="1">1 Guest</option>
@@ -153,1168 +244,218 @@
                                 <option value="10">10 Guests</option>
                             </select>
                         </div>
-                        <button type="button" id="check-availability" class="btn-check-availability">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="11" cy="11" r="8"/>
-                                <path d="M21 21l-4.35-4.35"/>
-                            </svg>
-                            Check Prices
+                        <button type="button" id="check-prices-btn" class="btn-primary">
+                            Check Availability
                         </button>
                     </div>
 
-                    <div id="events-display" class="events-display hidden">
-                        <div class="events-header">
-                            <span class="events-icon">🎉</span>
-                            <span>Events During Your Stay</span>
+                    <!-- Quote Display -->
+                    <div class="quote-display hidden" id="quote-display">
+                        <div class="quote-loading" id="quote-loading">
+                            <div class="loading-spinner"></div>
+                            <span>Finding your rate...</span>
                         </div>
-                        <div id="events-list" class="events-list"></div>
-                    </div>
-
-                    <!-- Add-Ons Section -->
-                    <div class="addons-section">
-                        <div class="addons-header">
-                            <span class="addons-icon">✨</span>
-                            <span>Enhance Your Stay</span>
-                        </div>
-                        <div class="addons-list">
-                            <label class="addon-item" id="addon-hot-tub" style="display: none;">
-                                <input type="checkbox" name="addon" value="hot-tub" data-price="400">
-                                <div class="addon-content">
-                                    <span class="addon-emoji">♨️</span>
-                                    <div class="addon-info">
-                                        <strong>Heated Pool to Hot Tub</strong>
-                                        <span>Convert the pool to a toasty hot tub (Oct-Apr only)</span>
-                                    </div>
-                                    <span class="addon-price">+$400</span>
-                                </div>
-                            </label>
-                            <label class="addon-item">
-                                <input type="checkbox" name="addon" value="cold-plunge" data-price="150">
-                                <div class="addon-content">
-                                    <span class="addon-emoji">🧊</span>
-                                    <div class="addon-info">
-                                        <strong>Cold Plunge</strong>
-                                        <span>Portable ice bath for recovery & wellness</span>
-                                    </div>
-                                    <span class="addon-price">+$150</span>
-                                </div>
-                            </label>
-                            <label class="addon-item">
-                                <input type="checkbox" name="addon" value="private-chef" data-price="500">
-                                <div class="addon-content">
-                                    <span class="addon-emoji">👨‍🍳</span>
-                                    <div class="addon-info">
-                                        <strong>Private Chef</strong>
-                                        <span>In-home dinner for up to 10 guests</span>
-                                    </div>
-                                    <span class="addon-price">+$500</span>
-                                </div>
-                            </label>
-                            <label class="addon-item">
-                                <input type="checkbox" name="addon" value="grocery-stock" data-price="75">
-                                <div class="addon-content">
-                                    <span class="addon-emoji">🛒</span>
-                                    <div class="addon-info">
-                                        <strong>Grocery Stocking</strong>
-                                        <span>Fridge stocked with your preferences</span>
-                                    </div>
-                                    <span class="addon-price">+$75</span>
-                                </div>
-                            </label>
-                            <label class="addon-item">
-                                <input type="checkbox" name="addon" value="airport-transfer" data-price="120">
-                                <div class="addon-content">
-                                    <span class="addon-emoji">🚐</span>
-                                    <div class="addon-info">
-                                        <strong>Airport Transfer</strong>
-                                        <span>Round-trip private car service</span>
-                                    </div>
-                                    <span class="addon-price">+$120</span>
-                                </div>
-                            </label>
-                        </div>
-                        <p class="addons-note">Select add-ons and we'll contact you to arrange details after booking.</p>
-                    </div>
-
-                    <div id="quote-result" class="quote-result hidden">
-                        <div class="quote-loading hidden">
-                            <div class="spinner"></div>
-                            <span>Checking availability...</span>
-                        </div>
-                        <div class="quote-details hidden">
-                            <div class="quote-property-name">Outdoor Living in New Orleans | Heated Pool</div>
-
-                            <div class="quote-header-grid">
-                                <div class="quote-header-item">
-                                    <span class="quote-header-label">Check In</span>
-                                    <span class="quote-header-value" id="quote-checkin"></span>
-                                </div>
-                                <div class="quote-header-item">
-                                    <span class="quote-header-label">Check Out</span>
-                                    <span class="quote-header-value" id="quote-checkout"></span>
-                                </div>
-                                <div class="quote-header-item">
-                                    <span class="quote-header-label">Nights</span>
-                                    <span class="quote-header-value" id="quote-nights-count"></span>
-                                </div>
-                                <div class="quote-header-item">
-                                    <span class="quote-header-label">Guests</span>
-                                    <span class="quote-header-value" id="quote-guests-count"></span>
+                        <div class="quote-result hidden" id="quote-result">
+                            <div class="quote-summary">
+                                <div class="quote-dates" id="quote-dates"></div>
+                                <div class="quote-price">
+                                    <span class="price-total" id="quote-total"></span>
+                                    <span class="price-breakdown" id="quote-breakdown"></span>
                                 </div>
                             </div>
-
-                            <div class="quote-breakdown">
-                                <div class="quote-line">
-                                    <span>Subtotal</span>
-                                    <span id="quote-subtotal"></span>
-                                </div>
-                                <div class="quote-line">
-                                    <span>Fees</span>
-                                    <span id="quote-fees"></span>
-                                </div>
-                                <div class="quote-line quote-subtotal-line">
-                                    <span>Subtotal before taxes</span>
-                                    <span id="quote-before-tax"></span>
-                                </div>
-                                <div class="quote-line">
-                                    <span>Taxes</span>
-                                    <span id="quote-taxes"></span>
-                                </div>
-                                <div class="quote-line quote-total">
-                                    <span>Total</span>
-                                    <span id="quote-total"></span>
-                                </div>
-                            </div>
-
                             <button type="button" id="book-now-btn" class="btn-book-now">
                                 Book Now
                             </button>
                         </div>
+                        <div class="quote-error hidden" id="quote-error">
+                            <p id="quote-error-message"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                        <!-- Checkout Form (shown after clicking Book Now) -->
-                        <div id="checkout-form" class="checkout-form hidden">
-                            <div class="checkout-header">
-                                <button type="button" id="checkout-back-btn" class="checkout-back-btn">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M19 12H5M12 19l-7-7 7-7"/>
-                                    </svg>
-                                    Back to Quote
-                                </button>
-                                <h3>Complete Your Booking</h3>
+            <!-- Checkout Form (Hidden by default) -->
+            <div class="checkout-container hidden" id="checkout-container">
+                <div class="checkout-card">
+                    <h3>Complete Your Reservation</h3>
+                    <div class="checkout-summary" id="checkout-summary"></div>
+
+                    <form id="checkout-form">
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="guest-first-name">First Name</label>
+                                <input type="text" id="guest-first-name" required>
                             </div>
-
-                            <!-- Checkout Summary -->
-                            <div class="checkout-summary">
-                                <div class="checkout-summary-row">
-                                    <span>Check-in</span>
-                                    <span id="checkout-checkin"></span>
-                                </div>
-                                <div class="checkout-summary-row">
-                                    <span>Check-out</span>
-                                    <span id="checkout-checkout"></span>
-                                </div>
-                                <div class="checkout-summary-row">
-                                    <span>Guests</span>
-                                    <span id="checkout-guests"></span>
-                                </div>
-                                <div class="checkout-summary-row checkout-summary-total">
-                                    <span>Total</span>
-                                    <span id="checkout-total"></span>
-                                </div>
+                            <div class="form-field">
+                                <label for="guest-last-name">Last Name</label>
+                                <input type="text" id="guest-last-name" required>
                             </div>
-
-                            <!-- Guest Information -->
-                            <div class="checkout-section">
-                                <h4>Guest Information</h4>
-                                <div class="checkout-fields">
-                                    <div class="checkout-field-row">
-                                        <div class="checkout-field">
-                                            <label for="guest-first-name">First Name</label>
-                                            <input type="text" id="guest-first-name" required>
-                                        </div>
-                                        <div class="checkout-field">
-                                            <label for="guest-last-name">Last Name</label>
-                                            <input type="text" id="guest-last-name" required>
-                                        </div>
-                                    </div>
-                                    <div class="checkout-field">
-                                        <label for="guest-email">Email</label>
-                                        <input type="email" id="guest-email" required>
-                                    </div>
-                                    <div class="checkout-field">
-                                        <label for="guest-phone">Phone</label>
-                                        <input type="tel" id="guest-phone" placeholder="Optional">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Payment Information -->
-                            <div class="checkout-section">
-                                <h4>Payment Details</h4>
-                                <div class="checkout-field">
-                                    <label>Card</label>
-                                    <div id="card-element"></div>
-                                    <div id="card-errors" class="card-errors"></div>
-                                </div>
-                                <p class="payment-note">Your card will be charged according to the payment schedule. Guesty securely processes all payments.</p>
-                            </div>
-
-                            <!-- Terms -->
-                            <div class="checkout-terms">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" id="accept-terms" required>
-                                    <span class="checkbox-custom"></span>
-                                    <span>I agree to the <a href="#rules" target="_blank">house rules</a> and cancellation policy</span>
-                                </label>
-                            </div>
-
-                            <!-- Submit Button -->
-                            <button type="button" id="submit-booking" class="btn-submit-booking" disabled>
-                                <span class="btn-text">Confirm Booking</span>
-                                <span class="btn-loading hidden">
-                                    <span class="spinner-small"></span>
-                                    Processing...
-                                </span>
-                            </button>
-
-                            <!-- Checkout Error -->
-                            <div id="checkout-error" class="checkout-error hidden"></div>
+                        </div>
+                        <div class="form-field">
+                            <label for="guest-email">Email</label>
+                            <input type="email" id="guest-email" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="guest-phone">Phone</label>
+                            <input type="tel" id="guest-phone">
                         </div>
 
-                        <!-- Booking Confirmation (shown after successful booking) -->
-                        <div id="booking-confirmation" class="booking-confirmation hidden">
-                            <div class="confirmation-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
-                                    <path d="M22 4L12 14.01l-3-3"/>
-                                </svg>
-                            </div>
-                            <h3>Booking Confirmed!</h3>
-                            <p class="confirmation-message">Your reservation has been successfully created.</p>
-                            <div class="confirmation-details">
-                                <div class="confirmation-row">
-                                    <span>Confirmation #</span>
-                                    <span id="confirmation-number"></span>
-                                </div>
-                                <div class="confirmation-row">
-                                    <span>Check-in</span>
-                                    <span id="confirmation-checkin"></span>
-                                </div>
-                                <div class="confirmation-row">
-                                    <span>Check-out</span>
-                                    <span id="confirmation-checkout"></span>
-                                </div>
-                                <div class="confirmation-row">
-                                    <span>Total</span>
-                                    <span id="confirmation-total"></span>
-                                </div>
-                            </div>
-                            <p class="confirmation-email">A confirmation email has been sent to <strong id="confirmation-email-address"></strong></p>
-                            <a href="#" class="btn-new-booking" onclick="location.reload(); return false;">Make Another Booking</a>
+                        <div class="form-field">
+                            <label>Card Details</label>
+                            <div id="card-element"></div>
+                            <div id="card-errors" class="card-errors"></div>
                         </div>
-                        <div class="quote-error hidden">
-                            <span id="quote-error-message"></span>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="booking-card calendar-card">
-                    <div class="calendar-header">
-                        <button id="prev-month" class="calendar-nav">&larr;</button>
-                        <h3 id="calendar-month-year"></h3>
-                        <button id="next-month" class="calendar-nav">&rarr;</button>
-                    </div>
-                    <div class="calendar-grid">
-                        <div class="calendar-day-header">Sun</div>
-                        <div class="calendar-day-header">Mon</div>
-                        <div class="calendar-day-header">Tue</div>
-                        <div class="calendar-day-header">Wed</div>
-                        <div class="calendar-day-header">Thu</div>
-                        <div class="calendar-day-header">Fri</div>
-                        <div class="calendar-day-header">Sat</div>
-                    </div>
-                    <div id="calendar-days" class="calendar-days"></div>
-                    <div class="calendar-legend">
-                        <span class="legend-item"><span class="legend-available"></span> Available</span>
-                        <span class="legend-item"><span class="legend-unavailable"></span> Unavailable</span>
-                    </div>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="accept-terms" required>
+                            <span>I agree to the <a href="#" target="_blank">terms</a> and <a href="#" target="_blank">cancellation policy</a></span>
+                        </label>
+
+                        <button type="submit" id="submit-booking" class="btn-submit-booking">
+                            Confirm Reservation
+                        </button>
+                    </form>
                 </div>
             </div>
 
-            <div class="booking-features">
-                <div class="booking-feature">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
-                        <path d="M22 4L12 14.01l-3-3"/>
-                    </svg>
-                    <span>Instant Confirmation</span>
-                </div>
-                <div class="booking-feature">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <rect x="3" y="11" width="18" height="11" rx="2"/>
-                        <path d="M7 11V7a5 5 0 0110 0v4"/>
-                    </svg>
-                    <span>Secure Payment</span>
-                </div>
-                <div class="booking-feature">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                    </svg>
-                    <span>Free Cancellation</span>
-                </div>
+            <!-- Booking Confirmation (Hidden by default) -->
+            <div class="booking-confirmation hidden" id="booking-confirmation">
+                <div class="confirmation-icon">✓</div>
+                <h3>You're all set</h3>
+                <p>Confirmation details have been sent to your email.</p>
+                <div class="confirmation-details" id="confirmation-details"></div>
             </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-image">
-                    <img src="Copy of 1.jpg" alt="Living Room">
-                </div>
-                <div class="about-content">
-                    <div class="section-label">The Space</div>
-                    <h2>Artfully Designed for Gathering</h2>
-                    <p>Every corner of this home tells a story. Double-height ceilings, original murals by New Orleans artists, and thoughtfully curated spaces create an atmosphere that's equal parts gallery and retreat.</p>
-
-                    <div class="property-stats">
-                        <div class="stat">
-                            <span class="stat-number">5</span>
-                            <span class="stat-label">Bedrooms</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">4</span>
-                            <span class="stat-label">Baths</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">10</span>
-                            <span class="stat-label">Guests</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">8</span>
-                            <span class="stat-label">Beds</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Amenities Section -->
-    <section id="amenities" class="amenities-section">
-        <div class="container">
-            <div class="section-label">What We Offer</div>
-            <h2>Amenities</h2>
-
-            <div class="amenities-grid">
-                <div class="amenity-card">
-                    <div class="amenity-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <ellipse cx="12" cy="14" rx="9" ry="6"/>
-                            <path d="M3 14v2c0 3.31 4.03 6 9 6s9-2.69 9-6v-2"/>
-                            <path d="M12 4v4M8 6l4-2 4 2"/>
-                        </svg>
-                    </div>
-                    <h3>Heated Pool</h3>
-                    <p>Year-round swimming in your private heated pool</p>
-                </div>
-
-                <div class="amenity-card">
-                    <div class="amenity-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
-                        </svg>
-                    </div>
-                    <h3>Tiki Bar</h3>
-                    <p>Outdoor bar with tropical vibes</p>
-                </div>
-
-                <div class="amenity-card">
-                    <div class="amenity-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <rect x="2" y="3" width="20" height="14" rx="2"/>
-                            <path d="M8 21h8M12 17v4"/>
-                        </svg>
-                    </div>
-                    <h3>85" HDTV</h3>
-                    <p>Massive screen in the living room</p>
-                </div>
-
-                <div class="amenity-card">
-                    <div class="amenity-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <rect x="3" y="4" width="18" height="14" rx="2"/>
-                            <path d="M3 10h18"/>
-                            <circle cx="8" cy="7" r="1"/>
-                            <circle cx="12" cy="7" r="1"/>
-                        </svg>
-                    </div>
-                    <h3>Dining for 10</h3>
-                    <p>Custom table seating for your whole group</p>
-                </div>
-
-                <div class="amenity-card">
-                    <div class="amenity-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <circle cx="12" cy="12" r="3"/>
-                            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
-                        </svg>
-                    </div>
-                    <h3>Indoor/Outdoor Speakers</h3>
-                    <p>Music throughout the entire property</p>
-                </div>
-
-                <div class="amenity-card">
-                    <div class="amenity-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <rect x="3" y="3" width="18" height="18" rx="2"/>
-                            <path d="M3 9h18M9 21V9"/>
-                        </svg>
-                    </div>
-                    <h3>BBQ Grill</h3>
-                    <p>Outdoor grilling station</p>
-                </div>
-
-                <div class="amenity-card">
-                    <div class="amenity-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-                            <polyline points="9,22 9,12 15,12 15,22"/>
-                        </svg>
-                    </div>
-                    <h3>Gourmet Kitchen</h3>
-                    <p>Full kitchen with island seating</p>
-                </div>
-
-                <div class="amenity-card">
-                    <div class="amenity-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-                        </svg>
-                    </div>
-                    <h3>Double-Height Ceilings</h3>
-                    <p>Dramatic open living space</p>
-                </div>
-
-                <div class="amenity-card">
-                    <div class="amenity-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <rect x="3" y="11" width="18" height="11" rx="2"/>
-                            <path d="M7 11V7a5 5 0 0110 0v4"/>
-                        </svg>
-                    </div>
-                    <h3>Smart Lock</h3>
-                    <p>Keyless self check-in</p>
-                </div>
-
-                <div class="amenity-card">
-                    <div class="amenity-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <circle cx="12" cy="12" r="3"/>
-                            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
-                        </svg>
-                    </div>
-                    <h3>Local Art</h3>
-                    <p>Original murals by NOLA artists</p>
-                </div>
-
-                <div class="amenity-card">
-                    <div class="amenity-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <rect x="1" y="6" width="22" height="12" rx="2"/>
-                            <path d="M6 6V4a2 2 0 012-2h8a2 2 0 012 2v2M6 18v2M18 18v2"/>
-                        </svg>
-                    </div>
-                    <h3>Free Parking</h3>
-                    <p>Off-street parking included</p>
-                </div>
-
-                <div class="amenity-card">
-                    <div class="amenity-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                            <polyline points="22,6 12,13 2,6"/>
-                        </svg>
-                    </div>
-                    <h3>Dedicated Workspace</h3>
-                    <p>Office space with fast WiFi</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section id="gallery" class="gallery-section">
-        <div class="container">
-            <div class="section-label">Take a Look</div>
-            <h2>Gallery</h2>
-            <div class="gallery-grid">
-                <img src="Copy of 45.jpg" alt="Pool & Backyard with Mural" class="gallery-img">
-                <img src="Copy of 50.jpg" alt="Pool & Outdoor Lounge" class="gallery-img">
-                <img src="Copy of 1.jpg" alt="Living Room" class="gallery-img">
-                <img src="Copy of 10.jpg" alt="Kitchen & Dining" class="gallery-img">
-                <img src="Copy of 5.jpg" alt="Kitchen Island" class="gallery-img">
-                <img src="Copy of 25.jpg" alt="King Bedroom" class="gallery-img">
-                <img src="Copy of 30.jpg" alt="Twin Bedroom" class="gallery-img">
-                <img src="Copy of 35.jpg" alt="Balcony" class="gallery-img">
-                <img src="Copy of 39.jpg" alt="Wet Bar" class="gallery-img">
-                <img src="Copy of 17.jpg" alt="Stairwell Art" class="gallery-img">
-                <img src="Copy of 23.jpg" alt="Bathroom" class="gallery-img">
-            </div>
-        </div>
-    </section>
-
-    <!-- Perfect For Section -->
-    <section id="perfect-for" class="perfect-for-section">
-        <div class="container">
-            <div class="section-label">Ideal For</div>
-            <h2>Perfect For</h2>
-
-            <div class="use-cases-grid">
-                <div class="use-case-card">
-                    <div class="use-case-icon">👨‍👩‍👧‍👦</div>
-                    <h3>Family Reunions</h3>
-                    <p>5 bedrooms and a private pool bring everyone together under one roof. Finally, a place where the cousins can play while the adults relax.</p>
-                </div>
-
-                <div class="use-case-card">
-                    <div class="use-case-icon">🎉</div>
-                    <h3>Bachelorette Parties</h3>
-                    <p>Pool days, getting-ready space, and steps from NOLA's best nightlife. Your crew deserves a home base as fun as the celebration.</p>
-                </div>
-
-                <div class="use-case-card">
-                    <div class="use-case-icon">🥂</div>
-                    <h3>Friends Getaways</h3>
-                    <p>Gather your people for a long weekend of poolside hangs, backyard BBQs, and late-night conversations. This is what group trips should feel like.</p>
-                </div>
-
-                <div class="use-case-card">
-                    <div class="use-case-icon">🎺</div>
-                    <h3>Festival Stays</h3>
-                    <p>Jazz Fest. Mardi Gras. French Quarter Fest. Come home to a private oasis after days in the crowds—with room for the whole crew.</p>
-                </div>
-
-                <div class="use-case-card">
-                    <div class="use-case-icon">💻</div>
-                    <h3>Work Retreats</h3>
-                    <p>Fast WiFi, a big dining table for collaboration, and a pool for after-hours. Get the work done, then reward yourselves.</p>
-                </div>
-
-                <div class="use-case-card">
-                    <div class="use-case-icon">👴👶</div>
-                    <h3>Multi-Gen Family Trips</h3>
-                    <p>Grandparents, parents, and kids all in one place. Separate bedrooms for privacy, shared spaces for memory-making.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Layout Section (Floor Plan + Sleeping) -->
-    <section id="floorplan" class="layout-section">
-        <div class="container">
-            <div class="section-label">The Layout</div>
-            <h2>Floor Plan & Sleeping Arrangements</h2>
-            <p class="layout-intro">Two floors of thoughtfully designed living space with 5 bedrooms, 4 bathrooms, and seamless indoor-outdoor flow.</p>
-
-            <div class="layout-grid">
-                <div class="floorplan-image">
-                    <img src="2300 floor sketch.jpg" alt="Floor Plan">
-                </div>
-                <div class="sleeping-breakdown">
-                    <h3>Where You'll Sleep</h3>
-                    <p class="sleeping-subtitle">8 beds across 5 bedrooms</p>
-
-                    <div class="bedroom-list">
-                        <div class="bedroom-item bedroom-header">
-                            <span class="bedroom-name">Room</span>
-                            <span class="bedroom-floor">Floor</span>
-                            <span class="bedroom-beds">Beds</span>
-                        </div>
-                        <div class="bedroom-item">
-                            <span class="bedroom-name">Bedroom 1</span>
-                            <span class="bedroom-floor">Top Floor</span>
-                            <span class="bedroom-beds">1 King</span>
-                        </div>
-                        <div class="bedroom-item">
-                            <span class="bedroom-name">Bedroom 2</span>
-                            <span class="bedroom-floor">Top Floor</span>
-                            <span class="bedroom-beds">1 King</span>
-                        </div>
-                        <div class="bedroom-item">
-                            <span class="bedroom-name">Bedroom 3</span>
-                            <span class="bedroom-floor">Top Floor</span>
-                            <span class="bedroom-beds">2 Queens</span>
-                        </div>
-                        <div class="bedroom-item">
-                            <span class="bedroom-name">Bedroom 4</span>
-                            <span class="bedroom-floor">1st Floor</span>
-                            <span class="bedroom-beds">2 Queens</span>
-                        </div>
-                        <div class="bedroom-item">
-                            <span class="bedroom-name">Bedroom 5</span>
-                            <span class="bedroom-floor">1st Floor</span>
-                            <span class="bedroom-beds">1 Queen + 1 Single</span>
-                        </div>
-                    </div>
-
-                    <div class="layout-stats">
-                        <div class="layout-stat">
-                            <span class="layout-stat-number">5</span>
-                            <span class="layout-stat-label">Bedrooms</span>
-                        </div>
-                        <div class="layout-stat">
-                            <span class="layout-stat-number">4</span>
-                            <span class="layout-stat-label">Bathrooms</span>
-                        </div>
-                        <div class="layout-stat">
-                            <span class="layout-stat-number">2</span>
-                            <span class="layout-stat-label">Floors</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Explore New Orleans Section - Visual -->
-    <section id="explore" class="explore-section">
-        <div class="explore-header">
-            <div class="section-label">This is New Orleans</div>
-            <h2>Your City Awaits</h2>
-        </div>
-
-        <div class="explore-visual-grid">
-            <div class="explore-tile explore-tile-large" style="background-image: url('nola-french-quarter.jpg');">
-                <div class="explore-tile-overlay"></div>
-                <div class="explore-tile-content">
-                    <span class="explore-tile-label">10 min drive</span>
-                    <h3>French Quarter</h3>
-                </div>
-            </div>
-            <div class="explore-tile" style="background-image: url('nola-music.jpg');">
-                <div class="explore-tile-overlay"></div>
-                <div class="explore-tile-content">
-                    <span class="explore-tile-label">Live Music</span>
-                    <h3>Frenchmen Street</h3>
-                </div>
-            </div>
-            <div class="explore-tile" style="background-image: url('nola-food.jpg');">
-                <div class="explore-tile-overlay"></div>
-                <div class="explore-tile-content">
-                    <span class="explore-tile-label">Dining</span>
-                    <h3>World-Class Cuisine</h3>
-                </div>
-            </div>
-            <div class="explore-tile" style="background-image: url('nola-garden-district.jpg');">
-                <div class="explore-tile-overlay"></div>
-                <div class="explore-tile-content">
-                    <span class="explore-tile-label">3 min drive</span>
-                    <h3>Garden District</h3>
-                </div>
-            </div>
-            <div class="explore-tile" style="background-image: url('nola-magazine.jpg');">
-                <div class="explore-tile-overlay"></div>
-                <div class="explore-tile-content">
-                    <span class="explore-tile-label">5 min walk</span>
-                    <h3>Magazine Street</h3>
-                </div>
-            </div>
-            <div class="explore-tile" style="background-image: url('nola-audubon.jpg');">
-                <div class="explore-tile-overlay"></div>
-                <div class="explore-tile-content">
-                    <span class="explore-tile-label">7 min drive</span>
-                    <h3>Superdome</h3>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Location Section -->
-    <section id="location" class="location-section">
-        <div class="container">
-            <div class="location-content">
-                <div class="location-text">
-                    <div class="section-label">Where You'll Be</div>
-                    <h2>Location</h2>
-                    <p>Located in the charming Freret neighborhood, you're perfectly positioned to explore everything New Orleans has to offer:</p>
-
-                    <ul class="location-list">
-                        <li>Garden District - 3 min drive</li>
-                        <li>Superdome - 7 min drive</li>
-                        <li>French Quarter - 10 min drive</li>
-                        <li>Convention Center - 10 min drive</li>
-                        <li>St. Charles Streetcar - 10 min walk</li>
-                        <li>Magazine Street - 5 min walk</li>
-                        <li>Freret Street restaurants - 3 min walk</li>
-                    </ul>
-                </div>
-                <div class="location-map">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3457.2!2d-90.1095!3d29.9344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8620a5f95d3e9b89%3A0x8c5c5e5e5e5e5e5e!2s2300%20Louisiana%20Ave%2C%20New%20Orleans%2C%20LA%2070115!5e0!3m2!1sen!2sus!4v1699999999999!5m2!1sen!2sus"
-                        width="100%"
-                        height="400"
-                        style="border:0; border-radius: 8px;"
-                        allowfullscreen=""
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- House Rules Section -->
-    <section id="rules" class="rules-section">
-        <div class="container">
-            <div class="section-label">Good to Know</div>
-            <h2>House Rules</h2>
-
-            <div class="rules-grid">
-                <div class="rule">
-                    <span class="rule-icon">🕐</span>
-                    <div>
-                        <strong>Check-in</strong>
-                        <p>After 3:00 PM</p>
-                    </div>
-                </div>
-                <div class="rule">
-                    <span class="rule-icon">🕐</span>
-                    <div>
-                        <strong>Check-out</strong>
-                        <p>Before 11:00 AM</p>
-                    </div>
-                </div>
-                <div class="rule">
-                    <span class="rule-icon">🚭</span>
-                    <div>
-                        <strong>No Smoking</strong>
-                        <p>Inside the property</p>
-                    </div>
-                </div>
-                <div class="rule">
-                    <span class="rule-icon">🚫</span>
-                    <div>
-                        <strong>No Pets</strong>
-                        <p>Pets not allowed</p>
-                    </div>
-                </div>
-                <div class="rule">
-                    <span class="rule-icon">🎉</span>
-                    <div>
-                        <strong>No Parties</strong>
-                        <p>No events or gatherings</p>
-                    </div>
-                </div>
-                <div class="rule">
-                    <span class="rule-icon">🔇</span>
-                    <div>
-                        <strong>Quiet Hours</strong>
-                        <p>10:00 PM - 8:00 AM</p>
-                    </div>
-                </div>
-                <div class="rule">
-                    <span class="rule-icon">👥</span>
-                    <div>
-                        <strong>Max Guests</strong>
-                        <p>10 guests maximum</p>
-                    </div>
-                </div>
-                <div class="rule">
-                    <span class="rule-icon">🔐</span>
-                    <div>
-                        <strong>Self Check-in</strong>
-                        <p>Smart lock entry</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <h2>Ready for Your New Orleans Escape?</h2>
-            <p>Book your stay at this private paradise</p>
-            <a href="#book" class="btn-book-cta">Check Availability</a>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <span class="logo-text">Marais</span>
-                    <span class="logo-tagline">artful vacation stays</span>
-                    <p>Curated homes in New Orleans for unforgettable stays.</p>
-                    <div class="superhost-badge">
-                        <span class="superhost-icon">⭐</span>
-                        <div class="superhost-info">
-                            <span class="superhost-title">Superhost</span>
-                            <span class="superhost-rating">4.93 rating · 129 reviews · 10 years hosting</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer-links">
-                    <a href="https://www.staymarais.com">View All Properties</a>
-                    <a href="https://www.staymarais.com/about">About Marais</a>
-                    <a href="mailto:hello@staymarais.com">Contact Us</a>
-                </div>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="footer-logo">Marais</span>
+                <p>A New Orleans Art House</p>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Marais. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#art">The Art</a>
+                <a href="#space">The Space</a>
+                <a href="#water">The Water</a>
+                <a href="#neighborhood">Neighborhood</a>
+                <a href="#book">Book</a>
             </div>
+            <div class="footer-contact">
+                <p>New Orleans, Louisiana</p>
+                <p>Irish Channel</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Marais. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobile-menu">
-        <a href="#about">About</a>
-        <a href="#amenities">Amenities</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#explore">Explore NOLA</a>
-        <a href="#location">Location</a>
-        <a href="#book" class="btn-book">Book Now</a>
-    </div>
-
     <script>
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
+        // ============================================
+        // NAVIGATION
+        // ============================================
+        const nav = document.getElementById('nav');
+        let lastScroll = 0;
 
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('active');
-            mobileMenuBtn.classList.toggle('active');
-        });
-
-        // Close mobile menu when clicking a link
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('active');
-                mobileMenuBtn.classList.remove('active');
-            });
-        });
-
-        // Navbar scroll effect
         window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
+            const currentScroll = window.pageYOffset;
+
+            // Show nav after scrolling past first scene
+            if (currentScroll > window.innerHeight * 0.5) {
+                nav.classList.add('visible');
             } else {
-                navbar.classList.remove('scrolled');
+                nav.classList.remove('visible');
             }
+
+            lastScroll = currentScroll;
         });
 
         // ============================================
-        // BOOKING WIDGET - Guesty API Integration
+        // SCROLL ANIMATIONS
         // ============================================
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -10% 0px'
+        };
 
-        const GUESTY_LISTING_ID = '637d17a91ea4b0002f3801a3';
-        const GUESTY_BOOKING_URL = 'https://marais.guestybookings.com/en/properties/' + GUESTY_LISTING_ID;
-        const GUESTY_CHECKOUT_URL = 'https://marais.guestybookings.com/en/properties/' + GUESTY_LISTING_ID + '/checkout';
-
-        // New Orleans Events & Festivals Calendar
-        const NOLA_EVENTS = [
-            // 2025
-            { name: 'Mardi Gras', start: '2025-03-01', end: '2025-03-04', emoji: '🎭', description: 'The ultimate New Orleans experience! Catch spectacular parades, king cake everywhere, and the city\'s legendary party spirit. Nothing compares to Mardi Gras in NOLA.' },
-            { name: 'French Quarter Festival', start: '2025-04-10', end: '2025-04-13', emoji: '🎵', description: 'The world\'s largest free music festival featuring 20+ stages of local Louisiana music. Amazing food booths and the perfect French Quarter atmosphere.' },
-            { name: 'Jazz Fest', start: '2025-04-25', end: '2025-05-04', emoji: '🎷', description: 'A bucket-list festival featuring world-class artists across 14 stages. Incredible food, local crafts, and the best of New Orleans culture all in one place.' },
-            { name: 'Essence Festival', start: '2025-07-03', end: '2025-07-06', emoji: '🎤', description: 'The nation\'s biggest celebration of Black music and culture. Top R&B, hip-hop, and soul artists plus empowerment seminars and incredible nightlife.' },
-            { name: 'Satchmo SummerFest', start: '2025-08-01', end: '2025-08-03', emoji: '🎺', description: 'Honoring Louis Armstrong\'s birthday with world-class jazz, brass bands, and seminars. A must for music lovers in the heart of the French Quarter.' },
-            { name: 'Southern Decadence', start: '2025-08-28', end: '2025-09-01', emoji: '🏳️‍🌈', description: 'Six days of parades, parties, and celebrations making it one of the country\'s largest LGBTQ+ events. The French Quarter comes alive with color and pride.' },
-            { name: 'Bayou Classic', start: '2025-11-27', end: '2025-11-29', emoji: '🏈', description: 'The legendary Grambling vs Southern rivalry game plus a battle of the bands, Greek step shows, and a fan fest. Thanksgiving weekend in NOLA at its finest.' },
-            { name: 'New Year\'s Eve', start: '2025-12-31', end: '2026-01-01', emoji: '🎆', description: 'Ring in the New Year NOLA-style! Watch the fleur-de-lis drop in Jackson Square, catch fireworks over the Mississippi, and party on Bourbon Street until dawn.' },
-
-            // 2026
-            { name: 'Mardi Gras', start: '2026-02-14', end: '2026-02-17', emoji: '🎭', description: 'The ultimate New Orleans experience! Catch spectacular parades, king cake everywhere, and the city\'s legendary party spirit. Nothing compares to Mardi Gras in NOLA.' },
-            { name: 'French Quarter Festival', start: '2026-04-09', end: '2026-04-12', emoji: '🎵', description: 'The world\'s largest free music festival featuring 20+ stages of local Louisiana music. Amazing food booths and the perfect French Quarter atmosphere.' },
-            { name: 'Jazz Fest', start: '2026-04-24', end: '2026-05-03', emoji: '🎷', description: 'A bucket-list festival featuring world-class artists across 14 stages. Incredible food, local crafts, and the best of New Orleans culture all in one place.' },
-            { name: 'Essence Festival', start: '2026-07-02', end: '2026-07-05', emoji: '🎤', description: 'The nation\'s biggest celebration of Black music and culture. Top R&B, hip-hop, and soul artists plus empowerment seminars and incredible nightlife.' },
-            { name: 'Satchmo SummerFest', start: '2026-07-31', end: '2026-08-02', emoji: '🎺', description: 'Honoring Louis Armstrong\'s birthday with world-class jazz, brass bands, and seminars. A must for music lovers in the heart of the French Quarter.' },
-            { name: 'Southern Decadence', start: '2026-09-03', end: '2026-09-07', emoji: '🏳️‍🌈', description: 'Six days of parades, parties, and celebrations making it one of the country\'s largest LGBTQ+ events. The French Quarter comes alive with color and pride.' },
-            { name: 'Bayou Classic', start: '2026-11-26', end: '2026-11-28', emoji: '🏈', description: 'The legendary Grambling vs Southern rivalry game plus a battle of the bands, Greek step shows, and a fan fest. Thanksgiving weekend in NOLA at its finest.' },
-            { name: 'New Year\'s Eve', start: '2026-12-31', end: '2027-01-01', emoji: '🎆', description: 'Ring in the New Year NOLA-style! Watch the fleur-de-lis drop in Jackson Square, catch fireworks over the Mississippi, and party on Bourbon Street until dawn.' },
-
-            // 2027
-            { name: 'Mardi Gras', start: '2027-02-13', end: '2027-02-16', emoji: '🎭', description: 'The ultimate New Orleans experience! Catch spectacular parades, king cake everywhere, and the city\'s legendary party spirit. Nothing compares to Mardi Gras in NOLA.' },
-            { name: 'French Quarter Festival', start: '2027-04-08', end: '2027-04-11', emoji: '🎵', description: 'The world\'s largest free music festival featuring 20+ stages of local Louisiana music. Amazing food booths and the perfect French Quarter atmosphere.' },
-            { name: 'Jazz Fest', start: '2027-04-23', end: '2027-05-02', emoji: '🎷', description: 'A bucket-list festival featuring world-class artists across 14 stages. Incredible food, local crafts, and the best of New Orleans culture all in one place.' },
-        ];
-
-        // Find events that overlap with selected dates
-        function findEventsInRange(checkIn, checkOut) {
-            const startDate = new Date(checkIn);
-            const endDate = new Date(checkOut);
-
-            return NOLA_EVENTS.filter(event => {
-                const eventStart = new Date(event.start);
-                const eventEnd = new Date(event.end);
-                // Check if date ranges overlap
-                return startDate <= eventEnd && endDate >= eventStart;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                }
             });
+        }, observerOptions);
+
+        // Observe all scenes and animated elements
+        document.querySelectorAll('.scene, .animate-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ============================================
+        // SMOOTH SCROLL FOR ANCHOR LINKS
+        // ============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // ============================================
+        // HORIZONTAL SCROLL FOR DETAILS
+        // ============================================
+        const detailsSection = document.querySelector('.scene-details');
+        const detailsTrack = document.querySelector('.details-track');
+
+        if (detailsSection && detailsTrack) {
+            // Add horizontal scroll on wheel in details section
+            detailsSection.addEventListener('wheel', (e) => {
+                if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+                    const container = document.querySelector('.details-scroll-container');
+                    container.scrollLeft += e.deltaY;
+                }
+            }, { passive: true });
         }
 
-        // Calendar state
-        let currentMonth = new Date();
-        let availabilityData = {};
-        let selectedCheckIn = null;
-        let selectedCheckOut = null;
-
-        // DOM Elements
+        // ============================================
+        // BOOKING FUNCTIONALITY
+        // ============================================
         const checkInInput = document.getElementById('check-in');
         const checkOutInput = document.getElementById('check-out');
         const guestsSelect = document.getElementById('guests');
-        const checkAvailabilityBtn = document.getElementById('check-availability');
+        const checkPricesBtn = document.getElementById('check-prices-btn');
+        const quoteDisplay = document.getElementById('quote-display');
+        const quoteLoading = document.getElementById('quote-loading');
         const quoteResult = document.getElementById('quote-result');
-        const quoteLoading = quoteResult.querySelector('.quote-loading');
-        const quoteDetails = quoteResult.querySelector('.quote-details');
-        const quoteError = quoteResult.querySelector('.quote-error');
-        const calendarDays = document.getElementById('calendar-days');
-        const calendarMonthYear = document.getElementById('calendar-month-year');
-        const prevMonthBtn = document.getElementById('prev-month');
-        const nextMonthBtn = document.getElementById('next-month');
+        const quoteError = document.getElementById('quote-error');
+        const bookNowBtn = document.getElementById('book-now-btn');
+        const checkoutContainer = document.getElementById('checkout-container');
 
         // Set minimum date to today
-        const today = new Date();
-        const todayStr = today.toISOString().split('T')[0];
-        checkInInput.min = todayStr;
-        checkOutInput.min = todayStr;
+        const today = new Date().toISOString().split('T')[0];
+        checkInInput.min = today;
+        checkOutInput.min = today;
 
-        // Hero booking bar elements
-        const heroCheckIn = document.getElementById('hero-check-in');
-        const heroCheckOut = document.getElementById('hero-check-out');
-        const heroGuests = document.getElementById('hero-guests');
-        const heroSearchBtn = document.getElementById('hero-search-btn');
-
-        // Set min dates for hero inputs
-        heroCheckIn.min = todayStr;
-        heroCheckOut.min = todayStr;
-
-        // Sync hero inputs with main booking inputs
-        heroCheckIn.addEventListener('change', () => {
-            checkInInput.value = heroCheckIn.value;
-            selectedCheckIn = heroCheckIn.value;
-            if (selectedCheckOut && new Date(selectedCheckOut) <= new Date(selectedCheckIn)) {
-                selectedCheckOut = null;
-                checkOutInput.value = '';
-                heroCheckOut.value = '';
-            }
-            renderCalendar();
-        });
-
-        heroCheckOut.addEventListener('change', () => {
-            checkOutInput.value = heroCheckOut.value;
-            selectedCheckOut = heroCheckOut.value;
-            renderCalendar();
-        });
-
-        heroGuests.addEventListener('change', () => {
-            guestsSelect.value = heroGuests.value;
-        });
-
-        // Hero search button - scroll to booking and trigger search
-        heroSearchBtn.addEventListener('click', () => {
-            if (heroCheckIn.value && heroCheckOut.value) {
-                checkInInput.value = heroCheckIn.value;
-                checkOutInput.value = heroCheckOut.value;
-                guestsSelect.value = heroGuests.value;
-                selectedCheckIn = heroCheckIn.value;
-                selectedCheckOut = heroCheckOut.value;
-
-                document.getElementById('book').scrollIntoView({ behavior: 'smooth' });
-                setTimeout(() => {
-                    checkAvailabilityBtn.click();
-                }, 500);
-            } else {
-                document.getElementById('book').scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-
-        // Client-side caching and rate limiting
-        const AVAILABILITY_CACHE_KEY = 'nola_availability_cache';
-        const AVAILABILITY_CACHE_DURATION = 30 * 60 * 1000; // 30 minutes
-        const QUOTE_CACHE_KEY = 'nola_quote_cache';
-        const QUOTE_CACHE_DURATION = 10 * 60 * 1000; // 10 minutes
-        let lastQuoteRequest = 0;
-        const QUOTE_RATE_LIMIT = 5000; // 5 seconds between requests
-        let availabilityFetched = false;
-
-        // Get cached availability from localStorage
-        function getCachedAvailability() {
-            try {
-                const cached = localStorage.getItem(AVAILABILITY_CACHE_KEY);
-                if (cached) {
-                    const { data, timestamp } = JSON.parse(cached);
-                    if (Date.now() - timestamp < AVAILABILITY_CACHE_DURATION) {
-                        return data;
-                    }
-                }
-            } catch (e) {}
-            return null;
-        }
-
-        // Save availability to localStorage
-        function cacheAvailability(data) {
-            try {
-                localStorage.setItem(AVAILABILITY_CACHE_KEY, JSON.stringify({
-                    data,
-                    timestamp: Date.now()
-                }));
-            } catch (e) {}
-        }
-
-        // Fetch availability from API (with caching)
-        async function fetchAvailability() {
-            if (availabilityFetched) return;
-
-            // Check localStorage cache first
-            const cached = getCachedAvailability();
-            if (cached) {
-                processAvailabilityData(cached);
-                availabilityFetched = true;
-                return;
-            }
-
-            try {
-                const response = await fetch('/.netlify/functions/get-availability');
-                if (response.ok) {
-                    const data = await response.json();
-                    cacheAvailability(data);
-                    processAvailabilityData(data);
-                    availabilityFetched = true;
-                }
-            } catch (error) {
-                console.log('Could not fetch availability - using cached or showing all available');
-                renderCalendar();
-            }
-        }
-
-        // Process availability data into lookup object
-        function processAvailabilityData(data) {
-            const days = Array.isArray(data) ? data : (data.data || []);
-            days.forEach(day => {
-                availabilityData[day.date] = day;
-            });
-            renderCalendar();
-        }
-
-        // Render calendar
-        function renderCalendar() {
-            const year = currentMonth.getFullYear();
-            const month = currentMonth.getMonth();
-
-            // Update header
-            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-                               'July', 'August', 'September', 'October', 'November', 'December'];
-            calendarMonthYear.textContent = `${monthNames[month]} ${year}`;
-
-            // Get first day of month and total days
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-            // Clear calendar
-            calendarDays.innerHTML = '';
-
-            // Add empty cells for days before first of month
-            for (let i = 0; i < firstDay; i++) {
-                const emptyCell = document.createElement('div');
-                emptyCell.className = 'calendar-day empty';
-                calendarDays.appendChild(emptyCell);
-            }
-
-            // Add days
-            for (let day = 1; day <= daysInMonth; day++) {
-                const dateObj = new Date(year, month, day);
-                const dateStr = dateObj.toISOString().split('T')[0];
-                const dayCell = document.createElement('div');
-                dayCell.className = 'calendar-day';
-                dayCell.textContent = day;
-
-                // Check if past
-                if (dateObj < new Date(today.getFullYear(), today.getMonth(), today.getDate())) {
-                    dayCell.classList.add('past');
-                } else {
-                    // Check availability
-                    const availability = availabilityData[dateStr];
-                    if (availability && (availability.status === 'unavailable' || availability.status === 'booked')) {
-                        dayCell.classList.add('unavailable');
-                    } else {
-                        // Clickable day
-                        dayCell.addEventListener('click', () => selectDate(dateStr, dayCell));
-                    }
-                }
-
-                // Highlight selected dates
-                if (selectedCheckIn === dateStr || selectedCheckOut === dateStr) {
-                    dayCell.classList.add('selected');
-                } else if (selectedCheckIn && selectedCheckOut) {
-                    const current = new Date(dateStr);
-                    const start = new Date(selectedCheckIn);
-                    const end = new Date(selectedCheckOut);
-                    if (current > start && current < end) {
-                        dayCell.classList.add('in-range');
-                    }
-                }
-
-                calendarDays.appendChild(dayCell);
-            }
-        }
-
-        // Select date from calendar
-        function selectDate(dateStr, dayCell) {
-            if (!selectedCheckIn || (selectedCheckIn && selectedCheckOut)) {
-                // Start new selection
-                selectedCheckIn = dateStr;
-                selectedCheckOut = null;
-                checkInInput.value = dateStr;
-                checkOutInput.value = '';
-            } else {
-                // Complete selection
-                if (new Date(dateStr) > new Date(selectedCheckIn)) {
-                    selectedCheckOut = dateStr;
-                    checkOutInput.value = dateStr;
-                } else {
-                    // Clicked date before check-in, restart
-                    selectedCheckIn = dateStr;
-                    selectedCheckOut = null;
-                    checkInInput.value = dateStr;
-                    checkOutInput.value = '';
-                }
-            }
-            renderCalendar();
-        }
-
-        // Sync date inputs with calendar selection
+        // Update checkout min date when check-in changes
         checkInInput.addEventListener('change', () => {
-            selectedCheckIn = checkInInput.value;
-            if (selectedCheckOut && new Date(selectedCheckOut) <= new Date(selectedCheckIn)) {
-                selectedCheckOut = null;
+            const checkInDate = new Date(checkInInput.value);
+            checkInDate.setDate(checkInDate.getDate() + 1);
+            checkOutInput.min = checkInDate.toISOString().split('T')[0];
+            if (checkOutInput.value && checkOutInput.value <= checkInInput.value) {
                 checkOutInput.value = '';
             }
-            renderCalendar();
         });
 
-        checkOutInput.addEventListener('change', () => {
-            selectedCheckOut = checkOutInput.value;
-            renderCalendar();
-        });
+        // Store quote data
+        let currentQuote = null;
 
-        // Navigate months
-        prevMonthBtn.addEventListener('click', () => {
-            currentMonth.setMonth(currentMonth.getMonth() - 1);
-            renderCalendar();
-        });
-
-        nextMonthBtn.addEventListener('click', () => {
-            currentMonth.setMonth(currentMonth.getMonth() + 1);
-            renderCalendar();
-        });
-
-        // Check availability button
-        checkAvailabilityBtn.addEventListener('click', async () => {
+        // Check prices
+        checkPricesBtn.addEventListener('click', async () => {
             const checkIn = checkInInput.value;
             const checkOut = checkOutInput.value;
             const guests = guestsSelect.value;
@@ -1324,319 +465,124 @@
                 return;
             }
 
-            if (new Date(checkOut) <= new Date(checkIn)) {
-                alert('Check-out must be after check-in');
-                return;
-            }
-
-            // Rate limiting - prevent spam clicks
-            const now = Date.now();
-            if (now - lastQuoteRequest < QUOTE_RATE_LIMIT) {
-                const waitTime = Math.ceil((QUOTE_RATE_LIMIT - (now - lastQuoteRequest)) / 1000);
-                return; // Silently ignore, already loading
-            }
-            lastQuoteRequest = now;
-
-            // Check if hot tub add-on should be shown (Oct-Apr only)
-            const hotTubAddon = document.getElementById('addon-hot-tub');
-            const checkInDate = new Date(checkIn);
-            const checkInMonth = checkInDate.getMonth(); // 0-11
-            // Show hot tub if check-in is Oct (9), Nov (10), Dec (11), Jan (0), Feb (1), Mar (2), Apr (3)
-            const isWinterSeason = checkInMonth >= 9 || checkInMonth <= 3;
-            hotTubAddon.style.display = isWinterSeason ? 'block' : 'none';
-            // Uncheck if hidden
-            if (!isWinterSeason) {
-                hotTubAddon.querySelector('input').checked = false;
-            }
-
-            // Check for events during stay
-            const eventsDisplay = document.getElementById('events-display');
-            const eventsList = document.getElementById('events-list');
-            const events = findEventsInRange(checkIn, checkOut);
-
-            if (events.length > 0) {
-                eventsList.innerHTML = events.map(event => `
-                    <div class="event-item">
-                        <span class="event-emoji">${event.emoji}</span>
-                        <div class="event-info">
-                            <strong>${event.name}</strong>
-                            <span>${event.description}</span>
-                        </div>
-                    </div>
-                `).join('');
-                eventsDisplay.classList.remove('hidden');
-            } else {
-                eventsDisplay.classList.add('hidden');
-            }
-
             // Show loading
-            quoteResult.classList.remove('hidden');
+            quoteDisplay.classList.remove('hidden');
             quoteLoading.classList.remove('hidden');
-            quoteDetails.classList.add('hidden');
+            quoteResult.classList.add('hidden');
             quoteError.classList.add('hidden');
 
             try {
                 const response = await fetch(`/.netlify/functions/get-quote?checkIn=${checkIn}&checkOut=${checkOut}&guests=${guests}`);
                 const data = await response.json();
 
-                if (response.ok && data) {
-                    showQuote(data, checkIn, checkOut, guests);
-                } else {
+                if (!response.ok) {
                     throw new Error(data.error || 'Unable to get quote');
                 }
-            } catch (error) {
-                // Fallback - show basic info and link to Guesty
+
+                currentQuote = data;
+
+                // Format dates
+                const checkInDate = new Date(checkIn + 'T00:00:00');
+                const checkOutDate = new Date(checkOut + 'T00:00:00');
+                const nights = Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
+
+                const dateOptions = { month: 'short', day: 'numeric' };
+                const formattedCheckIn = checkInDate.toLocaleDateString('en-US', dateOptions);
+                const formattedCheckOut = checkOutDate.toLocaleDateString('en-US', dateOptions);
+
+                // Display quote
+                document.getElementById('quote-dates').textContent = `${formattedCheckIn} - ${formattedCheckOut} · ${nights} night${nights > 1 ? 's' : ''}`;
+
+                const total = data.rates?.total || data.price?.total || 0;
+                document.getElementById('quote-total').textContent = `$${Math.round(total).toLocaleString()}`;
+                document.getElementById('quote-breakdown').textContent = 'total including fees & taxes';
+
                 quoteLoading.classList.add('hidden');
+                quoteResult.classList.remove('hidden');
 
-                const nights = Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24));
-
-                document.getElementById('quote-checkin').textContent = formatDateShort(checkIn);
-                document.getElementById('quote-checkout').textContent = formatDateShort(checkOut);
-                document.getElementById('quote-nights-count').textContent = nights + ' Night' + (nights > 1 ? 's' : '');
-                document.getElementById('quote-guests-count').textContent = guests;
-
-                // Show placeholder pricing
-                document.getElementById('quote-subtotal').textContent = 'View on booking page';
-                document.getElementById('quote-fees').textContent = '-';
-                document.getElementById('quote-before-tax').textContent = '-';
-                document.getElementById('quote-taxes').textContent = '-';
-                document.getElementById('quote-total').textContent = 'View pricing';
-
-                quoteDetails.classList.remove('hidden');
+            } catch (error) {
+                console.error('Quote error:', error);
+                document.getElementById('quote-error-message').textContent = error.message || 'Unable to get pricing. Please try again.';
+                quoteLoading.classList.add('hidden');
+                quoteError.classList.remove('hidden');
             }
         });
 
-        // Show quote details
-        function showQuote(data, checkIn, checkOut, guests) {
-            quoteLoading.classList.add('hidden');
-
-            const nights = Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24));
-
-            // Populate header grid
-            document.getElementById('quote-checkin').textContent = formatDateShort(checkIn);
-            document.getElementById('quote-checkout').textContent = formatDateShort(checkOut);
-            document.getElementById('quote-nights-count').textContent = nights + ' Night' + (nights > 1 ? 's' : '');
-            document.getElementById('quote-guests-count').textContent = guests;
-
-            // Parse pricing from quote response
-            let fareAccommodation = 0;
-            let cleaningFee = 0;
-            let serviceFee = 0;
-            let taxes = 0;
-            let total = 0;
-
-            // Guesty nests money inside rates.ratePlans[0].ratePlan.money
-            const ratePlan = data.rates?.ratePlans?.[0]?.ratePlan;
-            const money = ratePlan?.money || data.money;
-
-            // Debug: log the full response and rate limits
-            console.log('Quote API response:', JSON.stringify(data, null, 2));
-            console.log('Money object:', money);
-            if (data._rateLimits) {
-                console.log('🚦 Rate Limits - Remaining:', data._rateLimits);
-            }
-
-            if (money) {
-                fareAccommodation = money.fareAccommodation || 0;
-                cleaningFee = money.fareCleaning || 0;
-                serviceFee = money.fareService || money.guestServiceFee || 0;
-                taxes = money.totalTaxes || 0;
-                // Use invoiceTotal for guest-facing total, fallback to calculating it
-                total = money.invoiceTotal || money.subTotalPrice || (fareAccommodation + cleaningFee + serviceFee + taxes);
-            }
-
-            // Fallback: calculate from daily rates if no money object
-            if (!fareAccommodation && data.rates?.ratePlans?.[0]?.days) {
-                const days = data.rates.ratePlans[0].days;
-                fareAccommodation = days.reduce((sum, day) => sum + (day.price || 0), 0);
-                total = fareAccommodation + cleaningFee + serviceFee + taxes;
-            }
-
-            const subtotalBeforeTax = fareAccommodation + cleaningFee + serviceFee;
-
-            // Populate pricing breakdown
-            document.getElementById('quote-subtotal').textContent = formatCurrency(fareAccommodation);
-            document.getElementById('quote-fees').textContent = formatCurrency(cleaningFee);
-            document.getElementById('quote-before-tax').textContent = formatCurrency(subtotalBeforeTax);
-            document.getElementById('quote-taxes').textContent = formatCurrency(taxes);
-            document.getElementById('quote-total').textContent = formatCurrency(total);
-
-            quoteDetails.classList.remove('hidden');
-        }
-
-        // Format date (Feb 16, 2026)
-        function formatDateShort(dateStr) {
-            const date = new Date(dateStr + 'T00:00:00');
-            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-        }
-
-        // Format currency
-        function formatCurrency(amount) {
-            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
-        }
-
-        // Lazy load availability when booking section is visible
-        const bookingSection = document.getElementById('book');
-        const observerOptions = { threshold: 0.1 };
-        const bookingObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !availabilityFetched) {
-                    fetchAvailability();
-                    bookingObserver.disconnect();
-                }
-            });
-        }, observerOptions);
-        bookingObserver.observe(bookingSection);
-
-        // Initialize calendar (without API call)
-        renderCalendar();
+        // Book Now - Show checkout form
+        bookNowBtn.addEventListener('click', () => {
+            checkoutContainer.classList.remove('hidden');
+            checkoutContainer.scrollIntoView({ behavior: 'smooth' });
+            initializeStripe();
+        });
 
         // ============================================
-        // STRIPE CHECKOUT INTEGRATION
+        // STRIPE INTEGRATION
         // ============================================
+        let stripe, cardElement;
 
-        // Store quote data for checkout
-        let currentQuoteData = null;
-        let stripeInstance = null;
-        let cardElement = null;
-
-        // Initialize Stripe (lazy load when needed)
         function initializeStripe() {
-            if (stripeInstance) return stripeInstance;
+            if (stripe) return; // Already initialized
 
-            // Stripe publishable key
-            stripeInstance = Stripe('pk_live_LKZLJ4NxjahxWDx9hYlD2lNm00ZBKE4pVm');
-            return stripeInstance;
-        }
-
-        // Initialize Stripe Elements card input
-        function initializeCardElement() {
-            if (cardElement) return;
-
-            const stripe = initializeStripe();
+            stripe = Stripe('pk_live_LKZLJ4NxjahxWDx9hYlD2lNm00ZBKE4pVm');
             const elements = stripe.elements();
 
-            const style = {
-                base: {
-                    color: '#2D2D2D',
-                    fontFamily: '"Montserrat", sans-serif',
-                    fontSmoothing: 'antialiased',
-                    fontSize: '16px',
-                    '::placeholder': {
-                        color: '#A0A0A0'
+            cardElement = elements.create('card', {
+                style: {
+                    base: {
+                        fontSize: '16px',
+                        color: '#2D2D2D',
+                        fontFamily: "'Montserrat', sans-serif",
+                        '::placeholder': { color: '#A0A0A0' }
                     }
-                },
-                invalid: {
-                    color: '#b44',
-                    iconColor: '#b44'
                 }
-            };
+            });
 
-            cardElement = elements.create('card', { style });
             cardElement.mount('#card-element');
 
-            // Handle card errors
             cardElement.on('change', (event) => {
-                const errorDisplay = document.getElementById('card-errors');
-                if (event.error) {
-                    errorDisplay.textContent = event.error.message;
-                    errorDisplay.classList.remove('hidden');
-                } else {
-                    errorDisplay.textContent = '';
-                    errorDisplay.classList.add('hidden');
-                }
-                updateSubmitButtonState();
+                const displayError = document.getElementById('card-errors');
+                displayError.textContent = event.error ? event.error.message : '';
             });
-        }
-
-        // DOM elements for checkout
-        const bookNowBtn = document.getElementById('book-now-btn');
-        const checkoutForm = document.getElementById('checkout-form');
-        const checkoutBackBtn = document.getElementById('checkout-back-btn');
-        const submitBookingBtn = document.getElementById('submit-booking');
-        const acceptTermsCheckbox = document.getElementById('accept-terms');
-        const bookingConfirmation = document.getElementById('booking-confirmation');
-
-        // Update submit button state based on form validity
-        function updateSubmitButtonState() {
-            const firstName = document.getElementById('guest-first-name').value.trim();
-            const lastName = document.getElementById('guest-last-name').value.trim();
-            const email = document.getElementById('guest-email').value.trim();
-            const termsAccepted = acceptTermsCheckbox.checked;
-            const cardErrors = document.getElementById('card-errors').textContent;
-
-            const isValid = firstName && lastName && email && termsAccepted && !cardErrors;
-            submitBookingBtn.disabled = !isValid;
-        }
-
-        // Add event listeners for form validation
-        ['guest-first-name', 'guest-last-name', 'guest-email', 'guest-phone'].forEach(id => {
-            const el = document.getElementById(id);
-            if (el) {
-                el.addEventListener('input', updateSubmitButtonState);
-            }
-        });
-        acceptTermsCheckbox.addEventListener('change', updateSubmitButtonState);
-
-        // Show checkout form when "Book Now" is clicked
-        bookNowBtn.addEventListener('click', () => {
-            if (!currentQuoteData) {
-                alert('Please check prices first');
-                return;
-            }
 
             // Populate checkout summary
-            document.getElementById('checkout-checkin').textContent = document.getElementById('quote-checkin').textContent;
-            document.getElementById('checkout-checkout').textContent = document.getElementById('quote-checkout').textContent;
-            document.getElementById('checkout-guests').textContent = document.getElementById('quote-guests-count').textContent;
-            document.getElementById('checkout-total').textContent = document.getElementById('quote-total').textContent;
+            const checkIn = checkInInput.value;
+            const checkOut = checkOutInput.value;
+            const guests = guestsSelect.value;
+            const total = currentQuote?.rates?.total || currentQuote?.price?.total || 0;
 
-            // Show checkout form, hide quote details
-            quoteDetails.classList.add('hidden');
-            checkoutForm.classList.remove('hidden');
-            bookingConfirmation.classList.add('hidden');
+            document.getElementById('checkout-summary').innerHTML = `
+                <div class="summary-row">
+                    <span>Dates</span>
+                    <span>${checkIn} to ${checkOut}</span>
+                </div>
+                <div class="summary-row">
+                    <span>Guests</span>
+                    <span>${guests}</span>
+                </div>
+                <div class="summary-row summary-total">
+                    <span>Total</span>
+                    <span>$${Math.round(total).toLocaleString()}</span>
+                </div>
+            `;
+        }
 
-            // Initialize Stripe card element
-            initializeCardElement();
+        // Handle checkout form submission
+        const checkoutForm = document.getElementById('checkout-form');
+        checkoutForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-            // Scroll to checkout form
-            checkoutForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-
-        // Back button returns to quote
-        checkoutBackBtn.addEventListener('click', () => {
-            checkoutForm.classList.add('hidden');
-            quoteDetails.classList.remove('hidden');
-        });
-
-        // Handle booking submission
-        submitBookingBtn.addEventListener('click', async () => {
-            if (submitBookingBtn.disabled) return;
-
-            const firstName = document.getElementById('guest-first-name').value.trim();
-            const lastName = document.getElementById('guest-last-name').value.trim();
-            const email = document.getElementById('guest-email').value.trim();
-            const phone = document.getElementById('guest-phone').value.trim();
-
-            // Show loading state
-            submitBookingBtn.disabled = true;
-            submitBookingBtn.querySelector('.btn-text').classList.add('hidden');
-            submitBookingBtn.querySelector('.btn-loading').classList.remove('hidden');
-
-            const checkoutError = document.getElementById('checkout-error');
-            checkoutError.classList.add('hidden');
+            const submitBtn = document.getElementById('submit-booking');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Processing...';
 
             try {
-                const stripe = initializeStripe();
-
-                // Create payment method (tokenize card)
+                // Create payment method
                 const { paymentMethod, error } = await stripe.createPaymentMethod({
                     type: 'card',
                     card: cardElement,
                     billing_details: {
-                        name: `${firstName} ${lastName}`,
-                        email: email,
-                        phone: phone || undefined
+                        name: `${document.getElementById('guest-first-name').value} ${document.getElementById('guest-last-name').value}`,
+                        email: document.getElementById('guest-email').value
                     }
                 });
 
@@ -1644,208 +590,68 @@
                     throw new Error(error.message);
                 }
 
-                // Get quoteId and ratePlanId from stored quote data
-                const quoteId = currentQuoteData._id || currentQuoteData.id;
-                const ratePlanId = currentQuoteData.rates?.ratePlans?.[0]?.ratePlan?._id ||
-                                   currentQuoteData.rates?.ratePlans?.[0]?._id;
-
-                if (!quoteId) {
-                    throw new Error('Quote ID not found. Please check prices again.');
-                }
-
-                // Create reservation via our backend
+                // Create reservation
                 const response = await fetch('/.netlify/functions/create-reservation', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        quoteId: quoteId,
-                        ratePlanId: ratePlanId,
+                        quoteId: currentQuote._id || currentQuote.id,
+                        ratePlanId: currentQuote.ratePlanId,
                         ccToken: paymentMethod.id,
                         guest: {
-                            firstName,
-                            lastName,
-                            email,
-                            phone
+                            firstName: document.getElementById('guest-first-name').value,
+                            lastName: document.getElementById('guest-last-name').value,
+                            email: document.getElementById('guest-email').value,
+                            phone: document.getElementById('guest-phone').value
                         }
                     })
                 });
 
                 const result = await response.json();
 
-                if (!response.ok || result.error) {
-                    throw new Error(result.error || 'Failed to create reservation');
+                if (!response.ok || !result.success) {
+                    throw new Error(result.error || 'Reservation failed');
                 }
 
                 // Show confirmation
-                showBookingConfirmation(result, email);
+                checkoutContainer.classList.add('hidden');
+                document.getElementById('booking-confirmation').classList.remove('hidden');
+                document.getElementById('confirmation-details').innerHTML = `
+                    <p><strong>Confirmation:</strong> ${result.reservation.confirmationCode || result.reservation._id}</p>
+                    <p><strong>Dates:</strong> ${checkInInput.value} to ${checkOutInput.value}</p>
+                `;
 
             } catch (error) {
                 console.error('Booking error:', error);
-                checkoutError.textContent = error.message || 'An error occurred. Please try again.';
-                checkoutError.classList.remove('hidden');
-
-                // Reset button state
-                submitBookingBtn.disabled = false;
-                submitBookingBtn.querySelector('.btn-text').classList.remove('hidden');
-                submitBookingBtn.querySelector('.btn-loading').classList.add('hidden');
+                alert(error.message || 'Unable to complete booking. Please try again.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Confirm Reservation';
             }
         });
 
-        // Show booking confirmation
-        function showBookingConfirmation(result, email) {
-            const reservation = result.reservation || result;
-
-            // Populate confirmation details
-            document.getElementById('confirmation-number').textContent =
-                reservation.confirmationCode || reservation._id || 'Confirmed';
-            document.getElementById('confirmation-checkin').textContent =
-                document.getElementById('checkout-checkin').textContent;
-            document.getElementById('confirmation-checkout').textContent =
-                document.getElementById('checkout-checkout').textContent;
-            document.getElementById('confirmation-total').textContent =
-                document.getElementById('checkout-total').textContent;
-            document.getElementById('confirmation-email-address').textContent = email;
-
-            // Hide checkout form, show confirmation
-            checkoutForm.classList.add('hidden');
-            bookingConfirmation.classList.remove('hidden');
-
-            // Scroll to confirmation
-            bookingConfirmation.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        // Store quote data when showing quote (modify existing showQuote function)
-        const originalShowQuote = showQuote;
-        showQuote = function(data, checkIn, checkOut, guests) {
-            // Store quote data for checkout
-            currentQuoteData = data;
-            // Call original function
-            originalShowQuote(data, checkIn, checkOut, guests);
-        };
-
         // ============================================
-        // SCROLL ANIMATIONS
+        // PARALLAX EFFECTS
         // ============================================
-
-        // Elements to animate on scroll
-        const animateElements = () => {
-            // Section headers
-            document.querySelectorAll('.section-label, section h2, .booking-header').forEach(el => {
-                el.classList.add('animate-on-scroll');
-            });
-
-            // About section
-            document.querySelectorAll('.about-image, .about-content').forEach((el, i) => {
-                el.classList.add('animate-on-scroll');
-                el.classList.add(i === 0 ? 'animate-fade-right' : 'animate-fade-left');
-            });
-
-            // Amenity cards with stagger
-            document.querySelectorAll('.amenity-card').forEach((el, i) => {
-                el.classList.add('animate-on-scroll');
-                el.classList.add(`stagger-${(i % 4) + 1}`);
-            });
-
-            // Gallery images with stagger
-            document.querySelectorAll('.gallery-img').forEach((el, i) => {
-                el.classList.add('animate-on-scroll', 'animate-scale');
-                el.classList.add(`stagger-${(i % 4) + 1}`);
-            });
-
-            // Use case cards with stagger
-            document.querySelectorAll('.use-case-card').forEach((el, i) => {
-                el.classList.add('animate-on-scroll');
-                el.classList.add(`stagger-${(i % 3) + 1}`);
-            });
-
-            // Rules with stagger
-            document.querySelectorAll('.rule').forEach((el, i) => {
-                el.classList.add('animate-on-scroll');
-                el.classList.add(`stagger-${(i % 4) + 1}`);
-            });
-
-            // Explore tiles
-            document.querySelectorAll('.explore-tile').forEach((el, i) => {
-                el.classList.add('animate-on-scroll', 'animate-scale');
-                el.classList.add(`stagger-${(i % 3) + 1}`);
-            });
-
-            // Location content
-            document.querySelectorAll('.location-text, .location-map').forEach((el, i) => {
-                el.classList.add('animate-on-scroll');
-                el.classList.add(i === 0 ? 'animate-fade-right' : 'animate-fade-left');
-            });
-
-            // Pool feature
-            document.querySelectorAll('.pool-feature-text').forEach(el => {
-                el.classList.add('animate-on-scroll');
-            });
-
-            // Layout section
-            document.querySelectorAll('.floorplan-image, .sleeping-breakdown').forEach((el, i) => {
-                el.classList.add('animate-on-scroll');
-                el.classList.add(i === 0 ? 'animate-fade-right' : 'animate-fade-left');
-            });
-
-            // Booking features
-            document.querySelectorAll('.booking-feature').forEach((el, i) => {
-                el.classList.add('animate-on-scroll');
-                el.classList.add(`stagger-${i + 1}`);
-            });
-
-            // Property stats
-            document.querySelectorAll('.stat').forEach((el, i) => {
-                el.classList.add('animate-on-scroll');
-                el.classList.add(`stagger-${i + 1}`);
-            });
-        };
-
-        // Intersection Observer for scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const animationObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animated');
-                    // Optional: unobserve after animation
-                    // animationObserver.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        // Initialize animations after DOM is ready
-        document.addEventListener('DOMContentLoaded', () => {
-            animateElements();
-
-            // Observe all animated elements
-            document.querySelectorAll('.animate-on-scroll, .animate-fade-up, .animate-fade-left, .animate-fade-right, .animate-scale').forEach(el => {
-                animationObserver.observe(el);
-            });
-        });
-
-        // Parallax effect on scroll
-        let ticking = false;
         window.addEventListener('scroll', () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    const scrolled = window.pageYOffset;
+            const scrolled = window.pageYOffset;
 
-                    // Subtle parallax on hero
-                    const hero = document.querySelector('.hero::before');
-                    if (hero) {
-                        hero.style.transform = `scale(1) translateY(${scrolled * 0.3}px)`;
-                    }
-
-                    ticking = false;
-                });
-                ticking = true;
+            // Parallax for invitation background
+            const invitationBg = document.querySelector('.invitation-bg');
+            if (invitationBg) {
+                invitationBg.style.transform = `translateY(${scrolled * 0.5}px)`;
             }
-        });
+
+            // Parallax for water background
+            const waterBg = document.querySelector('.water-bg img');
+            if (waterBg) {
+                const waterSection = document.querySelector('.scene-water');
+                const waterRect = waterSection.getBoundingClientRect();
+                if (waterRect.top < window.innerHeight && waterRect.bottom > 0) {
+                    const progress = (window.innerHeight - waterRect.top) / (window.innerHeight + waterRect.height);
+                    waterBg.style.transform = `translateY(${progress * -100}px) scale(1.1)`;
+                }
+            }
+        }, { passive: true });
     </script>
 </body>
 </html>
