@@ -145,6 +145,14 @@
                         </button>
                     </div>
 
+                    <div id="events-display" class="events-display hidden">
+                        <div class="events-header">
+                            <span class="events-icon">🎉</span>
+                            <span>Events During Your Stay</span>
+                        </div>
+                        <div id="events-list" class="events-list"></div>
+                    </div>
+
                     <div id="quote-result" class="quote-result hidden">
                         <div class="quote-loading hidden">
                             <div class="spinner"></div>
@@ -786,6 +794,50 @@
         const GUESTY_BOOKING_URL = 'https://marais.guestybookings.com/en/properties/' + GUESTY_LISTING_ID;
         const GUESTY_CHECKOUT_URL = 'https://marais.guestybookings.com/en/properties/' + GUESTY_LISTING_ID + '/checkout';
 
+        // New Orleans Events & Festivals Calendar
+        const NOLA_EVENTS = [
+            // 2025
+            { name: 'Mardi Gras', start: '2025-03-01', end: '2025-03-04', emoji: '🎭', description: 'The biggest party in New Orleans!' },
+            { name: 'French Quarter Festival', start: '2025-04-10', end: '2025-04-13', emoji: '🎵', description: 'Free music festival in the French Quarter' },
+            { name: 'Jazz Fest', start: '2025-04-25', end: '2025-05-04', emoji: '🎷', description: 'World-famous New Orleans Jazz & Heritage Festival' },
+            { name: 'Essence Festival', start: '2025-07-03', end: '2025-07-06', emoji: '🎤', description: 'The largest African-American music & culture festival' },
+            { name: 'Satchmo SummerFest', start: '2025-08-01', end: '2025-08-03', emoji: '🎺', description: 'Celebrating Louis Armstrong\'s legacy' },
+            { name: 'Southern Decadence', start: '2025-08-28', end: '2025-09-01', emoji: '🏳️‍🌈', description: 'One of the largest LGBTQ+ events in the US' },
+            { name: 'Voodoo Fest', start: '2025-10-31', end: '2025-11-02', emoji: '🎃', description: 'Halloween music festival in City Park' },
+            { name: 'Bayou Classic', start: '2025-11-27', end: '2025-11-29', emoji: '🏈', description: 'Grambling vs Southern football rivalry weekend' },
+            { name: 'New Year\'s Eve', start: '2025-12-31', end: '2026-01-01', emoji: '🎆', description: 'Ring in the New Year in NOLA!' },
+
+            // 2026
+            { name: 'Mardi Gras', start: '2026-02-14', end: '2026-02-17', emoji: '🎭', description: 'The biggest party in New Orleans!' },
+            { name: 'BUKU Music Festival', start: '2026-03-20', end: '2026-03-21', emoji: '🎧', description: 'Electronic & hip-hop festival' },
+            { name: 'French Quarter Festival', start: '2026-04-09', end: '2026-04-12', emoji: '🎵', description: 'Free music festival in the French Quarter' },
+            { name: 'Jazz Fest', start: '2026-04-24', end: '2026-05-03', emoji: '🎷', description: 'World-famous New Orleans Jazz & Heritage Festival' },
+            { name: 'Essence Festival', start: '2026-07-02', end: '2026-07-05', emoji: '🎤', description: 'The largest African-American music & culture festival' },
+            { name: 'Satchmo SummerFest', start: '2026-07-31', end: '2026-08-02', emoji: '🎺', description: 'Celebrating Louis Armstrong\'s legacy' },
+            { name: 'Southern Decadence', start: '2026-09-03', end: '2026-09-07', emoji: '🏳️‍🌈', description: 'One of the largest LGBTQ+ events in the US' },
+            { name: 'Voodoo Fest', start: '2026-10-30', end: '2026-11-01', emoji: '🎃', description: 'Halloween music festival in City Park' },
+            { name: 'Bayou Classic', start: '2026-11-26', end: '2026-11-28', emoji: '🏈', description: 'Grambling vs Southern football rivalry weekend' },
+            { name: 'New Year\'s Eve', start: '2026-12-31', end: '2027-01-01', emoji: '🎆', description: 'Ring in the New Year in NOLA!' },
+
+            // 2027
+            { name: 'Mardi Gras', start: '2027-02-13', end: '2027-02-16', emoji: '🎭', description: 'The biggest party in New Orleans!' },
+            { name: 'French Quarter Festival', start: '2027-04-08', end: '2027-04-11', emoji: '🎵', description: 'Free music festival in the French Quarter' },
+            { name: 'Jazz Fest', start: '2027-04-23', end: '2027-05-02', emoji: '🎷', description: 'World-famous New Orleans Jazz & Heritage Festival' },
+        ];
+
+        // Find events that overlap with selected dates
+        function findEventsInRange(checkIn, checkOut) {
+            const startDate = new Date(checkIn);
+            const endDate = new Date(checkOut);
+
+            return NOLA_EVENTS.filter(event => {
+                const eventStart = new Date(event.start);
+                const eventEnd = new Date(event.end);
+                // Check if date ranges overlap
+                return startDate <= eventEnd && endDate >= eventStart;
+            });
+        }
+
         // Calendar state
         let currentMonth = new Date();
         let availabilityData = {};
@@ -1007,6 +1059,26 @@
             if (new Date(checkOut) <= new Date(checkIn)) {
                 alert('Check-out must be after check-in');
                 return;
+            }
+
+            // Check for events during stay
+            const eventsDisplay = document.getElementById('events-display');
+            const eventsList = document.getElementById('events-list');
+            const events = findEventsInRange(checkIn, checkOut);
+
+            if (events.length > 0) {
+                eventsList.innerHTML = events.map(event => `
+                    <div class="event-item">
+                        <span class="event-emoji">${event.emoji}</span>
+                        <div class="event-info">
+                            <strong>${event.name}</strong>
+                            <span>${event.description}</span>
+                        </div>
+                    </div>
+                `).join('');
+                eventsDisplay.classList.remove('hidden');
+            } else {
+                eventsDisplay.classList.add('hidden');
             }
 
             // Show loading
