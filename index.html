@@ -972,11 +972,10 @@
                 if (response.ok) {
                     const data = await response.json();
                     // Convert to lookup object by date
-                    if (data.data) {
-                        data.data.forEach(day => {
-                            availabilityData[day.date] = day;
-                        });
-                    }
+                    const days = Array.isArray(data) ? data : (data.data || []);
+                    days.forEach(day => {
+                        availabilityData[day.date] = day;
+                    });
                     renderCalendar();
                 }
             } catch (error) {
@@ -1023,7 +1022,7 @@
                 } else {
                     // Check availability
                     const availability = availabilityData[dateStr];
-                    if (availability && availability.status === 'unavailable') {
+                    if (availability && (availability.status === 'unavailable' || availability.status === 'booked')) {
                         dayCell.classList.add('unavailable');
                     } else {
                         // Clickable day
@@ -1123,7 +1122,6 @@
                 const response = await fetch(`/.netlify/functions/get-quote?checkIn=${checkIn}&checkOut=${checkOut}&guests=${guests}`);
                 const data = await response.json();
 
-                console.log('API response:', response.ok, data);
                 if (response.ok && data) {
                     showQuote(data, checkIn, checkOut);
                 } else {
@@ -1131,7 +1129,6 @@
                 }
             } catch (error) {
                 // Fallback - redirect to Guesty booking page
-                console.log('Quote error:', error);
                 quoteLoading.classList.add('hidden');
 
                 // Calculate nights
@@ -1169,27 +1166,26 @@
             let taxes = 0;
             let total = 0;
 
-            // Try new format: rates.ratePlans[0].days
-            if (data.rates && data.rates.ratePlans && data.rates.ratePlans[0] && data.rates.ratePlans[0].days) {
-                const days = data.rates.ratePlans[0].days;
-                fareAccommodation = days.reduce((sum, day) => sum + (day.price || 0), 0);
-                // Cleaning and taxes not available in this format - will show at checkout
-                cleaningFee = 0;
-                taxes = 0;
-                total = fareAccommodation;
-            }
-            // Fallback to old format: money object
-            else if (data.money) {
+            // Try money object first (has full breakdown)
+            if (data.money) {
                 fareAccommodation = data.money.fareAccommodation || 0;
                 cleaningFee = data.money.fareCleaning || 0;
                 taxes = data.money.totalTaxes || 0;
                 total = data.money.hostPayout || (fareAccommodation + cleaningFee + taxes);
             }
+            // Fallback: calculate from daily rates
+            else if (data.rates && data.rates.ratePlans && data.rates.ratePlans[0] && data.rates.ratePlans[0].days) {
+                const days = data.rates.ratePlans[0].days;
+                fareAccommodation = days.reduce((sum, day) => sum + (day.price || 0), 0);
+                cleaningFee = 0;
+                taxes = 0;
+                total = fareAccommodation;
+            }
 
             document.getElementById('quote-nightly').textContent = formatCurrency(fareAccommodation / nights) + '/night';
-            document.getElementById('quote-cleaning').textContent = cleaningFee ? formatCurrency(cleaningFee) : 'At checkout';
-            document.getElementById('quote-service').textContent = taxes ? formatCurrency(taxes) : 'At checkout';
-            document.getElementById('quote-total').textContent = formatCurrency(total) + (cleaningFee === 0 ? ' + fees' : '');
+            document.getElementById('quote-cleaning').textContent = formatCurrency(cleaningFee);
+            document.getElementById('quote-service').textContent = formatCurrency(taxes);
+            document.getElementById('quote-total').textContent = formatCurrency(total);
 
             // Build booking URL with dates
             const bookingUrl = `${GUESTY_BOOKING_URL}?checkIn=${checkIn}&checkOut=${checkOut}`;
