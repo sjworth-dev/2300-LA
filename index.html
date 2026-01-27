@@ -11,6 +11,25 @@
     <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <span class="loader-location">New Orleans</span>
+            <h1 class="loader-title">Marais</h1>
+            <div class="loader-line"></div>
+        </div>
+    </div>
+
+    <!-- Image Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightbox-close">&times;</button>
+        <button class="lightbox-prev" id="lightbox-prev">&#8249;</button>
+        <button class="lightbox-next" id="lightbox-next">&#8250;</button>
+        <div class="lightbox-content">
+            <img src="" alt="" id="lightbox-img">
+        </div>
+    </div>
+
     <!-- Minimal Navigation - Appears on scroll -->
     <nav class="nav-minimal" id="nav">
         <a href="#" class="nav-logo">Marais</a>
@@ -227,7 +246,43 @@
         </div>
     </section>
 
-    <!-- Scene 8: Book Your Stay -->
+    <!-- Scene 8: Guest Reviews -->
+    <section class="scene scene-reviews" id="reviews">
+        <div class="reviews-container">
+            <div class="reviews-header">
+                <span class="scene-label">Guest Stories</span>
+                <h2>What people are saying</h2>
+            </div>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Absolutely stunning home. The artwork throughout made it feel like staying in a gallery. The pool was perfect and Magazine Street is right there. We didn't want to leave."</p>
+                    <div class="review-author">
+                        <span class="review-name">Sarah M.</span>
+                        <span class="review-date">October 2024</span>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Best Airbnb we've ever stayed in. The space is incredible - those high ceilings and the indoor/outdoor flow. Had 8 people and everyone had room to spread out. The tiki bar was a hit!"</p>
+                    <div class="review-author">
+                        <span class="review-name">James & Co.</span>
+                        <span class="review-date">September 2024</span>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"We came for Jazz Fest and this was the perfect home base. The neighborhood is wonderful - walkable to so much. The heated pool after long festival days was everything."</p>
+                    <div class="review-author">
+                        <span class="review-name">The Wilsons</span>
+                        <span class="review-date">May 2024</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scene 9: Book Your Stay -->
     <section class="scene scene-book" id="book">
         <div class="book-container">
             <div class="book-intro">
@@ -371,6 +426,74 @@
     </footer>
 
     <script>
+        // ============================================
+        // LOADING SCREEN
+        // ============================================
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.classList.add('loaded');
+                document.body.classList.add('page-loaded');
+            }, 2000);
+        });
+
+        // ============================================
+        // LIGHTBOX
+        // ============================================
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxClose = document.getElementById('lightbox-close');
+        const lightboxPrev = document.getElementById('lightbox-prev');
+        const lightboxNext = document.getElementById('lightbox-next');
+        let currentImageIndex = 0;
+        let galleryImages = [];
+
+        // Collect all gallery images
+        document.querySelectorAll('.gallery-mosaic .mosaic-item img, .space-image img').forEach((img, index) => {
+            galleryImages.push(img.src);
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', () => {
+                currentImageIndex = index;
+                openLightbox(img.src);
+            });
+        });
+
+        function openLightbox(src) {
+            lightboxImg.src = src;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function showPrevImage() {
+            currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+            lightboxImg.src = galleryImages[currentImageIndex];
+        }
+
+        function showNextImage() {
+            currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+            lightboxImg.src = galleryImages[currentImageIndex];
+        }
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxPrev.addEventListener('click', showPrevImage);
+        lightboxNext.addEventListener('click', showNextImage);
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') showPrevImage();
+            if (e.key === 'ArrowRight') showNextImage();
+        });
+
         // ============================================
         // NAVIGATION
         // ============================================

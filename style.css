@@ -20,6 +20,166 @@
     --gray-lighter: #d0d0d0;
 }
 
+/* ============================================
+   LOADING SCREEN
+   ============================================ */
+
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--charcoal);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.loader.loaded {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.loader-content {
+    text-align: center;
+    color: var(--white);
+}
+
+.loader-location {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    color: var(--coral-light);
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: loaderFadeIn 0.8s ease 0.2s forwards;
+}
+
+.loader-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4rem, 12vw, 8rem);
+    font-weight: 300;
+    letter-spacing: -0.03em;
+    opacity: 0;
+    animation: loaderFadeIn 0.8s ease 0.4s forwards;
+}
+
+.loader-line {
+    width: 60px;
+    height: 2px;
+    background: var(--coral);
+    margin: 2rem auto 0;
+    transform: scaleX(0);
+    animation: loaderLine 1.2s ease 0.6s forwards;
+}
+
+@keyframes loaderFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes loaderLine {
+    0% { transform: scaleX(0); }
+    50% { transform: scaleX(1); }
+    100% { transform: scaleX(1); }
+}
+
+/* ============================================
+   LIGHTBOX
+   ============================================ */
+
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.lightbox.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-content {
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+.lightbox-content img {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.lightbox.active .lightbox-content img {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next {
+    position: absolute;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 2.5rem;
+    cursor: pointer;
+    padding: 1rem;
+    opacity: 0.7;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 10001;
+}
+
+.lightbox-close:hover,
+.lightbox-prev:hover,
+.lightbox-next:hover {
+    opacity: 1;
+}
+
+.lightbox-close {
+    top: 1rem;
+    right: 1rem;
+    font-size: 3rem;
+}
+
+.lightbox-prev {
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.lightbox-next {
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.lightbox-prev:hover {
+    transform: translateY(-50%) translateX(-5px);
+}
+
+.lightbox-next:hover {
+    transform: translateY(-50%) translateX(5px);
+}
+
 /* Reset */
 *, *::before, *::after {
     margin: 0;
@@ -834,7 +994,109 @@ p {
 }
 
 /* ============================================
-   SCENE 8: BOOKING
+   SCENE 8: REVIEWS
+   ============================================ */
+
+.scene-reviews {
+    min-height: auto;
+    padding: 8rem 4rem;
+    background: var(--cream-dark);
+}
+
+.reviews-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.reviews-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    transform: translateY(30px);
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scene-reviews.in-view .reviews-header {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.review-card {
+    background: var(--white);
+    padding: 2.5rem;
+    transform: translateY(30px);
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scene-reviews.in-view .review-card {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.scene-reviews.in-view .review-card:nth-child(1) { transition-delay: 0.1s; }
+.scene-reviews.in-view .review-card:nth-child(2) { transition-delay: 0.2s; }
+.scene-reviews.in-view .review-card:nth-child(3) { transition-delay: 0.3s; }
+
+.review-stars {
+    color: var(--coral);
+    font-size: 1.25rem;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+}
+
+.review-text {
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--charcoal);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    max-width: none;
+}
+
+.review-author {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.review-name {
+    font-weight: 600;
+    color: var(--charcoal);
+    font-size: 0.95rem;
+}
+
+.review-date {
+    font-size: 0.8rem;
+    color: var(--gray-light);
+}
+
+@media (max-width: 1024px) {
+    .reviews-grid {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .scene-reviews {
+        padding: 5rem 1.5rem;
+    }
+
+    .review-card {
+        padding: 2rem;
+    }
+}
+
+/* ============================================
+   SCENE 9: BOOKING
    ============================================ */
 
 .scene-book {
