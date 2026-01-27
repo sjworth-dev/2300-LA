@@ -99,11 +99,8 @@
                             <div class="calendar-days" id="calendar-days-1"></div>
                         </div>
 
-                        <!-- Selection Info -->
+                        <!-- Selection Bar -->
                         <div class="selection-bar">
-                            <div class="selection-info" id="calendar-instruction">
-                                <span class="instruction-text">Tap dates to plan your stay</span>
-                            </div>
                             <div class="guest-picker">
                                 <select id="guests" name="guests">
                                     <option value="1">1 Guest</option>
@@ -1141,16 +1138,7 @@
         }
 
         function updateCalendarInstruction() {
-            const instructionEl = document.querySelector('.instruction-text');
-
-            if (!selectedCheckIn) {
-                instructionEl.textContent = 'Select your arrival date';
-            } else if (!selectedCheckOut) {
-                instructionEl.textContent = 'Select your departure date';
-            } else {
-                const nights = Math.round((new Date(selectedCheckOut) - new Date(selectedCheckIn)) / (1000 * 60 * 60 * 24));
-                instructionEl.textContent = `${nights} night${nights > 1 ? 's' : ''} selected`;
-            }
+            // Instruction element removed - function kept for compatibility
         }
 
         function formatEventDates(start, end) {
