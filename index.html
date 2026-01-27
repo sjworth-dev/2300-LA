@@ -540,6 +540,7 @@
                 <div class="quote-price">
                     <span class="price-total" id="quote-total"></span>
                     <span class="price-breakdown" id="quote-breakdown"></span>
+                    <span class="price-per-guest" id="quote-per-guest"></span>
                 </div>
             </div>
         </div>
@@ -1288,7 +1289,12 @@
                     currentQuote.ratePlanId = ratePlanData.ratePlan._id;
                 }
                 document.getElementById('quote-total').textContent = `$${Math.round(total).toLocaleString()}`;
-                document.getElementById('quote-breakdown').textContent = 'total including fees & taxes';
+                document.getElementById('quote-breakdown').textContent = 'total';
+
+                // Calculate and display per-guest price
+                const numGuests = parseInt(guests) || 1;
+                const perGuest = Math.round(total / numGuests);
+                document.getElementById('quote-per-guest').textContent = `· $${perGuest.toLocaleString()}/guest`;
 
                 quoteLoading.classList.add('hidden');
                 quoteResult.classList.remove('hidden');

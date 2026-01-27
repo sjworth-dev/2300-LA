@@ -2193,6 +2193,12 @@ p {
     color: rgba(255,255,255,0.5);
 }
 
+.price-per-guest {
+    font-size: 0.75rem;
+    color: var(--coral);
+    font-weight: 500;
+}
+
 /* Quote Banner - Mobile */
 @media (max-width: 768px) {
     .quote-display {
