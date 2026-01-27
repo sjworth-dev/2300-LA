@@ -1258,16 +1258,20 @@ p {
     }
 }
 
-/* Calendar backdrop */
-.calendar-container::before {
-    content: '';
+/* Calendar backdrop - separate element */
+.calendar-backdrop {
     position: fixed;
-    top: -100vh;
-    left: -100vw;
-    width: 300vw;
-    height: 300vh;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     background: rgba(0,0,0,0.6);
-    z-index: -1;
+    z-index: 9999;
+    cursor: pointer;
+}
+
+.calendar-backdrop.hidden {
+    display: none;
 }
 
 .calendar-main {
@@ -1278,6 +1282,7 @@ p {
     flex-direction: column;
     background: var(--cream);
     overflow: hidden;
+    position: relative;
 }
 
 .calendar-sidebar {
@@ -1288,6 +1293,30 @@ p {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+}
+
+/* Calendar Close Button */
+.calendar-close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    background: var(--white);
+    border: 1px solid var(--gray-lighter);
+    border-radius: 50%;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--gray);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.calendar-close-btn:hover {
+    background: var(--charcoal);
+    border-color: var(--charcoal);
+    color: var(--white);
 }
 
 /* Calendar Instruction Bar */

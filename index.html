@@ -323,6 +323,9 @@
                         </button>
                     </div>
 
+                    <!-- Calendar Backdrop -->
+                    <div class="calendar-backdrop hidden" id="calendar-backdrop"></div>
+
                     <!-- Custom Calendar - Full Width Event Calendar -->
                     <div class="calendar-container hidden" id="calendar-container">
                         <div class="calendar-main">
@@ -852,11 +855,25 @@
         // CUSTOM CALENDAR - TWO MONTH VIEW
         // ============================================
         const calendarContainer = document.getElementById('calendar-container');
+        const calendarBackdrop = document.getElementById('calendar-backdrop');
         const calendarDays1 = document.getElementById('calendar-days-1');
         const calendarDays2 = document.getElementById('calendar-days-2');
         const calendarTitle1 = document.getElementById('calendar-title-1');
         const calendarTitle2 = document.getElementById('calendar-title-2');
         const eventsList = document.getElementById('events-list');
+
+        function openCalendar() {
+            calendarContainer.classList.remove('hidden');
+            calendarBackdrop.classList.remove('hidden');
+        }
+
+        function closeCalendar() {
+            calendarContainer.classList.add('hidden');
+            calendarBackdrop.classList.add('hidden');
+        }
+
+        // Close when clicking backdrop
+        calendarBackdrop.addEventListener('click', closeCalendar);
         let currentMonth = new Date().getMonth();
         let currentYear = new Date().getFullYear();
         let selectingFor = 'check-in';
@@ -1088,9 +1105,7 @@
         };
 
         // Done button closes calendar
-        document.getElementById('calendar-done').addEventListener('click', () => {
-            calendarContainer.classList.add('hidden');
-        });
+        document.getElementById('calendar-done').addEventListener('click', closeCalendar);
 
         function formatDisplayDate(dateStr) {
             const date = new Date(dateStr + 'T00:00:00');
@@ -1118,27 +1133,35 @@
 
         // Open calendar when clicking date inputs
         document.querySelectorAll('.date-input').forEach(input => {
-            input.addEventListener('click', () => {
+            input.addEventListener('click', (e) => {
+                e.stopPropagation();
                 selectingFor = input.dataset.target || 'check-in';
-                calendarContainer.classList.remove('hidden');
+                openCalendar();
                 fetchAvailability(); // Load availability data
                 updateCalendarInstruction();
                 renderCalendar();
             });
         });
 
-        // Close calendar when clicking outside or pressing Escape
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.calendar-container') && !e.target.closest('.date-input') && !calendarContainer.classList.contains('hidden')) {
-                calendarContainer.classList.add('hidden');
+        // Close calendar when pressing Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !calendarContainer.classList.contains('hidden')) {
+                closeCalendar();
             }
         });
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !calendarContainer.classList.contains('hidden')) {
-                calendarContainer.classList.add('hidden');
+        // Add close button to calendar
+        function addCloseButton() {
+            if (!document.getElementById('calendar-close')) {
+                const closeBtn = document.createElement('button');
+                closeBtn.id = 'calendar-close';
+                closeBtn.className = 'calendar-close-btn';
+                closeBtn.innerHTML = '&times;';
+                closeBtn.onclick = closeCalendar;
+                calendarContainer.querySelector('.calendar-main').prepend(closeBtn);
             }
-        });
+        }
+        addCloseButton();
 
         // Initialize calendar and prefetch availability
         renderCalendar();
