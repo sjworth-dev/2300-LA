@@ -1209,7 +1209,7 @@ p {
 
 .nola-calendar {
     width: 100%;
-    max-width: 700px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
@@ -1284,8 +1284,8 @@ p {
 
 /* Calendar Grid Section */
 .calendar-grid-section {
-    background: var(--white);
-    padding: 1.5rem;
+    background: var(--cream);
+    padding: 2rem 2.5rem;
 }
 
 .calendar-nav-row {
@@ -1338,29 +1338,35 @@ p {
 .calendar-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 6px;
+    gap: 8px;
 }
 
 .calendar-day {
-    min-height: 65px;
+    min-height: 70px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0.4rem;
+    padding: 0.5rem 0.4rem;
     cursor: pointer;
     position: relative;
     transition: all 0.2s ease;
     color: var(--charcoal);
-    background: transparent;
+    background: var(--white);
     border-radius: 8px;
     border: 2px solid transparent;
 }
 
-/* Unavailable/Booked dates */
+/* Unavailable/Booked dates - clearly marked */
 .calendar-day.unavailable {
-    color: #C0BAB0;
+    background: #E5E0D8;
+    color: #A09A90;
     cursor: not-allowed;
-    opacity: 0.5;
+    position: relative;
+}
+
+.calendar-day.unavailable .day-number {
+    text-decoration: line-through;
+    opacity: 0.6;
 }
 
 .calendar-day.unavailable .event-name-mini {
@@ -1368,13 +1374,17 @@ p {
 }
 
 .calendar-day.unavailable::after {
-    content: '—';
-    font-size: 0.8rem;
-    color: #C0BAB0;
+    content: 'BOOKED';
+    position: absolute;
+    bottom: 4px;
+    font-size: 0.5rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #8B8580;
 }
 
 .calendar-day.unavailable:hover {
-    background: transparent;
+    background: #E5E0D8;
     border-color: transparent;
 }
 
@@ -1384,8 +1394,9 @@ p {
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding: 1.25rem 1.5rem;
-    background: var(--cream);
+    padding: 1.25rem 2.5rem;
+    background: var(--white);
+    border-top: 1px solid var(--gray-lighter);
     border-radius: 0 0 16px 16px;
 }
 
