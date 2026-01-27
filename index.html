@@ -404,6 +404,62 @@
 
             <!-- Checkout Form (Hidden by default) -->
             <div class="checkout-container hidden" id="checkout-container">
+                <!-- Your Stay Info Panel -->
+                <div class="stay-info-panel" id="stay-info-panel">
+                    <h3>Your New Orleans Stay</h3>
+
+                    <!-- Weather -->
+                    <div class="stay-section">
+                        <div class="stay-section-header">
+                            <span class="stay-icon">☀️</span>
+                            <h4>Weather</h4>
+                        </div>
+                        <p class="stay-weather" id="stay-weather">Expect mild temperatures around 65°F with occasional rain.</p>
+                    </div>
+
+                    <!-- Events During Stay -->
+                    <div class="stay-section">
+                        <div class="stay-section-header">
+                            <span class="stay-icon">🎭</span>
+                            <h4>Events During Your Stay</h4>
+                        </div>
+                        <div class="stay-events" id="stay-events">
+                            <p class="no-events-msg">No major events during these dates</p>
+                        </div>
+                    </div>
+
+                    <!-- Recommendations -->
+                    <div class="stay-section">
+                        <div class="stay-section-header">
+                            <span class="stay-icon">✨</span>
+                            <h4>Don't Miss</h4>
+                        </div>
+                        <div class="stay-recommendations" id="stay-recommendations">
+                            <div class="recommendation-item">
+                                <strong>Bacchanal Wine</strong>
+                                <span>Live jazz in the backyard, 10 min away</span>
+                            </div>
+                            <div class="recommendation-item">
+                                <strong>Commander's Palace</strong>
+                                <span>Iconic NOLA fine dining, 5 min away</span>
+                            </div>
+                            <div class="recommendation-item">
+                                <strong>Magazine Street</strong>
+                                <span>Shopping & restaurants, 2 min walk</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add-ons Preview -->
+                    <div class="stay-section">
+                        <div class="stay-section-header">
+                            <span class="stay-icon">🎁</span>
+                            <h4>Enhance Your Stay</h4>
+                        </div>
+                        <p class="stay-addons-hint">Add services like cold plunge, private chef, or early check-in during checkout.</p>
+                    </div>
+                </div>
+
                 <div class="checkout-card">
                     <h3>Complete Your Reservation</h3>
                     <div class="checkout-summary" id="checkout-summary"></div>
@@ -426,6 +482,49 @@
                         <div class="form-field">
                             <label for="guest-phone">Phone</label>
                             <input type="tel" id="guest-phone">
+                        </div>
+
+                        <!-- Add-on Services -->
+                        <div class="addons-section">
+                            <label class="addons-label">Enhance Your Stay</label>
+                            <div class="addon-options">
+                                <label class="addon-item">
+                                    <input type="checkbox" id="addon-coldplunge" data-price="150" data-name="Cold Plunge">
+                                    <div class="addon-info">
+                                        <span class="addon-name">Cold Plunge</span>
+                                        <span class="addon-desc">Portable ice bath delivered to the property</span>
+                                    </div>
+                                    <span class="addon-price">+$150</span>
+                                </label>
+                                <label class="addon-item">
+                                    <input type="checkbox" id="addon-chef" data-price="350" data-name="Private Chef">
+                                    <div class="addon-info">
+                                        <span class="addon-name">Private Chef</span>
+                                        <span class="addon-desc">One dinner for up to 10 guests</span>
+                                    </div>
+                                    <span class="addon-price">+$350</span>
+                                </label>
+                                <label class="addon-item">
+                                    <input type="checkbox" id="addon-massage" data-price="200" data-name="In-Home Massage">
+                                    <div class="addon-info">
+                                        <span class="addon-name">In-Home Massage</span>
+                                        <span class="addon-desc">Licensed massage therapist (60 min)</span>
+                                    </div>
+                                    <span class="addon-price">+$200</span>
+                                </label>
+                                <label class="addon-item">
+                                    <input type="checkbox" id="addon-earlycheck" data-price="100" data-name="Early Check-in">
+                                    <div class="addon-info">
+                                        <span class="addon-name">Early Check-in</span>
+                                        <span class="addon-desc">Check in at 12pm instead of 4pm</span>
+                                    </div>
+                                    <span class="addon-price">+$100</span>
+                                </label>
+                            </div>
+                            <div class="addons-total hidden" id="addons-total">
+                                <span>Add-ons:</span>
+                                <span id="addons-total-amount">$0</span>
+                            </div>
                         </div>
 
                         <div class="form-field">
@@ -1257,6 +1356,7 @@
             checkoutContainer.classList.remove('hidden');
             checkoutContainer.scrollIntoView({ behavior: 'smooth' });
             initializeStripe();
+            updateStayInfo(); // Populate stay info panel
         });
 
         // ============================================
@@ -1310,6 +1410,84 @@
                 </div>
             `;
         }
+
+        // Weather data by month
+        const weatherByMonth = {
+            0: { temp: '55°F', desc: 'Cool and crisp with occasional rain. Perfect for exploring the city on foot. Pack layers!' },
+            1: { temp: '60°F', desc: 'Mild temperatures as Mardi Gras season heats up. Great weather for parades!' },
+            2: { temp: '65°F', desc: 'Beautiful spring weather. Ideal for outdoor dining and festival season.' },
+            3: { temp: '72°F', desc: 'Warm and pleasant - peak season for Jazz Fest. Pool weather begins!' },
+            4: { temp: '80°F', desc: 'Warm and humid. Perfect for pool days and evening strolls on Magazine Street.' },
+            5: { temp: '85°F', desc: 'Hot and humid - embrace it! Great for early morning or evening activities.' },
+            6: { temp: '90°F', desc: 'Peak summer heat. Stay cool by the pool during the day, explore at night.' },
+            7: { temp: '90°F', desc: 'Hot and steamy. AC and cold drinks are your friends. Pool is essential!' },
+            8: { temp: '85°F', desc: 'Still warm with occasional afternoon thunderstorms. Festival season returns!' },
+            9: { temp: '75°F', desc: 'Cooling off beautifully. Perfect weather for Voodoo Fest and Halloween.' },
+            10: { temp: '65°F', desc: 'Crisp fall air arrives. Ideal for exploring neighborhoods and outdoor dining.' },
+            11: { temp: '58°F', desc: 'Cool holiday season. Festive lights and celebrations throughout the city.' }
+        };
+
+        // Update stay info panel when checkout opens
+        function updateStayInfo() {
+            if (!selectedCheckIn || !selectedCheckOut) return;
+
+            const checkInDate = new Date(selectedCheckIn + 'T00:00:00');
+            const month = checkInDate.getMonth();
+
+            // Update weather
+            const weather = weatherByMonth[month];
+            document.getElementById('stay-weather').textContent =
+                `Expect temperatures around ${weather.temp}. ${weather.desc}`;
+
+            // Update events
+            const events = getEventsForRange(selectedCheckIn, selectedCheckOut);
+            const eventsContainer = document.getElementById('stay-events');
+
+            if (events.length > 0) {
+                eventsContainer.innerHTML = events.slice(0, 5).map(e => `
+                    <div class="stay-event-item ${e.type}">
+                        <span class="stay-event-name">${e.name}</span>
+                        <span class="stay-event-date">${formatEventDates(e.start, e.end)}</span>
+                    </div>
+                `).join('');
+                if (events.length > 5) {
+                    eventsContainer.innerHTML += `<p class="no-events-msg">+ ${events.length - 5} more events</p>`;
+                }
+            } else {
+                eventsContainer.innerHTML = '<p class="no-events-msg">No major events during these dates - enjoy a quieter NOLA experience!</p>';
+            }
+        }
+
+        // Add-ons calculation
+        function updateAddonsTotal() {
+            const checkboxes = document.querySelectorAll('.addon-item input[type="checkbox"]');
+            let total = 0;
+            let selectedAddons = [];
+
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    total += parseInt(cb.dataset.price);
+                    selectedAddons.push(cb.dataset.name);
+                }
+            });
+
+            const totalEl = document.getElementById('addons-total');
+            const amountEl = document.getElementById('addons-total-amount');
+
+            if (total > 0) {
+                totalEl.classList.remove('hidden');
+                amountEl.textContent = `$${total}`;
+            } else {
+                totalEl.classList.add('hidden');
+            }
+
+            return { total, selectedAddons };
+        }
+
+        // Listen for addon changes
+        document.querySelectorAll('.addon-item input[type="checkbox"]').forEach(cb => {
+            cb.addEventListener('change', updateAddonsTotal);
+        });
 
         // Handle checkout form submission
         const checkoutForm = document.getElementById('checkout-form');

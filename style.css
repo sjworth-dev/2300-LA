@@ -2014,6 +2014,161 @@ p {
 /* Checkout Form */
 .checkout-container {
     margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+/* Stay Info Panel */
+.stay-info-panel {
+    background: var(--white);
+    padding: 2.5rem;
+    position: sticky;
+    top: 100px;
+}
+
+.stay-info-panel h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.75rem;
+    font-weight: 400;
+    color: var(--charcoal);
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--gray-lighter);
+}
+
+.stay-section {
+    margin-bottom: 1.75rem;
+}
+
+.stay-section:last-child {
+    margin-bottom: 0;
+}
+
+.stay-section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.stay-icon {
+    font-size: 1.25rem;
+}
+
+.stay-section-header h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--charcoal);
+    margin: 0;
+}
+
+.stay-weather {
+    color: var(--gray);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.stay-events {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.stay-event-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--cream);
+    border-radius: 6px;
+    border-left: 3px solid var(--coral);
+}
+
+.stay-event-item.parade {
+    border-left-color: #9B59B6;
+}
+
+.stay-event-item.secondline {
+    border-left-color: #3498DB;
+}
+
+.stay-event-item.event {
+    border-left-color: var(--olive);
+}
+
+.stay-event-name {
+    font-weight: 600;
+    color: var(--charcoal);
+    font-size: 0.9rem;
+}
+
+.stay-event-date {
+    color: var(--gray);
+    font-size: 0.8rem;
+    margin-left: auto;
+}
+
+.no-events-msg {
+    color: var(--gray);
+    font-size: 0.9rem;
+    font-style: italic;
+    margin: 0;
+}
+
+.stay-recommendations {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.recommendation-item {
+    padding: 0.75rem;
+    background: var(--cream);
+    border-radius: 6px;
+}
+
+.recommendation-item strong {
+    display: block;
+    color: var(--charcoal);
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+}
+
+.recommendation-item span {
+    color: var(--gray);
+    font-size: 0.85rem;
+}
+
+.stay-addons-hint {
+    color: var(--gray);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+@media (max-width: 900px) {
+    .checkout-container {
+        grid-template-columns: 1fr;
+    }
+
+    .stay-info-panel {
+        position: static;
+    }
+}
+
+@media (max-width: 768px) {
+    .stay-info-panel {
+        padding: 1.5rem;
+    }
+
+    .stay-info-panel h3 {
+        font-size: 1.4rem;
+    }
 }
 
 .checkout-card {
@@ -2091,6 +2246,96 @@ p {
     color: #c53030;
     font-size: 0.85rem;
     margin-top: 0.5rem;
+}
+
+/* Add-on Services */
+.addons-section {
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: var(--cream);
+    border-radius: 8px;
+}
+
+.addons-label {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    color: var(--charcoal);
+    margin-bottom: 1rem;
+}
+
+.addon-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.addon-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--white);
+    border: 1px solid var(--gray-lighter);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.addon-item:hover {
+    border-color: var(--olive);
+}
+
+.addon-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--olive);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.addon-item input[type="checkbox"]:checked + .addon-info .addon-name {
+    color: var(--olive);
+}
+
+.addon-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.addon-name {
+    display: block;
+    font-weight: 600;
+    color: var(--charcoal);
+    font-size: 0.95rem;
+}
+
+.addon-desc {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--gray);
+    margin-top: 0.2rem;
+}
+
+.addon-price {
+    font-weight: 600;
+    color: var(--olive);
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+.addons-total {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--gray-lighter);
+    font-weight: 600;
+    color: var(--charcoal);
+}
+
+.addons-total.hidden {
+    display: none;
 }
 
 .checkbox-label {
