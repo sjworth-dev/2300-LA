@@ -295,12 +295,14 @@
                 <div class="book-card">
                     <div class="book-inputs">
                         <div class="book-field">
-                            <label for="check-in">Arrive</label>
-                            <input type="date" id="check-in" name="check-in">
+                            <label>Arrive</label>
+                            <div class="date-input" id="check-in-display" data-target="check-in">Select date</div>
+                            <input type="hidden" id="check-in" name="check-in">
                         </div>
                         <div class="book-field">
-                            <label for="check-out">Depart</label>
-                            <input type="date" id="check-out" name="check-out">
+                            <label>Depart</label>
+                            <div class="date-input" id="check-out-display" data-target="check-out">Select date</div>
+                            <input type="hidden" id="check-out" name="check-out">
                         </div>
                         <div class="book-field">
                             <label for="guests">Guests</label>
@@ -320,6 +322,27 @@
                         <button type="button" id="check-prices-btn" class="btn-primary">
                             Check Availability
                         </button>
+                    </div>
+
+                    <!-- Custom Calendar -->
+                    <div class="calendar-container hidden" id="calendar-container">
+                        <div class="calendar-header">
+                            <button type="button" class="calendar-nav" id="cal-prev">&larr;</button>
+                            <div class="calendar-title" id="calendar-title"></div>
+                            <button type="button" class="calendar-nav" id="cal-next">&rarr;</button>
+                        </div>
+                        <div class="calendar-weekdays">
+                            <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                        </div>
+                        <div class="calendar-days" id="calendar-days"></div>
+                        <div class="calendar-events" id="calendar-events">
+                            <div class="events-title">Events this month</div>
+                            <div class="events-list" id="events-list"></div>
+                        </div>
+                        <div class="calendar-legend">
+                            <span class="legend-item"><span class="legend-dot festival"></span> Festival</span>
+                            <span class="legend-item"><span class="legend-dot event"></span> Event</span>
+                        </div>
                     </div>
 
                     <!-- Quote Display -->
@@ -564,6 +587,217 @@
         }
 
         // ============================================
+        // NEW ORLEANS EVENTS & FESTIVALS
+        // ============================================
+        const nolaEvents = [
+            // 2025-2026 Events (approximate dates - these shift yearly)
+            { start: '2025-02-14', end: '2025-02-14', name: "Valentine's Day", type: 'event' },
+            { start: '2025-02-28', end: '2025-03-04', name: 'Mardi Gras', type: 'festival' },
+            { start: '2025-03-14', end: '2025-03-16', name: 'BUKU Music Fest', type: 'festival' },
+            { start: '2025-03-17', end: '2025-03-17', name: "St. Patrick's Day", type: 'event' },
+            { start: '2025-04-04', end: '2025-04-06', name: 'French Quarter Fest', type: 'festival' },
+            { start: '2025-04-25', end: '2025-05-04', name: 'Jazz Fest', type: 'festival' },
+            { start: '2025-05-23', end: '2025-05-25', name: 'Bayou Country Superfest', type: 'festival' },
+            { start: '2025-06-01', end: '2025-06-01', name: 'Pride Parade', type: 'event' },
+            { start: '2025-07-03', end: '2025-07-06', name: 'Essence Festival', type: 'festival' },
+            { start: '2025-07-04', end: '2025-07-04', name: 'July 4th', type: 'event' },
+            { start: '2025-07-22', end: '2025-07-27', name: 'Tales of the Cocktail', type: 'event' },
+            { start: '2025-08-01', end: '2025-08-03', name: 'Satchmo SummerFest', type: 'festival' },
+            { start: '2025-08-15', end: '2025-08-17', name: 'White Linen Night', type: 'event' },
+            { start: '2025-10-24', end: '2025-10-26', name: 'Voodoo Fest', type: 'festival' },
+            { start: '2025-10-31', end: '2025-10-31', name: 'Halloween', type: 'event' },
+            { start: '2025-11-27', end: '2025-11-29', name: 'Bayou Classic', type: 'event' },
+            { start: '2025-12-24', end: '2025-12-25', name: 'Christmas', type: 'event' },
+            { start: '2025-12-31', end: '2026-01-01', name: "New Year's Eve", type: 'event' },
+            // 2026
+            { start: '2026-02-13', end: '2026-02-17', name: 'Mardi Gras', type: 'festival' },
+            { start: '2026-03-13', end: '2026-03-15', name: 'BUKU Music Fest', type: 'festival' },
+            { start: '2026-03-17', end: '2026-03-17', name: "St. Patrick's Day", type: 'event' },
+            { start: '2026-04-10', end: '2026-04-12', name: 'French Quarter Fest', type: 'festival' },
+            { start: '2026-04-24', end: '2026-05-03', name: 'Jazz Fest', type: 'festival' },
+            { start: '2026-07-02', end: '2026-07-05', name: 'Essence Festival', type: 'festival' },
+            { start: '2026-07-04', end: '2026-07-04', name: 'July 4th', type: 'event' },
+            { start: '2026-08-07', end: '2026-08-09', name: 'Satchmo SummerFest', type: 'festival' },
+            { start: '2026-10-30', end: '2026-11-01', name: 'Voodoo Fest', type: 'festival' },
+            { start: '2026-10-31', end: '2026-10-31', name: 'Halloween', type: 'event' },
+            { start: '2026-11-26', end: '2026-11-28', name: 'Bayou Classic', type: 'event' },
+            { start: '2026-12-31', end: '2027-01-01', name: "New Year's Eve", type: 'event' },
+        ];
+
+        function getEventsForMonth(year, month) {
+            return nolaEvents.filter(event => {
+                const start = new Date(event.start);
+                const end = new Date(event.end);
+                return (start.getFullYear() === year && start.getMonth() === month) ||
+                       (end.getFullYear() === year && end.getMonth() === month);
+            });
+        }
+
+        function getEventForDate(dateStr) {
+            return nolaEvents.find(event => {
+                return dateStr >= event.start && dateStr <= event.end;
+            });
+        }
+
+        // ============================================
+        // CUSTOM CALENDAR
+        // ============================================
+        const calendarContainer = document.getElementById('calendar-container');
+        const calendarDays = document.getElementById('calendar-days');
+        const calendarTitle = document.getElementById('calendar-title');
+        const eventsList = document.getElementById('events-list');
+        let currentMonth = new Date().getMonth();
+        let currentYear = new Date().getFullYear();
+        let selectingFor = 'check-in';
+        let selectedCheckIn = null;
+        let selectedCheckOut = null;
+
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                           'July', 'August', 'September', 'October', 'November', 'December'];
+
+        function renderCalendar() {
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            calendarTitle.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+            calendarDays.innerHTML = '';
+
+            // Empty cells for days before the first
+            for (let i = 0; i < firstDay; i++) {
+                calendarDays.innerHTML += '<div class="calendar-day empty"></div>';
+            }
+
+            // Days of the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(currentYear, currentMonth, day);
+                const dateStr = date.toISOString().split('T')[0];
+                const event = getEventForDate(dateStr);
+                const isPast = date < today;
+                const isCheckIn = selectedCheckIn === dateStr;
+                const isCheckOut = selectedCheckOut === dateStr;
+                const isInRange = selectedCheckIn && selectedCheckOut &&
+                                  dateStr > selectedCheckIn && dateStr < selectedCheckOut;
+
+                let classes = 'calendar-day';
+                if (isPast) classes += ' disabled';
+                if (isCheckIn) classes += ' check-in';
+                if (isCheckOut) classes += ' check-out';
+                if (isInRange) classes += ' in-range';
+                if (event) classes += ` has-event ${event.type}`;
+
+                const eventDot = event ? `<span class="event-dot ${event.type}"></span>` : '';
+
+                calendarDays.innerHTML += `
+                    <div class="${classes}" data-date="${dateStr}" ${isPast ? '' : `onclick="selectDate('${dateStr}')"`}>
+                        ${day}${eventDot}
+                    </div>
+                `;
+            }
+
+            // Render events list
+            const monthEvents = getEventsForMonth(currentYear, currentMonth);
+            if (monthEvents.length > 0) {
+                eventsList.innerHTML = monthEvents.map(e => `
+                    <div class="event-item ${e.type}">
+                        <span class="event-dot ${e.type}"></span>
+                        <span class="event-name">${e.name}</span>
+                        <span class="event-dates">${formatEventDates(e.start, e.end)}</span>
+                    </div>
+                `).join('');
+            } else {
+                eventsList.innerHTML = '<div class="no-events">No major events this month</div>';
+            }
+        }
+
+        function formatEventDates(start, end) {
+            const s = new Date(start + 'T00:00:00');
+            const e = new Date(end + 'T00:00:00');
+            const opts = { month: 'short', day: 'numeric' };
+            if (start === end) {
+                return s.toLocaleDateString('en-US', opts);
+            }
+            return `${s.toLocaleDateString('en-US', opts)} - ${e.toLocaleDateString('en-US', opts)}`;
+        }
+
+        window.selectDate = function(dateStr) {
+            if (selectingFor === 'check-in') {
+                selectedCheckIn = dateStr;
+                selectedCheckOut = null;
+                document.getElementById('check-in').value = dateStr;
+                document.getElementById('check-in-display').textContent = formatDisplayDate(dateStr);
+                document.getElementById('check-in-display').classList.add('has-value');
+                document.getElementById('check-out-display').textContent = 'Select date';
+                document.getElementById('check-out-display').classList.remove('has-value');
+                document.getElementById('check-out').value = '';
+                selectingFor = 'check-out';
+            } else {
+                if (dateStr <= selectedCheckIn) {
+                    // If selecting a date before check-in, make it the new check-in
+                    selectedCheckIn = dateStr;
+                    selectedCheckOut = null;
+                    document.getElementById('check-in').value = dateStr;
+                    document.getElementById('check-in-display').textContent = formatDisplayDate(dateStr);
+                    document.getElementById('check-out-display').textContent = 'Select date';
+                    document.getElementById('check-out').value = '';
+                } else {
+                    selectedCheckOut = dateStr;
+                    document.getElementById('check-out').value = dateStr;
+                    document.getElementById('check-out-display').textContent = formatDisplayDate(dateStr);
+                    document.getElementById('check-out-display').classList.add('has-value');
+                    selectingFor = 'check-in';
+                    // Close calendar after selecting both dates
+                    setTimeout(() => calendarContainer.classList.add('hidden'), 300);
+                }
+            }
+            renderCalendar();
+        };
+
+        function formatDisplayDate(dateStr) {
+            const date = new Date(dateStr + 'T00:00:00');
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        // Calendar navigation
+        document.getElementById('cal-prev').addEventListener('click', () => {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            renderCalendar();
+        });
+
+        document.getElementById('cal-next').addEventListener('click', () => {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            renderCalendar();
+        });
+
+        // Open calendar when clicking date inputs
+        document.querySelectorAll('.date-input').forEach(input => {
+            input.addEventListener('click', () => {
+                selectingFor = input.dataset.target;
+                calendarContainer.classList.remove('hidden');
+                renderCalendar();
+            });
+        });
+
+        // Close calendar when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.book-card') && !calendarContainer.classList.contains('hidden')) {
+                calendarContainer.classList.add('hidden');
+            }
+        });
+
+        // Initialize calendar
+        renderCalendar();
+
+        // ============================================
         // BOOKING FUNCTIONALITY
         // ============================================
         const checkInInput = document.getElementById('check-in');
@@ -576,21 +810,6 @@
         const quoteError = document.getElementById('quote-error');
         const bookNowBtn = document.getElementById('book-now-btn');
         const checkoutContainer = document.getElementById('checkout-container');
-
-        // Set minimum date to today
-        const today = new Date().toISOString().split('T')[0];
-        checkInInput.min = today;
-        checkOutInput.min = today;
-
-        // Update checkout min date when check-in changes
-        checkInInput.addEventListener('change', () => {
-            const checkInDate = new Date(checkInInput.value);
-            checkInDate.setDate(checkInDate.getDate() + 1);
-            checkOutInput.min = checkInDate.toISOString().split('T')[0];
-            if (checkOutInput.value && checkOutInput.value <= checkInInput.value) {
-                checkOutInput.value = '';
-            }
-        });
 
         // Store quote data
         let currentQuote = null;
