@@ -180,7 +180,7 @@
                     </div>
                 </div>
 
-                <div class="checkout-card">
+                <div class="checkout-card" id="checkout-card">
                     <h3>Complete Your Reservation</h3>
                     <div class="checkout-summary" id="checkout-summary"></div>
 
@@ -1239,9 +1239,9 @@
                 initializeStripe();
                 updateStayInfo();
 
-                // Make banner clickable to scroll to checkout
+                // Make banner clickable to scroll to checkout form
                 quoteDisplay.onclick = () => {
-                    checkoutContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    document.getElementById('checkout-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 };
 
             } catch (error) {
