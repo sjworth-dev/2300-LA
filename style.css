@@ -41,7 +41,7 @@
 .ticker-track {
     display: flex;
     gap: 3rem;
-    animation: ticker-scroll 60s linear infinite;
+    animation: ticker-scroll 90s linear infinite;
     white-space: nowrap;
 }
 
@@ -89,10 +89,14 @@ body {
     top: 32px;
 }
 
-/* Hide ticker on mobile for cleaner experience */
+/* Ticker on mobile */
 @media (max-width: 768px) {
     .events-ticker {
         height: 28px;
+    }
+
+    .ticker-track {
+        animation: ticker-scroll 69s linear infinite;
     }
 
     .ticker-item {
