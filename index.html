@@ -68,43 +68,33 @@
 
             <div class="book-widget">
                 <div class="book-card">
-                    <div class="book-inputs">
-                        <div class="book-field">
-                            <label>Arrive</label>
-                            <div class="date-input" id="check-in-display" data-target="check-in">Select date</div>
-                            <input type="hidden" id="check-in" name="check-in">
-                        </div>
-                        <div class="book-field">
-                            <label>Depart</label>
-                            <div class="date-input" id="check-out-display" data-target="check-out">Select date</div>
-                            <input type="hidden" id="check-out" name="check-out">
-                        </div>
-                        <div class="book-field">
-                            <label for="guests">Guests</label>
-                            <select id="guests" name="guests">
-                                <option value="1">1 Guest</option>
-                                <option value="2" selected>2 Guests</option>
-                                <option value="3">3 Guests</option>
-                                <option value="4">4 Guests</option>
-                                <option value="5">5 Guests</option>
-                                <option value="6">6 Guests</option>
-                                <option value="7">7 Guests</option>
-                                <option value="8">8 Guests</option>
-                                <option value="9">9 Guests</option>
-                                <option value="10">10 Guests</option>
-                            </select>
-                        </div>
-                        <button type="button" id="check-prices-btn" class="btn-primary">
-                            Check Availability
-                        </button>
-                    </div>
+                    <!-- Hidden inputs for date storage -->
+                    <input type="hidden" id="check-in" name="check-in">
+                    <input type="hidden" id="check-out" name="check-out">
 
                     <!-- Custom Calendar - Always Visible Event Calendar -->
                     <div class="calendar-container" id="calendar-container">
                         <div class="calendar-main">
-                            <!-- Selection instruction bar -->
-                            <div class="calendar-instruction" id="calendar-instruction">
-                                <span class="instruction-text">Select your dates to check availability</span>
+                            <!-- Selection bar with guests + check button -->
+                            <div class="calendar-action-bar" id="calendar-instruction">
+                                <span class="instruction-text">Select your dates</span>
+                                <div class="calendar-actions">
+                                    <select id="guests" name="guests" class="guests-select">
+                                        <option value="1">1 Guest</option>
+                                        <option value="2" selected>2 Guests</option>
+                                        <option value="3">3 Guests</option>
+                                        <option value="4">4 Guests</option>
+                                        <option value="5">5 Guests</option>
+                                        <option value="6">6 Guests</option>
+                                        <option value="7">7 Guests</option>
+                                        <option value="8">8 Guests</option>
+                                        <option value="9">9 Guests</option>
+                                        <option value="10">10 Guests</option>
+                                    </select>
+                                    <button type="button" id="check-prices-btn" class="btn-check-prices">
+                                        Check Prices
+                                    </button>
+                                </div>
                             </div>
                             <div class="calendar-header">
                                 <button type="button" class="calendar-nav" id="cal-prev">&#8592;</button>
