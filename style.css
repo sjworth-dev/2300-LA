@@ -2265,20 +2265,16 @@ p {
 
 /* Checkout Form */
 .checkout-container {
-    max-width: 1200px;
+    max-width: 600px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    align-items: start;
 }
 
-/* Stay Info Panel */
+/* Stay Info Panel - appears after calendar */
 .stay-info-panel {
-    background: var(--white);
+    background: var(--cream-dark);
     padding: 2.5rem;
-    position: sticky;
-    top: 100px;
+    margin-top: 2rem;
+    max-width: 600px;
 }
 
 .stay-info-panel h3 {

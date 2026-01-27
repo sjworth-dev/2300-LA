@@ -127,6 +127,62 @@
                 </div>
             </div>
 
+            <!-- Your Stay Info Panel (appears after date selection) -->
+            <div class="stay-info-panel hidden" id="stay-info-panel">
+                <h3>Your New Orleans Stay</h3>
+
+                <!-- Weather -->
+                <div class="stay-section">
+                    <div class="stay-section-header">
+                        <span class="stay-icon">☀️</span>
+                        <h4>Weather</h4>
+                    </div>
+                    <p class="stay-weather" id="stay-weather">Expect mild temperatures around 65°F with occasional rain.</p>
+                </div>
+
+                <!-- Events During Stay -->
+                <div class="stay-section">
+                    <div class="stay-section-header">
+                        <span class="stay-icon">🎭</span>
+                        <h4>Events During Your Stay</h4>
+                    </div>
+                    <div class="stay-events" id="stay-events">
+                        <p class="no-events-msg">No major events during these dates</p>
+                    </div>
+                </div>
+
+                <!-- Recommendations -->
+                <div class="stay-section">
+                    <div class="stay-section-header">
+                        <span class="stay-icon">✨</span>
+                        <h4>Don't Miss</h4>
+                    </div>
+                    <div class="stay-recommendations" id="stay-recommendations">
+                        <div class="recommendation-item">
+                            <strong>Bacchanal Wine</strong>
+                            <span>Live jazz in the backyard, 10 min away</span>
+                        </div>
+                        <div class="recommendation-item">
+                            <strong>Commander's Palace</strong>
+                            <span>Iconic NOLA fine dining, 5 min away</span>
+                        </div>
+                        <div class="recommendation-item">
+                            <strong>Magazine Street</strong>
+                            <span>Shopping & restaurants, 2 min walk</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add-ons Preview -->
+                <div class="stay-section">
+                    <div class="stay-section-header">
+                        <span class="stay-icon">🎁</span>
+                        <h4>Enhance Your Stay</h4>
+                    </div>
+                    <p class="stay-addons-hint">Add services like cold plunge, private chef, or early check-in during checkout.</p>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -357,62 +413,6 @@
     <!-- Checkout Section -->
     <section class="scene scene-checkout hidden" id="checkout-section">
         <div class="checkout-container" id="checkout-container">
-            <!-- Your Stay Info Panel -->
-            <div class="stay-info-panel" id="stay-info-panel">
-                <h3>Your New Orleans Stay</h3>
-
-                <!-- Weather -->
-                <div class="stay-section">
-                    <div class="stay-section-header">
-                        <span class="stay-icon">☀️</span>
-                        <h4>Weather</h4>
-                    </div>
-                    <p class="stay-weather" id="stay-weather">Expect mild temperatures around 65°F with occasional rain.</p>
-                </div>
-
-                <!-- Events During Stay -->
-                <div class="stay-section">
-                    <div class="stay-section-header">
-                        <span class="stay-icon">🎭</span>
-                        <h4>Events During Your Stay</h4>
-                    </div>
-                    <div class="stay-events" id="stay-events">
-                        <p class="no-events-msg">No major events during these dates</p>
-                    </div>
-                </div>
-
-                <!-- Recommendations -->
-                <div class="stay-section">
-                    <div class="stay-section-header">
-                        <span class="stay-icon">✨</span>
-                        <h4>Don't Miss</h4>
-                    </div>
-                    <div class="stay-recommendations" id="stay-recommendations">
-                        <div class="recommendation-item">
-                            <strong>Bacchanal Wine</strong>
-                            <span>Live jazz in the backyard, 10 min away</span>
-                        </div>
-                        <div class="recommendation-item">
-                            <strong>Commander's Palace</strong>
-                            <span>Iconic NOLA fine dining, 5 min away</span>
-                        </div>
-                        <div class="recommendation-item">
-                            <strong>Magazine Street</strong>
-                            <span>Shopping & restaurants, 2 min walk</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Add-ons Preview -->
-                <div class="stay-section">
-                    <div class="stay-section-header">
-                        <span class="stay-icon">🎁</span>
-                        <h4>Enhance Your Stay</h4>
-                    </div>
-                    <p class="stay-addons-hint">Add services like cold plunge, private chef, or early check-in during checkout.</p>
-                </div>
-            </div>
-
             <div class="checkout-card" id="checkout-card">
                 <h3>Complete Your Reservation</h3>
                 <div class="checkout-summary" id="checkout-summary"></div>
@@ -1314,7 +1314,8 @@
                 quoteLoading.classList.add('hidden');
                 quoteResult.classList.remove('hidden');
 
-                // Auto-show checkout section
+                // Auto-show stay info panel and checkout section
+                document.getElementById('stay-info-panel').classList.remove('hidden');
                 checkoutSection.classList.remove('hidden');
                 initializeStripe();
                 updateStayInfo();
