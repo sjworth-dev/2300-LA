@@ -1272,14 +1272,17 @@ p {
 
 .calendar-main {
     flex: 1;
+    min-width: 0;
     padding: 2.5rem;
     display: flex;
     flex-direction: column;
     background: var(--cream);
+    overflow: hidden;
 }
 
 .calendar-sidebar {
-    width: 380px;
+    width: 350px;
+    flex-shrink: 0;
     background: var(--white);
     border-left: 1px solid var(--gray-lighter);
     display: flex;
@@ -1335,12 +1338,12 @@ p {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
-    flex: 1;
 }
 
 .calendar-month {
     display: flex;
     flex-direction: column;
+    min-width: 0;
 }
 
 .calendar-weekdays {
@@ -1364,7 +1367,6 @@ p {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 4px;
-    flex: 1;
 }
 
 .calendar-day {
@@ -1380,7 +1382,23 @@ p {
     color: var(--charcoal);
     background: var(--white);
     border-radius: 8px;
-    min-height: 60px;
+}
+
+/* Unavailable dates */
+.calendar-day.unavailable {
+    background: repeating-linear-gradient(
+        45deg,
+        var(--cream),
+        var(--cream) 2px,
+        var(--white) 2px,
+        var(--white) 4px
+    );
+    color: var(--gray-light);
+    cursor: not-allowed;
+}
+
+.calendar-day.unavailable:hover {
+    transform: none;
 }
 
 .calendar-day .day-number {
@@ -1462,6 +1480,17 @@ p {
 .event-dot.event,
 .legend-dot.event {
     background: var(--olive);
+}
+
+.legend-dot.unavailable {
+    background: repeating-linear-gradient(
+        45deg,
+        var(--gray-lighter),
+        var(--gray-lighter) 2px,
+        var(--white) 2px,
+        var(--white) 4px
+    );
+    border: 1px solid var(--gray-lighter);
 }
 
 /* Calendar Legend */

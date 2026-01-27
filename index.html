@@ -355,6 +355,7 @@
                                 <span class="legend-item"><span class="legend-dot parade"></span> Parade</span>
                                 <span class="legend-item"><span class="legend-dot secondline"></span> Second Line</span>
                                 <span class="legend-item"><span class="legend-dot event"></span> Event</span>
+                                <span class="legend-item"><span class="legend-dot unavailable"></span> Booked</span>
                             </div>
                         </div>
                         <div class="calendar-sidebar">
@@ -856,9 +857,39 @@
         let selectingFor = 'check-in';
         let selectedCheckIn = null;
         let selectedCheckOut = null;
+        let availabilityData = {}; // Store availability by date
+        let availabilityLoaded = false;
 
         const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
                            'July', 'August', 'September', 'October', 'November', 'December'];
+
+        // Fetch availability from Guesty
+        async function fetchAvailability() {
+            if (availabilityLoaded) return;
+            try {
+                const response = await fetch('/.netlify/functions/get-availability');
+                const data = await response.json();
+                if (data.days) {
+                    data.days.forEach(day => {
+                        availabilityData[day.date] = {
+                            available: day.status === 'available',
+                            minNights: day.minNights || 1,
+                            price: day.price
+                        };
+                    });
+                    availabilityLoaded = true;
+                    renderCalendar(); // Re-render with availability
+                }
+            } catch (error) {
+                console.log('Could not fetch availability:', error);
+            }
+        }
+
+        function isDateAvailable(dateStr) {
+            if (!availabilityLoaded) return true; // Assume available if not loaded
+            const day = availabilityData[dateStr];
+            return day ? day.available : true;
+        }
 
         function renderMonth(container, year, month) {
             const firstDay = new Date(year, month, 1).getDay();
@@ -879,6 +910,7 @@
                 const dateStr = date.toISOString().split('T')[0];
                 const events = getEventsForDate(dateStr);
                 const isPast = date < today;
+                const isAvailable = isDateAvailable(dateStr);
                 const isCheckIn = selectedCheckIn === dateStr;
                 const isCheckOut = selectedCheckOut === dateStr;
                 const isInRange = selectedCheckIn && selectedCheckOut &&
@@ -886,6 +918,7 @@
 
                 let classes = 'calendar-day';
                 if (isPast) classes += ' disabled';
+                else if (!isAvailable) classes += ' unavailable';
                 if (isCheckIn) classes += ' check-in';
                 if (isCheckOut) classes += ' check-out';
                 if (isInRange) classes += ' in-range';
@@ -904,8 +937,9 @@
                     eventDots = uniqueTypes.slice(0, 3).map(t => `<span class="event-dot ${t}"></span>`).join('');
                 }
 
+                const isClickable = !isPast && isAvailable;
                 container.innerHTML += `
-                    <div class="${classes}" data-date="${dateStr}" ${isPast ? '' : `onclick="selectDate('${dateStr}')"`}>
+                    <div class="${classes}" data-date="${dateStr}" ${isClickable ? `onclick="selectDate('${dateStr}')"` : ''}>
                         <span class="day-number">${day}</span>
                         <div class="event-dots">${eventDots}</div>
                     </div>
@@ -1040,19 +1074,27 @@
             input.addEventListener('click', () => {
                 selectingFor = input.dataset.target;
                 calendarContainer.classList.remove('hidden');
+                fetchAvailability(); // Load availability data
                 renderCalendar();
             });
         });
 
-        // Close calendar when clicking outside
+        // Close calendar when clicking outside or pressing Escape
         document.addEventListener('click', (e) => {
-            if (!e.target.closest('.book-card') && !calendarContainer.classList.contains('hidden')) {
+            if (!e.target.closest('.calendar-container') && !e.target.closest('.date-input') && !calendarContainer.classList.contains('hidden')) {
                 calendarContainer.classList.add('hidden');
             }
         });
 
-        // Initialize calendar
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !calendarContainer.classList.contains('hidden')) {
+                calendarContainer.classList.add('hidden');
+            }
+        });
+
+        // Initialize calendar and prefetch availability
         renderCalendar();
+        fetchAvailability();
 
         // ============================================
         // BOOKING FUNCTIONALITY
