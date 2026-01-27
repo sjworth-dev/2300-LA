@@ -869,15 +869,31 @@
             try {
                 const response = await fetch('/.netlify/functions/get-availability');
                 const data = await response.json();
-                if (data.days) {
-                    data.days.forEach(day => {
-                        availabilityData[day.date] = {
-                            available: day.status === 'available',
-                            minNights: day.minNights || 1,
-                            price: day.price
-                        };
+
+                // Handle both array format and object format from API
+                let days = [];
+                if (Array.isArray(data)) {
+                    days = data;
+                } else if (data.days) {
+                    days = data.days;
+                } else if (typeof data === 'object') {
+                    // Convert object with numeric keys to array
+                    days = Object.values(data).filter(d => d && d.date);
+                }
+
+                if (days.length > 0) {
+                    days.forEach(day => {
+                        if (day && day.date) {
+                            availabilityData[day.date] = {
+                                available: day.status === 'available',
+                                status: day.status,
+                                minNights: day.minNights || 1,
+                                price: day.price
+                            };
+                        }
                     });
                     availabilityLoaded = true;
+                    console.log('Availability loaded:', Object.keys(availabilityData).length, 'days');
                     renderCalendar(); // Re-render with availability
                 }
             } catch (error) {
@@ -888,7 +904,8 @@
         function isDateAvailable(dateStr) {
             if (!availabilityLoaded) return true; // Assume available if not loaded
             const day = availabilityData[dateStr];
-            return day ? day.available : true;
+            if (!day) return true; // No data means assume available
+            return day.status === 'available';
         }
 
         function renderMonth(container, year, month) {

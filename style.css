@@ -1384,21 +1384,32 @@ p {
     border-radius: 8px;
 }
 
-/* Unavailable dates */
+/* Unavailable/Booked dates */
 .calendar-day.unavailable {
-    background: repeating-linear-gradient(
-        45deg,
-        var(--cream),
-        var(--cream) 2px,
-        var(--white) 2px,
-        var(--white) 4px
-    );
+    background: var(--gray-lighter);
     color: var(--gray-light);
     cursor: not-allowed;
+    position: relative;
+}
+
+.calendar-day.unavailable::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 15%;
+    right: 15%;
+    height: 1px;
+    background: var(--gray-light);
+    transform: rotate(-45deg);
 }
 
 .calendar-day.unavailable:hover {
     transform: none;
+    background: var(--gray-lighter);
+}
+
+.calendar-day.unavailable .event-dots {
+    opacity: 0.4;
 }
 
 .calendar-day .day-number {
