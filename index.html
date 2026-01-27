@@ -452,13 +452,15 @@
         // ============================================
         // LOADING SCREEN
         // ============================================
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('loader');
-            setTimeout(() => {
-                loader.classList.add('loaded');
-                document.body.classList.add('page-loaded');
-            }, 800);
-        });
+        // Hide loader quickly - don't wait for all images
+        const loader = document.getElementById('loader');
+        const hideLoader = () => {
+            loader.classList.add('loaded');
+            document.body.classList.add('page-loaded');
+        };
+
+        // Show content after brief branding moment (800ms max)
+        setTimeout(hideLoader, 800);
 
         // ============================================
         // LIGHTBOX
