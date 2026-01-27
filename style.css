@@ -2256,9 +2256,17 @@ p {
     color: #c53030;
 }
 
+/* Checkout Section */
+.scene-checkout {
+    background: var(--cream);
+    padding: 4rem 2rem;
+    padding-bottom: 6rem; /* Extra space for price banner */
+}
+
 /* Checkout Form */
 .checkout-container {
-    margin-top: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;

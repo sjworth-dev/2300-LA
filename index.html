@@ -127,156 +127,6 @@
                 </div>
             </div>
 
-            <!-- Checkout Form (Hidden by default) -->
-            <div class="checkout-container hidden" id="checkout-container">
-                <!-- Your Stay Info Panel -->
-                <div class="stay-info-panel" id="stay-info-panel">
-                    <h3>Your New Orleans Stay</h3>
-
-                    <!-- Weather -->
-                    <div class="stay-section">
-                        <div class="stay-section-header">
-                            <span class="stay-icon">☀️</span>
-                            <h4>Weather</h4>
-                        </div>
-                        <p class="stay-weather" id="stay-weather">Expect mild temperatures around 65°F with occasional rain.</p>
-                    </div>
-
-                    <!-- Events During Stay -->
-                    <div class="stay-section">
-                        <div class="stay-section-header">
-                            <span class="stay-icon">🎭</span>
-                            <h4>Events During Your Stay</h4>
-                        </div>
-                        <div class="stay-events" id="stay-events">
-                            <p class="no-events-msg">No major events during these dates</p>
-                        </div>
-                    </div>
-
-                    <!-- Recommendations -->
-                    <div class="stay-section">
-                        <div class="stay-section-header">
-                            <span class="stay-icon">✨</span>
-                            <h4>Don't Miss</h4>
-                        </div>
-                        <div class="stay-recommendations" id="stay-recommendations">
-                            <div class="recommendation-item">
-                                <strong>Bacchanal Wine</strong>
-                                <span>Live jazz in the backyard, 10 min away</span>
-                            </div>
-                            <div class="recommendation-item">
-                                <strong>Commander's Palace</strong>
-                                <span>Iconic NOLA fine dining, 5 min away</span>
-                            </div>
-                            <div class="recommendation-item">
-                                <strong>Magazine Street</strong>
-                                <span>Shopping & restaurants, 2 min walk</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Add-ons Preview -->
-                    <div class="stay-section">
-                        <div class="stay-section-header">
-                            <span class="stay-icon">🎁</span>
-                            <h4>Enhance Your Stay</h4>
-                        </div>
-                        <p class="stay-addons-hint">Add services like cold plunge, private chef, or early check-in during checkout.</p>
-                    </div>
-                </div>
-
-                <div class="checkout-card" id="checkout-card">
-                    <h3>Complete Your Reservation</h3>
-                    <div class="checkout-summary" id="checkout-summary"></div>
-
-                    <form id="checkout-form">
-                        <div class="form-row">
-                            <div class="form-field">
-                                <label for="guest-first-name">First Name</label>
-                                <input type="text" id="guest-first-name" required>
-                            </div>
-                            <div class="form-field">
-                                <label for="guest-last-name">Last Name</label>
-                                <input type="text" id="guest-last-name" required>
-                            </div>
-                        </div>
-                        <div class="form-field">
-                            <label for="guest-email">Email</label>
-                            <input type="email" id="guest-email" required>
-                        </div>
-                        <div class="form-field">
-                            <label for="guest-phone">Phone</label>
-                            <input type="tel" id="guest-phone">
-                        </div>
-
-                        <!-- Add-on Services -->
-                        <div class="addons-section">
-                            <label class="addons-label">Enhance Your Stay</label>
-                            <div class="addon-options">
-                                <label class="addon-item">
-                                    <input type="checkbox" id="addon-coldplunge" data-price="150" data-name="Cold Plunge">
-                                    <div class="addon-info">
-                                        <span class="addon-name">Cold Plunge</span>
-                                        <span class="addon-desc">Portable ice bath delivered to the property</span>
-                                    </div>
-                                    <span class="addon-price">+$150</span>
-                                </label>
-                                <label class="addon-item">
-                                    <input type="checkbox" id="addon-chef" data-price="350" data-name="Private Chef">
-                                    <div class="addon-info">
-                                        <span class="addon-name">Private Chef</span>
-                                        <span class="addon-desc">One dinner for up to 10 guests</span>
-                                    </div>
-                                    <span class="addon-price">+$350</span>
-                                </label>
-                                <label class="addon-item">
-                                    <input type="checkbox" id="addon-massage" data-price="200" data-name="In-Home Massage">
-                                    <div class="addon-info">
-                                        <span class="addon-name">In-Home Massage</span>
-                                        <span class="addon-desc">Licensed massage therapist (60 min)</span>
-                                    </div>
-                                    <span class="addon-price">+$200</span>
-                                </label>
-                                <label class="addon-item">
-                                    <input type="checkbox" id="addon-earlycheck" data-price="100" data-name="Early Check-in">
-                                    <div class="addon-info">
-                                        <span class="addon-name">Early Check-in</span>
-                                        <span class="addon-desc">Check in at 12pm instead of 4pm</span>
-                                    </div>
-                                    <span class="addon-price">+$100</span>
-                                </label>
-                            </div>
-                            <div class="addons-total hidden" id="addons-total">
-                                <span>Add-ons:</span>
-                                <span id="addons-total-amount">$0</span>
-                            </div>
-                        </div>
-
-                        <div class="form-field">
-                            <label>Card Details</label>
-                            <div id="card-element"></div>
-                            <div id="card-errors" class="card-errors"></div>
-                        </div>
-
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="accept-terms" required>
-                            <span>I agree to the <a href="#" target="_blank">terms</a> and <a href="#" target="_blank">cancellation policy</a></span>
-                        </label>
-
-                        <button type="submit" id="submit-booking" class="btn-submit-booking">
-                            Confirm Reservation
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Booking Confirmation (Hidden by default) -->
-            <div class="booking-confirmation hidden" id="booking-confirmation">
-                <div class="confirmation-icon">✓</div>
-                <h3>You're all set</h3>
-                <p>Confirmation details have been sent to your email.</p>
-                <div class="confirmation-details" id="confirmation-details"></div>
-            </div>
         </div>
     </section>
 
@@ -501,6 +351,159 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Checkout Section -->
+    <section class="scene scene-checkout hidden" id="checkout-section">
+        <div class="checkout-container" id="checkout-container">
+            <!-- Your Stay Info Panel -->
+            <div class="stay-info-panel" id="stay-info-panel">
+                <h3>Your New Orleans Stay</h3>
+
+                <!-- Weather -->
+                <div class="stay-section">
+                    <div class="stay-section-header">
+                        <span class="stay-icon">☀️</span>
+                        <h4>Weather</h4>
+                    </div>
+                    <p class="stay-weather" id="stay-weather">Expect mild temperatures around 65°F with occasional rain.</p>
+                </div>
+
+                <!-- Events During Stay -->
+                <div class="stay-section">
+                    <div class="stay-section-header">
+                        <span class="stay-icon">🎭</span>
+                        <h4>Events During Your Stay</h4>
+                    </div>
+                    <div class="stay-events" id="stay-events">
+                        <p class="no-events-msg">No major events during these dates</p>
+                    </div>
+                </div>
+
+                <!-- Recommendations -->
+                <div class="stay-section">
+                    <div class="stay-section-header">
+                        <span class="stay-icon">✨</span>
+                        <h4>Don't Miss</h4>
+                    </div>
+                    <div class="stay-recommendations" id="stay-recommendations">
+                        <div class="recommendation-item">
+                            <strong>Bacchanal Wine</strong>
+                            <span>Live jazz in the backyard, 10 min away</span>
+                        </div>
+                        <div class="recommendation-item">
+                            <strong>Commander's Palace</strong>
+                            <span>Iconic NOLA fine dining, 5 min away</span>
+                        </div>
+                        <div class="recommendation-item">
+                            <strong>Magazine Street</strong>
+                            <span>Shopping & restaurants, 2 min walk</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add-ons Preview -->
+                <div class="stay-section">
+                    <div class="stay-section-header">
+                        <span class="stay-icon">🎁</span>
+                        <h4>Enhance Your Stay</h4>
+                    </div>
+                    <p class="stay-addons-hint">Add services like cold plunge, private chef, or early check-in during checkout.</p>
+                </div>
+            </div>
+
+            <div class="checkout-card" id="checkout-card">
+                <h3>Complete Your Reservation</h3>
+                <div class="checkout-summary" id="checkout-summary"></div>
+
+                <form id="checkout-form">
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="guest-first-name">First Name</label>
+                            <input type="text" id="guest-first-name" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="guest-last-name">Last Name</label>
+                            <input type="text" id="guest-last-name" required>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="guest-email">Email</label>
+                        <input type="email" id="guest-email" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="guest-phone">Phone</label>
+                        <input type="tel" id="guest-phone">
+                    </div>
+
+                    <!-- Add-on Services -->
+                    <div class="addons-section">
+                        <label class="addons-label">Enhance Your Stay</label>
+                        <div class="addon-options">
+                            <label class="addon-item">
+                                <input type="checkbox" id="addon-coldplunge" data-price="150" data-name="Cold Plunge">
+                                <div class="addon-info">
+                                    <span class="addon-name">Cold Plunge</span>
+                                    <span class="addon-desc">Portable ice bath delivered to the property</span>
+                                </div>
+                                <span class="addon-price">+$150</span>
+                            </label>
+                            <label class="addon-item">
+                                <input type="checkbox" id="addon-chef" data-price="350" data-name="Private Chef">
+                                <div class="addon-info">
+                                    <span class="addon-name">Private Chef</span>
+                                    <span class="addon-desc">One dinner for up to 10 guests</span>
+                                </div>
+                                <span class="addon-price">+$350</span>
+                            </label>
+                            <label class="addon-item">
+                                <input type="checkbox" id="addon-massage" data-price="200" data-name="In-Home Massage">
+                                <div class="addon-info">
+                                    <span class="addon-name">In-Home Massage</span>
+                                    <span class="addon-desc">Licensed massage therapist (60 min)</span>
+                                </div>
+                                <span class="addon-price">+$200</span>
+                            </label>
+                            <label class="addon-item">
+                                <input type="checkbox" id="addon-earlycheck" data-price="100" data-name="Early Check-in">
+                                <div class="addon-info">
+                                    <span class="addon-name">Early Check-in</span>
+                                    <span class="addon-desc">Check in at 12pm instead of 4pm</span>
+                                </div>
+                                <span class="addon-price">+$100</span>
+                            </label>
+                        </div>
+                        <div class="addons-total hidden" id="addons-total">
+                            <span>Add-ons:</span>
+                            <span id="addons-total-amount">$0</span>
+                        </div>
+                    </div>
+
+                    <div class="form-field">
+                        <label>Card Details</label>
+                        <div id="card-element"></div>
+                        <div id="card-errors" class="card-errors"></div>
+                    </div>
+
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="accept-terms" required>
+                        <span>I agree to the <a href="#" target="_blank">terms</a> and <a href="#" target="_blank">cancellation policy</a></span>
+                    </label>
+
+                    <button type="submit" id="submit-booking" class="btn-submit-booking">
+                        Confirm Reservation
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Booking Confirmation (Hidden by default) -->
+        <div class="booking-confirmation hidden" id="booking-confirmation">
+            <div class="confirmation-icon">✓</div>
+            <h3>You're all set</h3>
+            <p>Confirmation details have been sent to your email.</p>
+            <div class="confirmation-details" id="confirmation-details"></div>
         </div>
     </section>
 
@@ -1230,6 +1233,7 @@
         const quoteResult = document.getElementById('quote-result');
         const quoteError = document.getElementById('quote-error');
         const checkoutContainer = document.getElementById('checkout-container');
+        const checkoutSection = document.getElementById('checkout-section');
 
         // Store quote data
         let currentQuote = null;
@@ -1310,8 +1314,8 @@
                 quoteLoading.classList.add('hidden');
                 quoteResult.classList.remove('hidden');
 
-                // Auto-show checkout form
-                checkoutContainer.classList.remove('hidden');
+                // Auto-show checkout section
+                checkoutSection.classList.remove('hidden');
                 initializeStripe();
                 updateStayInfo();
 
