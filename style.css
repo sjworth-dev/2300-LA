@@ -1613,52 +1613,80 @@ p {
     padding: 2rem;
 }
 
-/* Mobile Calendar */
+/* Tablet Calendar */
 @media (max-width: 1200px) {
     .calendar-container {
         flex-direction: column;
         height: 95vh;
     }
 
-    .calendar-sidebar {
-        width: 100%;
-        height: 40%;
-        border-left: none;
-        border-top: 1px solid var(--gray-lighter);
+    .calendar-main {
+        flex: 0 0 auto;
+        height: auto;
+        padding: 2rem;
     }
 
-    .calendar-main {
-        height: 60%;
+    .calendar-sidebar {
+        width: 100%;
+        flex: 1;
+        border-left: none;
+        border-top: 1px solid var(--gray-lighter);
+        min-height: 0;
     }
 
     .calendar-grid-wrapper {
-        gap: 1.5rem;
+        gap: 2rem;
     }
 
     .calendar-titles {
         gap: 2rem;
     }
+
+    .calendar-events {
+        height: 100%;
+        overflow-y: auto;
+    }
 }
 
+/* Mobile Calendar */
 @media (max-width: 768px) {
     .calendar-container {
         width: 100vw;
         height: 100vh;
         max-height: none;
         border-radius: 0;
+        flex-direction: column;
     }
 
     .calendar-main {
-        padding: 1.5rem;
+        flex: 0 0 auto;
+        padding: 1rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .calendar-header {
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .calendar-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1.25rem;
     }
 
     .calendar-grid-wrapper {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 0;
     }
 
     .calendar-month:nth-child(2) {
         display: none;
+    }
+
+    .calendar-titles {
+        flex: 1;
+        justify-content: center;
     }
 
     .calendar-titles span:nth-child(2) {
@@ -1666,27 +1694,135 @@ p {
     }
 
     .calendar-title {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
+        min-width: auto;
+    }
+
+    .calendar-weekdays {
+        margin-bottom: 0.5rem;
+    }
+
+    .calendar-weekdays span {
+        padding: 0.5rem 0.25rem;
+        font-size: 0.65rem;
+    }
+
+    .calendar-days {
+        gap: 3px;
     }
 
     .calendar-day {
-        min-height: 50px;
+        border-radius: 6px;
+        aspect-ratio: 1;
     }
 
     .calendar-day .day-number {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 
-    .calendar-events {
-        padding: 1.5rem;
+    .calendar-day .event-dots {
+        margin-top: 2px;
+    }
+
+    .event-dot {
+        width: 5px;
+        height: 5px;
     }
 
     .calendar-legend {
-        gap: 1rem;
+        gap: 0.75rem;
+        padding-top: 1rem;
+        margin-top: 1rem;
+        justify-content: center;
     }
 
     .legend-item {
+        font-size: 0.65rem;
+        gap: 0.3rem;
+    }
+
+    .legend-dot {
+        width: 6px;
+        height: 6px;
+    }
+
+    /* Mobile Events Sidebar */
+    .calendar-sidebar {
+        flex: 1;
+        min-height: 200px;
+        max-height: 45vh;
+    }
+
+    .calendar-events {
+        padding: 1rem;
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    .events-header {
+        margin-bottom: 1rem;
+        padding-bottom: 0.75rem;
+        position: sticky;
+        top: 0;
+        background: var(--white);
+        z-index: 1;
+    }
+
+    .events-header h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .events-subtitle {
+        font-size: 0.75rem;
+    }
+
+    .events-list {
+        gap: 0.5rem;
+    }
+
+    .event-item {
+        padding: 0.75rem;
+        gap: 0.5rem;
+    }
+
+    .event-name {
+        font-size: 0.85rem;
+    }
+
+    .event-desc {
         font-size: 0.7rem;
+    }
+
+    .event-dates {
+        font-size: 0.7rem;
+    }
+
+    .event-dot-wrapper {
+        display: none;
+    }
+}
+
+/* Small phones */
+@media (max-width: 380px) {
+    .calendar-main {
+        padding: 0.75rem;
+    }
+
+    .calendar-title {
+        font-size: 1.1rem;
+    }
+
+    .calendar-day .day-number {
+        font-size: 0.8rem;
+    }
+
+    .legend-item {
+        font-size: 0.6rem;
+    }
+
+    .calendar-sidebar {
+        max-height: 40vh;
     }
 }
 
