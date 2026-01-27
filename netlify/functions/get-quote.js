@@ -1,17 +1,60 @@
 const LISTING_ID = '637d17a91ea4b0002f3801a3';
 
-// Token cache - persists across warm function invocations
+// In-memory cache (for warm instances)
 let cachedToken = null;
 let tokenExpiry = 0;
 
 // Simple delay function
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
+// Upstash Redis helpers
+async function getFromRedis(key) {
+  const url = process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!url || !token) return null;
+
+  try {
+    const response = await fetch(`${url}/get/${key}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    const data = await response.json();
+    return data.result ? JSON.parse(data.result) : null;
+  } catch (error) {
+    console.log('Redis get error:', error.message);
+    return null;
+  }
+}
+
+async function setInRedis(key, value, expirySeconds) {
+  const url = process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!url || !token) return;
+
+  try {
+    await fetch(`${url}/set/${key}/${encodeURIComponent(JSON.stringify(value))}/ex/${expirySeconds}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    console.log('Token stored in Redis');
+  } catch (error) {
+    console.log('Redis set error:', error.message);
+  }
+}
+
 async function getAccessToken(retryCount = 0) {
-  // Return cached token if still valid (with 5 min buffer)
   const now = Date.now();
+
+  // Check in-memory cache first (fastest)
   if (cachedToken && now < tokenExpiry - 300000) {
-    console.log('Using cached token');
+    console.log('Using in-memory cached token');
+    return cachedToken;
+  }
+
+  // Check Redis (survives cold starts)
+  const stored = await getFromRedis('guesty_token');
+  if (stored && stored.expiry && now < stored.expiry - 300000) {
+    console.log('Using Redis cached token');
+    cachedToken = stored.token;
+    tokenExpiry = stored.expiry;
     return cachedToken;
   }
 
@@ -44,16 +87,23 @@ async function getAccessToken(retryCount = 0) {
 
     const data = await response.json();
 
-    // Cache token (expires_in is usually 86400 seconds = 24 hours)
+    // Cache token in memory
     cachedToken = data.access_token;
     tokenExpiry = now + (data.expires_in * 1000);
 
+    // Cache token in Redis (expires in 23 hours to be safe)
+    await setInRedis('guesty_token', { token: cachedToken, expiry: tokenExpiry }, 82800);
+
     return cachedToken;
   } catch (error) {
-    // If we have a cached token that's not too old, use it as fallback
+    // Fallback to any cached token
     if (cachedToken && now < tokenExpiry + 3600000) {
-      console.log('Using fallback cached token');
+      console.log('Using fallback in-memory token');
       return cachedToken;
+    }
+    if (stored && stored.token) {
+      console.log('Using fallback Redis token');
+      return stored.token;
     }
     throw error;
   }
