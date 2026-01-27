@@ -1233,6 +1233,16 @@
 
         // Store quote data
         let currentQuote = null;
+        let currentTotal = 0;
+
+        // Update per-guest price when guests change
+        guestsSelect.addEventListener('change', () => {
+            if (currentTotal > 0) {
+                const numGuests = parseInt(guestsSelect.value) || 1;
+                const perGuest = Math.round(currentTotal / numGuests);
+                document.getElementById('quote-per-guest').textContent = `· $${perGuest.toLocaleString()}/guest`;
+            }
+        });
 
         // Check prices
         checkPricesBtn.addEventListener('click', async () => {
@@ -1280,6 +1290,7 @@
 
                 // Get total price (hostPayout includes everything guest pays)
                 const total = money?.hostPayout || money?.subTotalPrice || 0;
+                currentTotal = total; // Store for guest count updates
 
                 console.log('Money object:', money);
                 console.log('Extracted total:', total);
