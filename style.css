@@ -190,6 +190,11 @@
 html {
     scroll-behavior: smooth;
     font-size: 16px;
+    overflow-x: hidden;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
 }
 
 body {
@@ -1512,11 +1517,22 @@ p {
    ============================================ */
 
 @media (max-width: 768px) {
+    .book-widget,
+    .book-card {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
     .nola-calendar {
         width: 100%;
         max-width: 100%;
         border-radius: 12px;
         overflow: hidden;
+    }
+
+    .marquee-events {
+        max-width: 100%;
     }
 
     .events-marquee {
