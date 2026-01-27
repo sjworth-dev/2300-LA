@@ -1071,7 +1071,8 @@
                 if (isCheckIn) classes += ' check-in';
                 if (isCheckOut) classes += ' check-out';
                 if (isInRange) classes += ' in-range';
-                if (events.length > 0) {
+                // Only show event indicators on available dates
+                if (events.length > 0 && !isPast && isAvailable) {
                     classes += ' has-event';
                     // Add class for highest priority event type
                     if (events.some(e => e.type === 'festival')) classes += ' festival';

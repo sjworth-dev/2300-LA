@@ -1307,44 +1307,54 @@ p {
 
 .nola-calendar {
     width: 100%;
-    max-width: 1000px;
+    max-width: 1100px;
     margin: 0 auto;
+    display: flex;
+    gap: 0;
 }
 
-/* Events Marquee - Editorial style */
+/* Events Sidebar - Right side panel */
 .events-marquee {
-    background: var(--charcoal);
-    color: var(--white);
-    padding: 1.5rem 2rem;
-    border-radius: 16px 16px 0 0;
-    position: relative;
-    overflow: hidden;
+    background: var(--cream-dark);
+    color: var(--charcoal);
+    padding: 2rem 1.5rem;
+    width: 280px;
+    flex-shrink: 0;
+    border-left: 1px solid var(--gray-lighter);
+    order: 2;
 }
 
 .marquee-label {
     font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 3px;
-    color: rgba(255,255,255,0.5);
-    margin-bottom: 0.75rem;
+    color: var(--gray);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--gray-lighter);
 }
 
 .marquee-events {
     display: flex;
-    gap: 2rem;
-    overflow-x: auto;
-    padding-bottom: 0.5rem;
-    scrollbar-width: none;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-height: 400px;
+    overflow-y: auto;
+    scrollbar-width: thin;
 }
 
 .marquee-events::-webkit-scrollbar {
-    display: none;
+    width: 4px;
+}
+
+.marquee-events::-webkit-scrollbar-thumb {
+    background: var(--gray-lighter);
+    border-radius: 2px;
 }
 
 .marquee-event {
-    flex-shrink: 0;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 0.75rem;
 }
 
@@ -1353,6 +1363,7 @@ p {
     height: 8px;
     border-radius: 50%;
     flex-shrink: 0;
+    margin-top: 6px;
 }
 
 .marquee-event-dot.festival { background: #D4A574; }
@@ -1363,19 +1374,20 @@ p {
 .marquee-event-info {
     display: flex;
     flex-direction: column;
-    gap: 0.1rem;
+    gap: 0.2rem;
 }
 
 .marquee-event-name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 600;
-    white-space: nowrap;
+    color: var(--charcoal);
+    line-height: 1.3;
 }
 
 .marquee-event-date {
     font-size: 0.7rem;
-    color: rgba(255,255,255,0.6);
+    color: var(--gray);
     text-transform: uppercase;
     letter-spacing: 1px;
 }
@@ -1384,6 +1396,8 @@ p {
 .calendar-grid-section {
     background: var(--cream);
     padding: 2rem 2.5rem;
+    flex: 1;
+    order: 1;
 }
 
 .calendar-nav-row {
@@ -1621,36 +1635,17 @@ p {
         max-width: 100%;
         border-radius: 12px;
         overflow: hidden;
+        flex-direction: column;
     }
 
-    .marquee-events {
-        max-width: 100%;
-    }
-
+    /* Hide events sidebar on mobile - events shown on calendar days instead */
     .events-marquee {
-        padding: 1.25rem 1rem;
-        border-radius: 12px 12px 0 0;
-    }
-
-    .marquee-label {
-        font-size: 0.6rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .marquee-events {
-        gap: 1.25rem;
-    }
-
-    .marquee-event-name {
-        font-size: 0.9rem;
-    }
-
-    .marquee-event-date {
-        font-size: 0.6rem;
+        display: none;
     }
 
     .calendar-grid-section {
         padding: 1.25rem 0.75rem;
+        order: 1;
     }
 
     .calendar-nav-row {
