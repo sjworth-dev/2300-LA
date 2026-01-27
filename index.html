@@ -1048,6 +1048,16 @@
             }
         }
 
+        function formatEventDates(start, end) {
+            const s = new Date(start + 'T00:00:00');
+            const e = new Date(end + 'T00:00:00');
+            const opts = { month: 'short', day: 'numeric' };
+            if (start === end) {
+                return s.toLocaleDateString('en-US', opts);
+            }
+            return `${s.toLocaleDateString('en-US', opts)} - ${e.toLocaleDateString('en-US', opts)}`;
+        }
+
         // Auto-fetch price when both dates selected
         function autoFetchPrice() {
             if (selectedCheckIn && selectedCheckOut) {
