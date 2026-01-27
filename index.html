@@ -621,6 +621,7 @@
                 }
 
                 currentQuote = data;
+                console.log('Quote response:', JSON.stringify(data, null, 2));
 
                 // Format dates
                 const checkInDate = new Date(checkIn + 'T00:00:00');
@@ -631,10 +632,20 @@
                 const formattedCheckIn = checkInDate.toLocaleDateString('en-US', dateOptions);
                 const formattedCheckOut = checkOutDate.toLocaleDateString('en-US', dateOptions);
 
-                // Display quote
+                // Display quote - try multiple paths to find total
                 document.getElementById('quote-dates').textContent = `${formattedCheckIn} - ${formattedCheckOut} · ${nights} night${nights > 1 ? 's' : ''}`;
 
-                const total = data.rates?.total || data.price?.total || 0;
+                // Guesty quote response can have price in different places
+                const total = data.money?.hostPayout
+                    || data.money?.totalPrice
+                    || data.rates?.total
+                    || data.price?.total
+                    || data.totalPrice
+                    || data.fare?.total
+                    || data.totals?.total
+                    || 0;
+
+                console.log('Extracted total:', total);
                 document.getElementById('quote-total').textContent = `$${Math.round(total).toLocaleString()}`;
                 document.getElementById('quote-breakdown').textContent = 'total including fees & taxes';
 
@@ -689,7 +700,14 @@
             const checkIn = checkInInput.value;
             const checkOut = checkOutInput.value;
             const guests = guestsSelect.value;
-            const total = currentQuote?.rates?.total || currentQuote?.price?.total || 0;
+            const total = currentQuote?.money?.hostPayout
+                || currentQuote?.money?.totalPrice
+                || currentQuote?.rates?.total
+                || currentQuote?.price?.total
+                || currentQuote?.totalPrice
+                || currentQuote?.fare?.total
+                || currentQuote?.totals?.total
+                || 0;
 
             document.getElementById('checkout-summary').innerHTML = `
                 <div class="summary-row">
