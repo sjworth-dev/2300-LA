@@ -509,7 +509,71 @@ p {
 }
 
 /* ============================================
-   SCENE 5: THE DETAILS (Horizontal Scroll)
+   SCENE 5: THE LAYOUT (Floor Plan)
+   ============================================ */
+
+.scene-layout {
+    min-height: 100vh;
+    background: var(--cream);
+    padding: 6rem 4rem;
+}
+
+.layout-container {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.layout-text {
+    transform: translateX(-40px);
+    opacity: 0;
+    transition: all 1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+}
+
+.scene-layout.in-view .layout-text {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.layout-image {
+    transform: translateY(40px);
+    opacity: 0;
+    transition: all 1s cubic-bezier(0.22, 1, 0.36, 1) 0.4s;
+}
+
+.scene-layout.in-view .layout-image {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.layout-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 1024px) {
+    .layout-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .layout-text {
+        text-align: center;
+    }
+
+    .layout-text p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* ============================================
+   SCENE 6: THE DETAILS (Horizontal Scroll)
    ============================================ */
 
 .scene-details {
