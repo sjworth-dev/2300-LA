@@ -99,16 +99,12 @@
                         </button>
                     </div>
 
-                    <!-- Calendar Backdrop -->
-                    <div class="calendar-backdrop hidden" id="calendar-backdrop"></div>
-
-                    <!-- Custom Calendar - Full Width Event Calendar -->
-                    <div class="calendar-container hidden" id="calendar-container">
+                    <!-- Custom Calendar - Always Visible Event Calendar -->
+                    <div class="calendar-container" id="calendar-container">
                         <div class="calendar-main">
                             <!-- Selection instruction bar -->
                             <div class="calendar-instruction" id="calendar-instruction">
-                                <span class="instruction-text">Select your arrival date</span>
-                                <button type="button" class="calendar-done-btn hidden" id="calendar-done">Done</button>
+                                <span class="instruction-text">Select your dates to check availability</span>
                             </div>
                             <div class="calendar-header">
                                 <button type="button" class="calendar-nav" id="cal-prev">&#8592;</button>
@@ -954,25 +950,12 @@
         // CUSTOM CALENDAR - TWO MONTH VIEW
         // ============================================
         const calendarContainer = document.getElementById('calendar-container');
-        const calendarBackdrop = document.getElementById('calendar-backdrop');
         const calendarDays1 = document.getElementById('calendar-days-1');
         const calendarDays2 = document.getElementById('calendar-days-2');
         const calendarTitle1 = document.getElementById('calendar-title-1');
         const calendarTitle2 = document.getElementById('calendar-title-2');
         const eventsList = document.getElementById('events-list');
 
-        function openCalendar() {
-            calendarContainer.classList.remove('hidden');
-            calendarBackdrop.classList.remove('hidden');
-        }
-
-        function closeCalendar() {
-            calendarContainer.classList.add('hidden');
-            calendarBackdrop.classList.add('hidden');
-        }
-
-        // Close when clicking backdrop
-        calendarBackdrop.addEventListener('click', closeCalendar);
         let currentMonth = new Date().getMonth();
         let currentYear = new Date().getFullYear();
         let selectingFor = 'check-in';
@@ -1155,18 +1138,14 @@
 
         function updateCalendarInstruction() {
             const instructionEl = document.querySelector('.instruction-text');
-            const doneBtn = document.getElementById('calendar-done');
 
             if (!selectedCheckIn) {
                 instructionEl.textContent = 'Select your arrival date';
-                doneBtn.classList.add('hidden');
             } else if (!selectedCheckOut) {
                 instructionEl.textContent = 'Now select your departure date';
-                doneBtn.classList.add('hidden');
             } else {
                 const nights = Math.round((new Date(selectedCheckOut) - new Date(selectedCheckIn)) / (1000 * 60 * 60 * 24));
-                instructionEl.textContent = `${nights} night${nights > 1 ? 's' : ''} selected`;
-                doneBtn.classList.remove('hidden');
+                instructionEl.textContent = `${nights} night${nights > 1 ? 's' : ''} selected — Click "Check Availability" above`;
             }
         }
 
@@ -1203,9 +1182,6 @@
             renderCalendar();
         };
 
-        // Done button closes calendar
-        document.getElementById('calendar-done').addEventListener('click', closeCalendar);
-
         function formatDisplayDate(dateStr) {
             const date = new Date(dateStr + 'T00:00:00');
             return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
@@ -1230,41 +1206,10 @@
             renderCalendar();
         });
 
-        // Open calendar when clicking date inputs
-        document.querySelectorAll('.date-input').forEach(input => {
-            input.addEventListener('click', (e) => {
-                e.stopPropagation();
-                selectingFor = input.dataset.target || 'check-in';
-                openCalendar();
-                fetchAvailability(); // Load availability data
-                updateCalendarInstruction();
-                renderCalendar();
-            });
-        });
-
-        // Close calendar when pressing Escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !calendarContainer.classList.contains('hidden')) {
-                closeCalendar();
-            }
-        });
-
-        // Add close button to calendar
-        function addCloseButton() {
-            if (!document.getElementById('calendar-close')) {
-                const closeBtn = document.createElement('button');
-                closeBtn.id = 'calendar-close';
-                closeBtn.className = 'calendar-close-btn';
-                closeBtn.innerHTML = '&times;';
-                closeBtn.onclick = closeCalendar;
-                calendarContainer.querySelector('.calendar-main').prepend(closeBtn);
-            }
-        }
-        addCloseButton();
-
         // Initialize calendar and prefetch availability
         renderCalendar();
         fetchAvailability();
+        updateCalendarInstruction();
 
         // ============================================
         // BOOKING FUNCTIONALITY
