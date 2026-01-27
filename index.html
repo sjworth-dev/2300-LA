@@ -133,9 +133,6 @@
                                     <span class="price-breakdown" id="quote-breakdown"></span>
                                 </div>
                             </div>
-                            <button type="button" class="btn-continue" id="btn-continue">
-                                Continue to Book
-                            </button>
                         </div>
                         <div class="quote-error hidden" id="quote-error">
                             <p id="quote-error-message"></p>
@@ -1236,24 +1233,22 @@
                 quoteLoading.classList.add('hidden');
                 quoteResult.classList.remove('hidden');
 
+                // Auto-show checkout form
+                checkoutContainer.classList.remove('hidden');
+                initializeStripe();
+                updateStayInfo();
+
+                // Smooth scroll to checkout
+                setTimeout(() => {
+                    checkoutContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 200);
+
             } catch (error) {
                 console.error('Quote error:', error);
                 document.getElementById('quote-error-message').textContent = error.message || 'Unable to get pricing. Please try again.';
                 quoteLoading.classList.add('hidden');
                 quoteError.classList.remove('hidden');
             }
-        });
-
-        // Continue to Book button - shows checkout
-        document.getElementById('btn-continue').addEventListener('click', () => {
-            checkoutContainer.classList.remove('hidden');
-            initializeStripe();
-            updateStayInfo();
-
-            // Smooth scroll to checkout
-            setTimeout(() => {
-                checkoutContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
         });
 
         // ============================================
