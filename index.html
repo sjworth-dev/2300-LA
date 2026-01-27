@@ -1238,10 +1238,10 @@
                 initializeStripe();
                 updateStayInfo();
 
-                // Smooth scroll to checkout
-                setTimeout(() => {
+                // Make banner clickable to scroll to checkout
+                quoteDisplay.onclick = () => {
                     checkoutContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 200);
+                };
 
             } catch (error) {
                 console.error('Quote error:', error);

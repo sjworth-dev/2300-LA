@@ -2015,16 +2015,22 @@ p {
 
 /* Quote Display - Fixed Bottom Banner */
 .quote-display {
-    position: fixed;
-    bottom: 0;
+    position: fixed !important;
+    bottom: 0 !important;
     left: 0;
     right: 0;
     background: var(--charcoal);
     color: var(--white);
     padding: 0.75rem 2rem;
-    z-index: 1000;
+    z-index: 9999;
     box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
     animation: slideUp 0.3s ease;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.quote-display:hover {
+    background: #1a1a1a;
 }
 
 @keyframes slideUp {
