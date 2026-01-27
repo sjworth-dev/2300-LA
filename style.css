@@ -1290,6 +1290,44 @@ p {
     overflow: hidden;
 }
 
+/* Calendar Instruction Bar */
+.calendar-instruction {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--gray-lighter);
+}
+
+.instruction-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    color: var(--charcoal);
+}
+
+.calendar-done-btn {
+    background: var(--olive);
+    color: var(--white);
+    border: none;
+    padding: 0.75rem 2rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.calendar-done-btn:hover {
+    background: var(--charcoal);
+}
+
+.calendar-done-btn.hidden {
+    display: none;
+}
+
 .calendar-header {
     display: flex;
     justify-content: space-between;
@@ -1675,6 +1713,20 @@ p {
         flex: 0 0 auto;
         padding: 0.75rem;
         padding-top: 1rem;
+    }
+
+    .calendar-instruction {
+        padding: 0.5rem 0;
+        margin-bottom: 0.5rem;
+    }
+
+    .instruction-text {
+        font-size: 1rem;
+    }
+
+    .calendar-done-btn {
+        padding: 0.5rem 1.25rem;
+        font-size: 0.75rem;
     }
 
     .calendar-header {

@@ -326,6 +326,11 @@
                     <!-- Custom Calendar - Full Width Event Calendar -->
                     <div class="calendar-container hidden" id="calendar-container">
                         <div class="calendar-main">
+                            <!-- Selection instruction bar -->
+                            <div class="calendar-instruction" id="calendar-instruction">
+                                <span class="instruction-text">Select your arrival date</span>
+                                <button type="button" class="calendar-done-btn hidden" id="calendar-done">Done</button>
+                            </div>
                             <div class="calendar-header">
                                 <button type="button" class="calendar-nav" id="cal-prev">&#8592;</button>
                                 <div class="calendar-titles">
@@ -1032,8 +1037,25 @@
             return `${s.toLocaleDateString('en-US', opts)} - ${e.toLocaleDateString('en-US', opts)}`;
         }
 
+        function updateCalendarInstruction() {
+            const instructionEl = document.querySelector('.instruction-text');
+            const doneBtn = document.getElementById('calendar-done');
+
+            if (!selectedCheckIn) {
+                instructionEl.textContent = 'Select your arrival date';
+                doneBtn.classList.add('hidden');
+            } else if (!selectedCheckOut) {
+                instructionEl.textContent = 'Now select your departure date';
+                doneBtn.classList.add('hidden');
+            } else {
+                const nights = Math.round((new Date(selectedCheckOut) - new Date(selectedCheckIn)) / (1000 * 60 * 60 * 24));
+                instructionEl.textContent = `${nights} night${nights > 1 ? 's' : ''} selected`;
+                doneBtn.classList.remove('hidden');
+            }
+        }
+
         window.selectDate = function(dateStr) {
-            if (selectingFor === 'check-in') {
+            if (selectingFor === 'check-in' || !selectedCheckIn) {
                 selectedCheckIn = dateStr;
                 selectedCheckOut = null;
                 document.getElementById('check-in').value = dateStr;
@@ -1045,22 +1067,30 @@
                 selectingFor = 'check-out';
             } else {
                 if (dateStr <= selectedCheckIn) {
+                    // Clicked before check-in, reset to new check-in
                     selectedCheckIn = dateStr;
                     selectedCheckOut = null;
                     document.getElementById('check-in').value = dateStr;
                     document.getElementById('check-in-display').textContent = formatDisplayDate(dateStr);
                     document.getElementById('check-out-display').textContent = 'Select date';
+                    document.getElementById('check-out-display').classList.remove('has-value');
                     document.getElementById('check-out').value = '';
+                    selectingFor = 'check-out';
                 } else {
                     selectedCheckOut = dateStr;
                     document.getElementById('check-out').value = dateStr;
                     document.getElementById('check-out-display').textContent = formatDisplayDate(dateStr);
                     document.getElementById('check-out-display').classList.add('has-value');
-                    selectingFor = 'check-in';
                 }
             }
+            updateCalendarInstruction();
             renderCalendar();
         };
+
+        // Done button closes calendar
+        document.getElementById('calendar-done').addEventListener('click', () => {
+            calendarContainer.classList.add('hidden');
+        });
 
         function formatDisplayDate(dateStr) {
             const date = new Date(dateStr + 'T00:00:00');
@@ -1089,9 +1119,10 @@
         // Open calendar when clicking date inputs
         document.querySelectorAll('.date-input').forEach(input => {
             input.addEventListener('click', () => {
-                selectingFor = input.dataset.target;
+                selectingFor = input.dataset.target || 'check-in';
                 calendarContainer.classList.remove('hidden');
                 fetchAvailability(); // Load availability data
+                updateCalendarInstruction();
                 renderCalendar();
             });
         });
