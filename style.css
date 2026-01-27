@@ -1115,25 +1115,15 @@ p {
 .book-intro {
     text-align: center;
     margin-bottom: 3rem;
-    transform: translateY(30px);
-    opacity: 0;
+    transform: translateY(0);
+    opacity: 1;
     transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.scene-book.in-view .book-intro {
-    transform: translateY(0);
-    opacity: 1;
-}
-
 .book-widget {
-    transform: translateY(30px);
-    opacity: 0;
-    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
-}
-
-.scene-book.in-view .book-widget {
     transform: translateY(0);
     opacity: 1;
+    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
 }
 
 .book-card {
