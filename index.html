@@ -119,25 +119,6 @@
                         </div>
                     </div>
 
-                    <!-- Quote Display -->
-                    <div class="quote-display hidden" id="quote-display">
-                        <div class="quote-loading" id="quote-loading">
-                            <div class="loading-spinner"></div>
-                            <span>Finding your rate...</span>
-                        </div>
-                        <div class="quote-result hidden" id="quote-result">
-                            <div class="quote-summary">
-                                <div class="quote-dates" id="quote-dates"></div>
-                                <div class="quote-price">
-                                    <span class="price-total" id="quote-total"></span>
-                                    <span class="price-breakdown" id="quote-breakdown"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="quote-error hidden" id="quote-error">
-                            <p id="quote-error-message"></p>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -541,6 +522,26 @@
             <p>&copy; 2025 Marais. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Quote Display - Fixed Bottom Banner (outside all containers for proper fixed positioning) -->
+    <div class="quote-display hidden" id="quote-display">
+        <div class="quote-loading" id="quote-loading">
+            <div class="loading-spinner"></div>
+            <span>Finding your rate...</span>
+        </div>
+        <div class="quote-result hidden" id="quote-result">
+            <div class="quote-summary">
+                <div class="quote-dates" id="quote-dates"></div>
+                <div class="quote-price">
+                    <span class="price-total" id="quote-total"></span>
+                    <span class="price-breakdown" id="quote-breakdown"></span>
+                </div>
+            </div>
+        </div>
+        <div class="quote-error hidden" id="quote-error">
+            <p id="quote-error-message"></p>
+        </div>
+    </div>
 
     <script>
         // ============================================
