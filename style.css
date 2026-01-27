@@ -2105,6 +2105,20 @@ p {
     color: rgba(255,255,255,0.5);
 }
 
+.quote-cta {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: var(--white);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    opacity: 0.9;
+    transition: opacity 0.2s ease;
+}
+
+.quote-display:hover .quote-cta {
+    opacity: 1;
+}
+
 /* Quote Banner - Mobile */
 @media (max-width: 768px) {
     .quote-display {
@@ -2129,6 +2143,10 @@ p {
 
     .price-breakdown {
         display: none;
+    }
+
+    .quote-cta {
+        font-size: 0.9rem;
     }
 }
 
