@@ -72,47 +72,50 @@
                     <input type="hidden" id="check-in" name="check-in">
                     <input type="hidden" id="check-out" name="check-out">
 
-                    <!-- Custom Calendar - Always Visible Event Calendar -->
-                    <div class="calendar-container" id="calendar-container">
-                        <div class="calendar-main">
-                            <!-- Selection bar with guests + check button -->
-                            <div class="calendar-action-bar" id="calendar-instruction">
-                                <span class="instruction-text">Select your dates</span>
-                                <div class="calendar-actions">
-                                    <select id="guests" name="guests" class="guests-select">
-                                        <option value="1">1 Guest</option>
-                                        <option value="2" selected>2 Guests</option>
-                                        <option value="3">3 Guests</option>
-                                        <option value="4">4 Guests</option>
-                                        <option value="5">5 Guests</option>
-                                        <option value="6">6 Guests</option>
-                                        <option value="7">7 Guests</option>
-                                        <option value="8">8 Guests</option>
-                                        <option value="9">9 Guests</option>
-                                        <option value="10">10 Guests</option>
-                                    </select>
-                                    <button type="button" id="check-prices-btn" class="btn-check-prices">
-                                        Check Prices
-                                    </button>
-                                </div>
+                    <!-- NOLA Events Calendar -->
+                    <div class="nola-calendar" id="calendar-container">
+                        <!-- Featured Events Marquee -->
+                        <div class="events-marquee">
+                            <div class="marquee-label">What's Happening</div>
+                            <div class="marquee-events" id="marquee-events"></div>
+                        </div>
+
+                        <!-- Calendar Grid -->
+                        <div class="calendar-grid-section">
+                            <div class="calendar-nav-row">
+                                <button type="button" class="cal-arrow" id="cal-prev">←</button>
+                                <span class="calendar-month-title" id="calendar-title-1"></span>
+                                <button type="button" class="cal-arrow" id="cal-next">→</button>
                             </div>
-                            <div class="calendar-header">
-                                <button type="button" class="calendar-nav" id="cal-prev">&#8249;</button>
-                                <span class="calendar-title" id="calendar-title-1"></span>
-                                <button type="button" class="calendar-nav" id="cal-next">&#8250;</button>
+
+                            <div class="calendar-weekdays">
+                                <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
                             </div>
-                            <div class="calendar-month">
-                                <div class="calendar-weekdays">
-                                    <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
-                                </div>
-                                <div class="calendar-days" id="calendar-days-1"></div>
+                            <div class="calendar-days" id="calendar-days-1"></div>
+                        </div>
+
+                        <!-- Selection Info -->
+                        <div class="selection-bar">
+                            <div class="selection-info" id="calendar-instruction">
+                                <span class="instruction-text">Tap dates to plan your stay</span>
                             </div>
-                            <div class="calendar-legend">
-                                <span class="legend-item"><span class="legend-dot festival"></span> Festival</span>
-                                <span class="legend-item"><span class="legend-dot parade"></span> Parade</span>
-                                <span class="legend-item"><span class="legend-dot secondline"></span> Second Line</span>
-                                <span class="legend-item"><span class="legend-dot unavailable"></span> Booked</span>
+                            <div class="guest-picker">
+                                <select id="guests" name="guests">
+                                    <option value="1">1 Guest</option>
+                                    <option value="2" selected>2 Guests</option>
+                                    <option value="3">3 Guests</option>
+                                    <option value="4">4 Guests</option>
+                                    <option value="5">5 Guests</option>
+                                    <option value="6">6 Guests</option>
+                                    <option value="7">7 Guests</option>
+                                    <option value="8">8 Guests</option>
+                                    <option value="9">9 Guests</option>
+                                    <option value="10">10 Guests</option>
+                                </select>
                             </div>
+                            <button type="button" id="check-prices-btn" class="btn-check-prices">
+                                Check Prices
+                            </button>
                         </div>
                     </div>
 
@@ -1013,17 +1016,20 @@
                     else classes += ' event';
                 }
 
-                let eventDots = '';
-                if (events.length > 0) {
-                    const uniqueTypes = [...new Set(events.map(e => e.type))];
-                    eventDots = uniqueTypes.slice(0, 3).map(t => `<span class="event-dot ${t}"></span>`).join('');
+                // Get first event name to display
+                let eventNameHtml = '';
+                if (events.length > 0 && !isPast && isAvailable) {
+                    const shortName = events[0].name.length > 12
+                        ? events[0].name.substring(0, 10) + '...'
+                        : events[0].name;
+                    eventNameHtml = `<span class="event-name-mini">${shortName}</span>`;
                 }
 
                 const isClickable = !isPast && isAvailable;
                 container.innerHTML += `
                     <div class="${classes}" data-date="${dateStr}" ${isClickable ? `onclick="selectDate('${dateStr}')"` : ''}>
                         <span class="day-number">${day}</span>
-                        <div class="event-dots">${eventDots}</div>
+                        ${eventNameHtml}
                     </div>
                 `;
             }
@@ -1033,6 +1039,40 @@
             // Render single month
             calendarTitle1.textContent = `${monthNames[currentMonth]} ${currentYear}`;
             renderMonth(calendarDays1, currentYear, currentMonth);
+            renderMarquee();
+        }
+
+        function renderMarquee() {
+            const marqueeEl = document.getElementById('marquee-events');
+            if (!marqueeEl) return;
+
+            // Get upcoming events for next 3 months
+            const events = [];
+            for (let i = 0; i < 3; i++) {
+                let m = currentMonth + i;
+                let y = currentYear;
+                if (m > 11) { m -= 12; y++; }
+                events.push(...getEventsForMonth(y, m));
+            }
+
+            // Remove duplicates and sort by date
+            const uniqueEvents = events.filter((e, i, arr) =>
+                arr.findIndex(x => x.name === e.name && x.start === e.start) === i
+            ).sort((a, b) => a.start.localeCompare(b.start)).slice(0, 8);
+
+            if (uniqueEvents.length > 0) {
+                marqueeEl.innerHTML = uniqueEvents.map(e => `
+                    <div class="marquee-event">
+                        <span class="marquee-event-dot ${e.type}"></span>
+                        <div class="marquee-event-info">
+                            <span class="marquee-event-name">${e.name}</span>
+                            <span class="marquee-event-date">${formatEventDates(e.start, e.end)}</span>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                marqueeEl.innerHTML = '<span class="no-events-msg">Check back for upcoming events</span>';
+            }
         }
 
         function updateCalendarInstruction() {
