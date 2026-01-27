@@ -21,6 +21,94 @@
 }
 
 /* ============================================
+   EVENTS TICKER
+   ============================================ */
+
+.events-ticker {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--charcoal);
+    color: var(--cream);
+    z-index: 1001;
+    overflow: hidden;
+    height: 32px;
+    display: flex;
+    align-items: center;
+}
+
+.ticker-track {
+    display: flex;
+    gap: 3rem;
+    animation: ticker-scroll 60s linear infinite;
+    white-space: nowrap;
+}
+
+.ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.ticker-item .event-name {
+    color: var(--cream);
+}
+
+.ticker-item .event-dates {
+    color: var(--coral);
+    font-weight: 500;
+}
+
+.ticker-item .separator {
+    color: var(--gray);
+    margin: 0 0.25rem;
+}
+
+@keyframes ticker-scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Adjust body padding to account for ticker */
+body {
+    padding-top: 32px;
+}
+
+/* Adjust nav position for ticker */
+.nav-minimal {
+    top: 32px;
+}
+
+/* Hide ticker on mobile for cleaner experience */
+@media (max-width: 768px) {
+    .events-ticker {
+        height: 28px;
+    }
+
+    .ticker-item {
+        font-size: 0.65rem;
+    }
+
+    body {
+        padding-top: 28px;
+    }
+
+    .nav-minimal {
+        top: 28px;
+    }
+}
+
+/* ============================================
    LOADING SCREEN
    ============================================ */
 

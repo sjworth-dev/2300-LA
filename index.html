@@ -30,6 +30,11 @@
         </div>
     </div>
 
+    <!-- Events Ticker -->
+    <div class="events-ticker" id="events-ticker">
+        <div class="ticker-track" id="ticker-track"></div>
+    </div>
+
     <!-- Minimal Navigation - Appears on scroll -->
     <nav class="nav-minimal" id="nav">
         <a href="#" class="nav-logo">Marais</a>
@@ -892,6 +897,60 @@
             { start: '2026-12-25', end: '2026-12-25', name: 'Christmas Day', type: 'event' },
             { start: '2026-12-31', end: '2026-12-31', name: 'New Years Eve', type: 'event' },
         ];
+
+        // ============================================
+        // EVENTS TICKER INITIALIZATION
+        // ============================================
+        function initEventsTicker() {
+            const tickerTrack = document.getElementById('ticker-track');
+            if (!tickerTrack) return;
+
+            // Get upcoming events (next 6 months)
+            const today = new Date();
+            const sixMonthsLater = new Date(today);
+            sixMonthsLater.setMonth(sixMonthsLater.getMonth() + 6);
+
+            const todayStr = today.toISOString().split('T')[0];
+            const futureStr = sixMonthsLater.toISOString().split('T')[0];
+
+            const upcomingEvents = nolaEvents
+                .filter(event => event.end >= todayStr && event.start <= futureStr)
+                .sort((a, b) => a.start.localeCompare(b.start))
+                .slice(0, 30); // Limit to 30 events
+
+            if (upcomingEvents.length === 0) return;
+
+            // Format date for display
+            function formatTickerDate(startStr, endStr) {
+                const start = new Date(startStr + 'T00:00:00');
+                const end = new Date(endStr + 'T00:00:00');
+                const options = { month: 'short', day: 'numeric' };
+
+                if (startStr === endStr) {
+                    return start.toLocaleDateString('en-US', options);
+                }
+                return `${start.toLocaleDateString('en-US', options)} - ${end.toLocaleDateString('en-US', options)}`;
+            }
+
+            // Build ticker content (duplicate for seamless loop)
+            let tickerHTML = '';
+            for (let i = 0; i < 2; i++) {
+                upcomingEvents.forEach(event => {
+                    tickerHTML += `
+                        <span class="ticker-item">
+                            <span class="event-name">${event.name}</span>
+                            <span class="separator">·</span>
+                            <span class="event-dates">${formatTickerDate(event.start, event.end)}</span>
+                        </span>
+                    `;
+                });
+            }
+
+            tickerTrack.innerHTML = tickerHTML;
+        }
+
+        // Initialize ticker on page load
+        initEventsTicker();
 
         function getEventsForMonth(year, month) {
             return nolaEvents.filter(event => {
