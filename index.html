@@ -130,9 +130,6 @@
                                     <span class="price-breakdown" id="quote-breakdown"></span>
                                 </div>
                             </div>
-                            <button type="button" id="book-now-btn" class="btn-book-now">
-                                Book Now
-                            </button>
                         </div>
                         <div class="quote-error hidden" id="quote-error">
                             <p id="quote-error-message"></p>
@@ -1121,7 +1118,6 @@
         const quoteLoading = document.getElementById('quote-loading');
         const quoteResult = document.getElementById('quote-result');
         const quoteError = document.getElementById('quote-error');
-        const bookNowBtn = document.getElementById('book-now-btn');
         const checkoutContainer = document.getElementById('checkout-container');
 
         // Store quote data
@@ -1187,20 +1183,22 @@
                 quoteLoading.classList.add('hidden');
                 quoteResult.classList.remove('hidden');
 
+                // Automatically show checkout form
+                checkoutContainer.classList.remove('hidden');
+                initializeStripe();
+                updateStayInfo();
+
+                // Smooth scroll to checkout after brief delay
+                setTimeout(() => {
+                    checkoutContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 200);
+
             } catch (error) {
                 console.error('Quote error:', error);
                 document.getElementById('quote-error-message').textContent = error.message || 'Unable to get pricing. Please try again.';
                 quoteLoading.classList.add('hidden');
                 quoteError.classList.remove('hidden');
             }
-        });
-
-        // Book Now - Show checkout form
-        bookNowBtn.addEventListener('click', () => {
-            checkoutContainer.classList.remove('hidden');
-            checkoutContainer.scrollIntoView({ behavior: 'smooth' });
-            initializeStripe();
-            updateStayInfo(); // Populate stay info panel
         });
 
         // ============================================
