@@ -635,22 +635,19 @@
                 // Display quote - try multiple paths to find total
                 document.getElementById('quote-dates').textContent = `${formattedCheckIn} - ${formattedCheckOut} · ${nights} night${nights > 1 ? 's' : ''}`;
 
-                // Guesty quote response structure: rates.ratePlans[0].money
-                const ratePlan = data.rates?.ratePlans?.[0];
-                const money = ratePlan?.money;
+                // Guesty quote response structure: rates.ratePlans[0].ratePlan.money
+                const ratePlanData = data.rates?.ratePlans?.[0];
+                const money = ratePlanData?.ratePlan?.money;
 
                 // Get total price (hostPayout includes everything guest pays)
-                const total = money?.hostPayout
-                    || money?.totalPrice
-                    || money?.fareAccommodation
-                    || 0;
+                const total = money?.hostPayout || money?.subTotalPrice || 0;
 
                 console.log('Money object:', money);
                 console.log('Extracted total:', total);
 
                 // Store ratePlanId for booking
-                if (ratePlan?.ratePlan?._id) {
-                    currentQuote.ratePlanId = ratePlan.ratePlan._id;
+                if (ratePlanData?.ratePlan?._id) {
+                    currentQuote.ratePlanId = ratePlanData.ratePlan._id;
                 }
                 document.getElementById('quote-total').textContent = `$${Math.round(total).toLocaleString()}`;
                 document.getElementById('quote-breakdown').textContent = 'total including fees & taxes';
@@ -706,11 +703,8 @@
             const checkIn = checkInInput.value;
             const checkOut = checkOutInput.value;
             const guests = guestsSelect.value;
-            const money = currentQuote?.rates?.ratePlans?.[0]?.money;
-            const total = money?.hostPayout
-                || money?.totalPrice
-                || money?.fareAccommodation
-                || 0;
+            const money = currentQuote?.rates?.ratePlans?.[0]?.ratePlan?.money;
+            const total = money?.hostPayout || money?.subTotalPrice || 0;
 
             document.getElementById('checkout-summary').innerHTML = `
                 <div class="summary-row">
