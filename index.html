@@ -323,24 +323,48 @@
                         </button>
                     </div>
 
-                    <!-- Custom Calendar -->
+                    <!-- Custom Calendar - Full Width Event Calendar -->
                     <div class="calendar-container hidden" id="calendar-container">
-                        <div class="calendar-header">
-                            <button type="button" class="calendar-nav" id="cal-prev">&larr;</button>
-                            <div class="calendar-title" id="calendar-title"></div>
-                            <button type="button" class="calendar-nav" id="cal-next">&rarr;</button>
+                        <div class="calendar-main">
+                            <div class="calendar-header">
+                                <button type="button" class="calendar-nav" id="cal-prev">&#8592;</button>
+                                <div class="calendar-titles">
+                                    <span class="calendar-title" id="calendar-title-1"></span>
+                                    <span class="calendar-title" id="calendar-title-2"></span>
+                                </div>
+                                <button type="button" class="calendar-nav" id="cal-next">&#8594;</button>
+                            </div>
+                            <div class="calendar-grid-wrapper">
+                                <!-- Month 1 -->
+                                <div class="calendar-month">
+                                    <div class="calendar-weekdays">
+                                        <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+                                    </div>
+                                    <div class="calendar-days" id="calendar-days-1"></div>
+                                </div>
+                                <!-- Month 2 -->
+                                <div class="calendar-month">
+                                    <div class="calendar-weekdays">
+                                        <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+                                    </div>
+                                    <div class="calendar-days" id="calendar-days-2"></div>
+                                </div>
+                            </div>
+                            <div class="calendar-legend">
+                                <span class="legend-item"><span class="legend-dot festival"></span> Festival</span>
+                                <span class="legend-item"><span class="legend-dot parade"></span> Parade</span>
+                                <span class="legend-item"><span class="legend-dot secondline"></span> Second Line</span>
+                                <span class="legend-item"><span class="legend-dot event"></span> Event</span>
+                            </div>
                         </div>
-                        <div class="calendar-weekdays">
-                            <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
-                        </div>
-                        <div class="calendar-days" id="calendar-days"></div>
-                        <div class="calendar-events" id="calendar-events">
-                            <div class="events-title">Events this month</div>
-                            <div class="events-list" id="events-list"></div>
-                        </div>
-                        <div class="calendar-legend">
-                            <span class="legend-item"><span class="legend-dot festival"></span> Festival</span>
-                            <span class="legend-item"><span class="legend-dot event"></span> Event</span>
+                        <div class="calendar-sidebar">
+                            <div class="calendar-events" id="calendar-events">
+                                <div class="events-header">
+                                    <h3>New Orleans Events</h3>
+                                    <p class="events-subtitle">What's happening during your stay</p>
+                                </div>
+                                <div class="events-list" id="events-list"></div>
+                            </div>
                         </div>
                     </div>
 
@@ -590,38 +614,211 @@
         // NEW ORLEANS EVENTS & FESTIVALS
         // ============================================
         const nolaEvents = [
-            // 2025-2026 Events (approximate dates - these shift yearly)
+            // =============================================
+            // 2025 EVENTS
+            // =============================================
+
+            // JANUARY 2025
+            { start: '2025-01-06', end: '2025-01-06', name: 'King Cake Season Begins', type: 'event' },
+            { start: '2025-01-11', end: '2025-01-11', name: 'Phunny Phorty Phellows', type: 'parade', desc: 'Streetcar parade kicks off Carnival' },
+            { start: '2025-01-18', end: '2025-01-18', name: 'Krewe of Joan of Arc', type: 'parade', desc: 'French Quarter walking parade' },
+            { start: '2025-01-20', end: '2025-01-20', name: 'MLK Day Parade', type: 'parade' },
+
+            // FEBRUARY 2025 - MARDI GRAS SEASON
+            { start: '2025-02-08', end: '2025-02-08', name: 'Krewe of Oshun', type: 'parade' },
+            { start: '2025-02-08', end: '2025-02-08', name: 'Krewe of Cleopatra', type: 'parade' },
+            { start: '2025-02-14', end: '2025-02-14', name: 'Krewe of Eve', type: 'parade' },
             { start: '2025-02-14', end: '2025-02-14', name: "Valentine's Day", type: 'event' },
-            { start: '2025-02-28', end: '2025-03-04', name: 'Mardi Gras', type: 'festival' },
-            { start: '2025-03-14', end: '2025-03-16', name: 'BUKU Music Fest', type: 'festival' },
+            { start: '2025-02-15', end: '2025-02-15', name: 'Krewe of Pontchartrain', type: 'parade' },
+            { start: '2025-02-21', end: '2025-02-21', name: 'Krewe of Nyx', type: 'parade', desc: 'Largest all-female krewe' },
+            { start: '2025-02-22', end: '2025-02-22', name: 'Krewe of Endymion', type: 'parade', desc: 'Mega parade - Mid City' },
+            { start: '2025-02-23', end: '2025-02-23', name: 'Krewe of Bacchus', type: 'parade', desc: 'Celebrity king parade' },
+            { start: '2025-02-24', end: '2025-02-24', name: 'Krewe of Orpheus', type: 'parade', desc: 'Lundi Gras super krewe' },
+            { start: '2025-02-25', end: '2025-02-25', name: 'Zulu Parade', type: 'parade', desc: 'Mardi Gras morning - coconuts!' },
+            { start: '2025-02-25', end: '2025-02-25', name: 'Rex Parade', type: 'parade', desc: 'King of Carnival' },
+            { start: '2025-02-25', end: '2025-02-25', name: 'Mardi Gras Day', type: 'festival', desc: 'Fat Tuesday!' },
+            { start: '2025-02-28', end: '2025-03-02', name: 'Buku Music + Art Project', type: 'festival', desc: 'Electronic music festival' },
+
+            // MARCH 2025
+            { start: '2025-03-02', end: '2025-03-02', name: 'Lundi Gras Second Line', type: 'secondline' },
+            { start: '2025-03-09', end: '2025-03-09', name: "Super Sunday - St. Joseph's", type: 'secondline', desc: 'Mardi Gras Indians' },
+            { start: '2025-03-15', end: '2025-03-16', name: 'Irish Channel Parade', type: 'parade', desc: 'Block party on Magazine St' },
             { start: '2025-03-17', end: '2025-03-17', name: "St. Patrick's Day", type: 'event' },
-            { start: '2025-04-04', end: '2025-04-06', name: 'French Quarter Fest', type: 'festival' },
-            { start: '2025-04-25', end: '2025-05-04', name: 'Jazz Fest', type: 'festival' },
-            { start: '2025-05-23', end: '2025-05-25', name: 'Bayou Country Superfest', type: 'festival' },
-            { start: '2025-06-01', end: '2025-06-01', name: 'Pride Parade', type: 'event' },
-            { start: '2025-07-03', end: '2025-07-06', name: 'Essence Festival', type: 'festival' },
-            { start: '2025-07-04', end: '2025-07-04', name: 'July 4th', type: 'event' },
-            { start: '2025-07-22', end: '2025-07-27', name: 'Tales of the Cocktail', type: 'event' },
-            { start: '2025-08-01', end: '2025-08-03', name: 'Satchmo SummerFest', type: 'festival' },
-            { start: '2025-08-15', end: '2025-08-17', name: 'White Linen Night', type: 'event' },
-            { start: '2025-10-24', end: '2025-10-26', name: 'Voodoo Fest', type: 'festival' },
-            { start: '2025-10-31', end: '2025-10-31', name: 'Halloween', type: 'event' },
-            { start: '2025-11-27', end: '2025-11-29', name: 'Bayou Classic', type: 'event' },
-            { start: '2025-12-24', end: '2025-12-25', name: 'Christmas', type: 'event' },
-            { start: '2025-12-31', end: '2026-01-01', name: "New Year's Eve", type: 'event' },
-            // 2026
-            { start: '2026-02-13', end: '2026-02-17', name: 'Mardi Gras', type: 'festival' },
-            { start: '2026-03-13', end: '2026-03-15', name: 'BUKU Music Fest', type: 'festival' },
+            { start: '2025-03-19', end: '2025-03-19', name: "St. Joseph's Day", type: 'event', desc: 'Italian altars throughout city' },
+            { start: '2025-03-21', end: '2025-03-23', name: 'NOLA Pyrate Week', type: 'event' },
+            { start: '2025-03-23', end: '2025-03-23', name: 'Second Line (Treme)', type: 'secondline' },
+            { start: '2025-03-28', end: '2025-03-30', name: 'Tennessee Williams Festival', type: 'festival' },
+            { start: '2025-03-29', end: '2025-03-29', name: 'Chris Owens Easter Parade', type: 'parade' },
+
+            // APRIL 2025
+            { start: '2025-04-04', end: '2025-04-06', name: 'Hogs for the Cause', type: 'festival', desc: 'BBQ & music' },
+            { start: '2025-04-10', end: '2025-04-13', name: 'French Quarter Festival', type: 'festival', desc: 'Free music throughout FQ' },
+            { start: '2025-04-13', end: '2025-04-13', name: 'Second Line (7th Ward)', type: 'secondline' },
+            { start: '2025-04-20', end: '2025-04-20', name: 'Second Line (Uptown)', type: 'secondline' },
+            { start: '2025-04-25', end: '2025-04-27', name: 'Jazz Fest Weekend 1', type: 'festival', desc: 'New Orleans Jazz & Heritage Festival' },
+            { start: '2025-04-27', end: '2025-04-27', name: 'Second Line (Treme)', type: 'secondline' },
+
+            // MAY 2025
+            { start: '2025-05-01', end: '2025-05-04', name: 'Jazz Fest Weekend 2', type: 'festival', desc: 'New Orleans Jazz & Heritage Festival' },
+            { start: '2025-05-04', end: '2025-05-04', name: 'Second Line (Central City)', type: 'secondline' },
+            { start: '2025-05-09', end: '2025-05-11', name: 'Bayou Boogaloo', type: 'festival', desc: 'Free fest on Bayou St. John' },
+            { start: '2025-05-11', end: '2025-05-11', name: 'Second Line (7th Ward)', type: 'secondline' },
+            { start: '2025-05-16', end: '2025-05-18', name: 'New Orleans Wine & Food', type: 'festival' },
+            { start: '2025-05-18', end: '2025-05-18', name: 'Second Line (Uptown)', type: 'secondline' },
+            { start: '2025-05-23', end: '2025-05-25', name: 'Greek Festival', type: 'festival' },
+
+            // JUNE 2025
+            { start: '2025-06-01', end: '2025-06-01', name: 'Second Line (Treme)', type: 'secondline' },
+            { start: '2025-06-06', end: '2025-06-08', name: 'Creole Tomato Festival', type: 'festival', desc: 'French Market' },
+            { start: '2025-06-07', end: '2025-06-07', name: 'Pride Parade', type: 'parade' },
+            { start: '2025-06-15', end: '2025-06-15', name: 'Second Line (7th Ward)', type: 'secondline' },
+            { start: '2025-06-20', end: '2025-06-22', name: 'Oyster Festival', type: 'festival' },
+            { start: '2025-06-22', end: '2025-06-22', name: 'Second Line (Central City)', type: 'secondline' },
+
+            // JULY 2025
+            { start: '2025-07-03', end: '2025-07-06', name: 'Essence Festival', type: 'festival', desc: 'Biggest party in NOLA' },
+            { start: '2025-07-04', end: '2025-07-04', name: 'Go 4th on the River', type: 'event', desc: 'Fireworks on the Mississippi' },
+            { start: '2025-07-13', end: '2025-07-13', name: 'Second Line (Uptown)', type: 'secondline' },
+            { start: '2025-07-18', end: '2025-07-20', name: 'Tales of the Cocktail', type: 'festival', desc: 'World cocktail conference' },
+            { start: '2025-07-20', end: '2025-07-20', name: 'Second Line (Treme)', type: 'secondline' },
+            { start: '2025-07-27', end: '2025-07-27', name: 'Second Line (7th Ward)', type: 'secondline' },
+
+            // AUGUST 2025
+            { start: '2025-08-01', end: '2025-08-03', name: 'Satchmo SummerFest', type: 'festival', desc: 'Louis Armstrong celebration' },
+            { start: '2025-08-02', end: '2025-08-02', name: 'White Linen Night', type: 'event', desc: 'Art walk on Julia St' },
+            { start: '2025-08-09', end: '2025-08-09', name: 'Dirty Linen Night', type: 'event', desc: 'Art walk on Royal St' },
+            { start: '2025-08-09', end: '2025-08-09', name: 'Red Dress Run', type: 'event', desc: 'Hash House Harriers charity run' },
+            { start: '2025-08-10', end: '2025-08-10', name: 'Second Line (Central City)', type: 'secondline' },
+            { start: '2025-08-17', end: '2025-08-17', name: 'Second Line (Uptown)', type: 'secondline' },
+            { start: '2025-08-22', end: '2025-08-24', name: 'COOLinary Restaurant Weeks', type: 'event', desc: 'Prix fixe dining deals' },
+            { start: '2025-08-24', end: '2025-08-24', name: 'Second Line (Treme)', type: 'secondline' },
+
+            // SEPTEMBER 2025
+            { start: '2025-09-05', end: '2025-09-07', name: 'Southern Decadence', type: 'festival', desc: 'LGBTQ+ celebration in FQ' },
+            { start: '2025-09-07', end: '2025-09-07', name: 'Second Line (7th Ward)', type: 'secondline' },
+            { start: '2025-09-14', end: '2025-09-14', name: 'Second Line (Uptown)', type: 'secondline' },
+            { start: '2025-09-19', end: '2025-09-21', name: 'Fried Chicken Festival', type: 'festival', desc: 'Free admission!' },
+            { start: '2025-09-21', end: '2025-09-21', name: 'Second Line (Central City)', type: 'secondline' },
+            { start: '2025-09-28', end: '2025-09-28', name: 'Second Line (Treme)', type: 'secondline' },
+
+            // OCTOBER 2025
+            { start: '2025-10-03', end: '2025-10-05', name: 'Crescent City Blues Fest', type: 'festival' },
+            { start: '2025-10-05', end: '2025-10-05', name: 'Second Line (7th Ward)', type: 'secondline' },
+            { start: '2025-10-10', end: '2025-10-12', name: 'Beignet Festival', type: 'festival' },
+            { start: '2025-10-12', end: '2025-10-12', name: 'Second Line (Uptown)', type: 'secondline' },
+            { start: '2025-10-17', end: '2025-10-19', name: 'Boudin Bourbon & Beer', type: 'festival' },
+            { start: '2025-10-19', end: '2025-10-19', name: 'Second Line (Central City)', type: 'secondline' },
+            { start: '2025-10-25', end: '2025-10-27', name: 'Voodoo Music Festival', type: 'festival', desc: 'City Park mega concert' },
+            { start: '2025-10-26', end: '2025-10-26', name: 'Krewe of Boo', type: 'parade', desc: 'Halloween parade downtown' },
+            { start: '2025-10-31', end: '2025-10-31', name: 'Halloween in the Quarter', type: 'event', desc: 'Costumes on Frenchmen & Bourbon' },
+
+            // NOVEMBER 2025
+            { start: '2025-11-02', end: '2025-11-02', name: 'Second Line (Treme)', type: 'secondline' },
+            { start: '2025-11-09', end: '2025-11-09', name: 'Second Line (7th Ward)', type: 'secondline' },
+            { start: '2025-11-14', end: '2025-11-16', name: 'Oak Street Po-Boy Festival', type: 'festival' },
+            { start: '2025-11-16', end: '2025-11-16', name: 'Second Line (Uptown)', type: 'secondline' },
+            { start: '2025-11-23', end: '2025-11-23', name: 'Second Line (Central City)', type: 'secondline' },
+            { start: '2025-11-27', end: '2025-11-27', name: 'Thanksgiving', type: 'event' },
+            { start: '2025-11-28', end: '2025-11-29', name: 'Bayou Classic', type: 'event', desc: 'Grambling vs Southern football' },
+            { start: '2025-11-29', end: '2025-11-29', name: 'Celebration in the Oaks', type: 'event', desc: 'Holiday lights - City Park' },
+
+            // DECEMBER 2025
+            { start: '2025-12-06', end: '2025-12-06', name: 'Krewe of Jingle', type: 'parade', desc: 'Holiday bike parade' },
+            { start: '2025-12-07', end: '2025-12-07', name: 'Second Line (Treme)', type: 'secondline' },
+            { start: '2025-12-13', end: '2025-12-14', name: 'LUNA Fete', type: 'event', desc: 'Light art projections downtown' },
+            { start: '2025-12-14', end: '2025-12-14', name: 'Second Line (7th Ward)', type: 'secondline' },
+            { start: '2025-12-20', end: '2025-12-20', name: 'Caroling in Jackson Square', type: 'event' },
+            { start: '2025-12-21', end: '2025-12-21', name: 'Second Line (Uptown)', type: 'secondline' },
+            { start: '2025-12-24', end: '2025-12-24', name: 'Christmas Eve Bonfires', type: 'event', desc: 'On the levee in St. James Parish' },
+            { start: '2025-12-25', end: '2025-12-25', name: 'Christmas Day', type: 'event' },
+            { start: '2025-12-31', end: '2025-12-31', name: 'New Years Eve', type: 'event', desc: 'Fleur de lis drop at Jax Brewery' },
+
+            // =============================================
+            // 2026 EVENTS
+            // =============================================
+
+            // JANUARY 2026
+            { start: '2026-01-01', end: '2026-01-01', name: 'Allstate Sugar Bowl', type: 'event' },
+            { start: '2026-01-06', end: '2026-01-06', name: 'King Cake Season Begins', type: 'event' },
+            { start: '2026-01-10', end: '2026-01-10', name: 'Phunny Phorty Phellows', type: 'parade' },
+            { start: '2026-01-17', end: '2026-01-17', name: 'Krewe of Joan of Arc', type: 'parade' },
+            { start: '2026-01-19', end: '2026-01-19', name: 'MLK Day Parade', type: 'parade' },
+            { start: '2026-01-25', end: '2026-01-25', name: 'Second Line (Treme)', type: 'secondline' },
+
+            // FEBRUARY 2026 - MARDI GRAS
+            { start: '2026-02-01', end: '2026-02-01', name: 'Second Line (7th Ward)', type: 'secondline' },
+            { start: '2026-02-06', end: '2026-02-06', name: 'Krewe of Oshun', type: 'parade' },
+            { start: '2026-02-07', end: '2026-02-07', name: 'Krewe of Cleopatra', type: 'parade' },
+            { start: '2026-02-08', end: '2026-02-08', name: 'Second Line (Uptown)', type: 'secondline' },
+            { start: '2026-02-13', end: '2026-02-13', name: 'Krewe of Nyx', type: 'parade' },
+            { start: '2026-02-14', end: '2026-02-14', name: 'Krewe of Endymion', type: 'parade', desc: 'Mega parade + Extravaganza' },
+            { start: '2026-02-14', end: '2026-02-14', name: "Valentine's Day", type: 'event' },
+            { start: '2026-02-15', end: '2026-02-15', name: 'Krewe of Bacchus', type: 'parade' },
+            { start: '2026-02-16', end: '2026-02-16', name: 'Krewe of Orpheus', type: 'parade', desc: 'Lundi Gras' },
+            { start: '2026-02-17', end: '2026-02-17', name: 'Zulu Parade', type: 'parade', desc: 'Get a coconut!' },
+            { start: '2026-02-17', end: '2026-02-17', name: 'Rex Parade', type: 'parade' },
+            { start: '2026-02-17', end: '2026-02-17', name: 'Mardi Gras Day', type: 'festival', desc: 'Fat Tuesday!' },
+            { start: '2026-02-27', end: '2026-03-01', name: 'Buku Music + Art Project', type: 'festival' },
+
+            // MARCH 2026
+            { start: '2026-03-01', end: '2026-03-01', name: 'Super Sunday', type: 'secondline', desc: 'Mardi Gras Indians' },
+            { start: '2026-03-14', end: '2026-03-15', name: 'Irish Channel Parade', type: 'parade' },
             { start: '2026-03-17', end: '2026-03-17', name: "St. Patrick's Day", type: 'event' },
-            { start: '2026-04-10', end: '2026-04-12', name: 'French Quarter Fest', type: 'festival' },
-            { start: '2026-04-24', end: '2026-05-03', name: 'Jazz Fest', type: 'festival' },
+            { start: '2026-03-19', end: '2026-03-19', name: "St. Joseph's Day", type: 'event' },
+            { start: '2026-03-27', end: '2026-03-29', name: 'Tennessee Williams Festival', type: 'festival' },
+
+            // APRIL 2026
+            { start: '2026-04-03', end: '2026-04-05', name: 'Hogs for the Cause', type: 'festival' },
+            { start: '2026-04-09', end: '2026-04-12', name: 'French Quarter Festival', type: 'festival', desc: 'Free music throughout FQ' },
+            { start: '2026-04-24', end: '2026-04-26', name: 'Jazz Fest Weekend 1', type: 'festival' },
+
+            // MAY 2026
+            { start: '2026-05-01', end: '2026-05-03', name: 'Jazz Fest Weekend 2', type: 'festival' },
+            { start: '2026-05-08', end: '2026-05-10', name: 'Bayou Boogaloo', type: 'festival' },
+            { start: '2026-05-15', end: '2026-05-17', name: 'New Orleans Wine & Food', type: 'festival' },
+            { start: '2026-05-22', end: '2026-05-24', name: 'Greek Festival', type: 'festival' },
+
+            // JUNE 2026
+            { start: '2026-06-05', end: '2026-06-07', name: 'Creole Tomato Festival', type: 'festival' },
+            { start: '2026-06-13', end: '2026-06-13', name: 'Pride Parade', type: 'parade' },
+            { start: '2026-06-19', end: '2026-06-21', name: 'Oyster Festival', type: 'festival' },
+
+            // JULY 2026
             { start: '2026-07-02', end: '2026-07-05', name: 'Essence Festival', type: 'festival' },
-            { start: '2026-07-04', end: '2026-07-04', name: 'July 4th', type: 'event' },
+            { start: '2026-07-04', end: '2026-07-04', name: 'Go 4th on the River', type: 'event' },
+            { start: '2026-07-17', end: '2026-07-19', name: 'Tales of the Cocktail', type: 'festival' },
+
+            // AUGUST 2026
             { start: '2026-08-07', end: '2026-08-09', name: 'Satchmo SummerFest', type: 'festival' },
-            { start: '2026-10-30', end: '2026-11-01', name: 'Voodoo Fest', type: 'festival' },
+            { start: '2026-08-01', end: '2026-08-01', name: 'White Linen Night', type: 'event' },
+            { start: '2026-08-08', end: '2026-08-08', name: 'Dirty Linen Night', type: 'event' },
+            { start: '2026-08-08', end: '2026-08-08', name: 'Red Dress Run', type: 'event' },
+
+            // SEPTEMBER 2026
+            { start: '2026-09-04', end: '2026-09-06', name: 'Southern Decadence', type: 'festival' },
+            { start: '2026-09-18', end: '2026-09-20', name: 'Fried Chicken Festival', type: 'festival' },
+
+            // OCTOBER 2026
+            { start: '2026-10-02', end: '2026-10-04', name: 'Crescent City Blues Fest', type: 'festival' },
+            { start: '2026-10-09', end: '2026-10-11', name: 'Beignet Festival', type: 'festival' },
+            { start: '2026-10-16', end: '2026-10-18', name: 'Boudin Bourbon & Beer', type: 'festival' },
+            { start: '2026-10-30', end: '2026-11-01', name: 'Voodoo Music Festival', type: 'festival' },
+            { start: '2026-10-25', end: '2026-10-25', name: 'Krewe of Boo', type: 'parade' },
             { start: '2026-10-31', end: '2026-10-31', name: 'Halloween', type: 'event' },
-            { start: '2026-11-26', end: '2026-11-28', name: 'Bayou Classic', type: 'event' },
-            { start: '2026-12-31', end: '2027-01-01', name: "New Year's Eve", type: 'event' },
+
+            // NOVEMBER 2026
+            { start: '2026-11-13', end: '2026-11-15', name: 'Oak Street Po-Boy Festival', type: 'festival' },
+            { start: '2026-11-26', end: '2026-11-26', name: 'Thanksgiving', type: 'event' },
+            { start: '2026-11-27', end: '2026-11-28', name: 'Bayou Classic', type: 'event' },
+            { start: '2026-11-28', end: '2026-11-28', name: 'Celebration in the Oaks', type: 'event' },
+
+            // DECEMBER 2026
+            { start: '2026-12-05', end: '2026-12-05', name: 'Krewe of Jingle', type: 'parade' },
+            { start: '2026-12-12', end: '2026-12-13', name: 'LUNA Fete', type: 'event' },
+            { start: '2026-12-19', end: '2026-12-19', name: 'Caroling in Jackson Square', type: 'event' },
+            { start: '2026-12-24', end: '2026-12-24', name: 'Christmas Eve Bonfires', type: 'event' },
+            { start: '2026-12-25', end: '2026-12-25', name: 'Christmas Day', type: 'event' },
+            { start: '2026-12-31', end: '2026-12-31', name: 'New Years Eve', type: 'event' },
         ];
 
         function getEventsForMonth(year, month) {
@@ -633,18 +830,26 @@
             });
         }
 
-        function getEventForDate(dateStr) {
-            return nolaEvents.find(event => {
-                return dateStr >= event.start && dateStr <= event.end;
+        function getEventsForDate(dateStr) {
+            return nolaEvents.filter(event => dateStr >= event.start && dateStr <= event.end);
+        }
+
+        function getEventsForRange(startDate, endDate) {
+            return nolaEvents.filter(event => {
+                return (event.start >= startDate && event.start <= endDate) ||
+                       (event.end >= startDate && event.end <= endDate) ||
+                       (event.start <= startDate && event.end >= endDate);
             });
         }
 
         // ============================================
-        // CUSTOM CALENDAR
+        // CUSTOM CALENDAR - TWO MONTH VIEW
         // ============================================
         const calendarContainer = document.getElementById('calendar-container');
-        const calendarDays = document.getElementById('calendar-days');
-        const calendarTitle = document.getElementById('calendar-title');
+        const calendarDays1 = document.getElementById('calendar-days-1');
+        const calendarDays2 = document.getElementById('calendar-days-2');
+        const calendarTitle1 = document.getElementById('calendar-title-1');
+        const calendarTitle2 = document.getElementById('calendar-title-2');
         const eventsList = document.getElementById('events-list');
         let currentMonth = new Date().getMonth();
         let currentYear = new Date().getFullYear();
@@ -655,25 +860,24 @@
         const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
                            'July', 'August', 'September', 'October', 'November', 'December'];
 
-        function renderCalendar() {
-            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+        function renderMonth(container, year, month) {
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
             const today = new Date();
             today.setHours(0, 0, 0, 0);
 
-            calendarTitle.textContent = `${monthNames[currentMonth]} ${currentYear}`;
-            calendarDays.innerHTML = '';
+            container.innerHTML = '';
 
             // Empty cells for days before the first
             for (let i = 0; i < firstDay; i++) {
-                calendarDays.innerHTML += '<div class="calendar-day empty"></div>';
+                container.innerHTML += '<div class="calendar-day empty"></div>';
             }
 
             // Days of the month
             for (let day = 1; day <= daysInMonth; day++) {
-                const date = new Date(currentYear, currentMonth, day);
+                const date = new Date(year, month, day);
                 const dateStr = date.toISOString().split('T')[0];
-                const event = getEventForDate(dateStr);
+                const events = getEventsForDate(dateStr);
                 const isPast = date < today;
                 const isCheckIn = selectedCheckIn === dateStr;
                 const isCheckOut = selectedCheckOut === dateStr;
@@ -685,29 +889,85 @@
                 if (isCheckIn) classes += ' check-in';
                 if (isCheckOut) classes += ' check-out';
                 if (isInRange) classes += ' in-range';
-                if (event) classes += ` has-event ${event.type}`;
+                if (events.length > 0) {
+                    classes += ' has-event';
+                    // Add class for highest priority event type
+                    if (events.some(e => e.type === 'festival')) classes += ' festival';
+                    else if (events.some(e => e.type === 'parade')) classes += ' parade';
+                    else if (events.some(e => e.type === 'secondline')) classes += ' secondline';
+                    else classes += ' event';
+                }
 
-                const eventDot = event ? `<span class="event-dot ${event.type}"></span>` : '';
+                let eventDots = '';
+                if (events.length > 0) {
+                    const uniqueTypes = [...new Set(events.map(e => e.type))];
+                    eventDots = uniqueTypes.slice(0, 3).map(t => `<span class="event-dot ${t}"></span>`).join('');
+                }
 
-                calendarDays.innerHTML += `
+                container.innerHTML += `
                     <div class="${classes}" data-date="${dateStr}" ${isPast ? '' : `onclick="selectDate('${dateStr}')"`}>
-                        ${day}${eventDot}
+                        <span class="day-number">${day}</span>
+                        <div class="event-dots">${eventDots}</div>
                     </div>
                 `;
             }
+        }
+
+        function renderCalendar() {
+            // Render first month
+            calendarTitle1.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+            renderMonth(calendarDays1, currentYear, currentMonth);
+
+            // Render second month
+            let month2 = currentMonth + 1;
+            let year2 = currentYear;
+            if (month2 > 11) {
+                month2 = 0;
+                year2++;
+            }
+            calendarTitle2.textContent = `${monthNames[month2]} ${year2}`;
+            renderMonth(calendarDays2, year2, month2);
 
             // Render events list
-            const monthEvents = getEventsForMonth(currentYear, currentMonth);
-            if (monthEvents.length > 0) {
-                eventsList.innerHTML = monthEvents.map(e => `
+            updateEventsList();
+        }
+
+        function updateEventsList() {
+            let events = [];
+
+            if (selectedCheckIn && selectedCheckOut) {
+                // Show events during selected stay
+                events = getEventsForRange(selectedCheckIn, selectedCheckOut);
+                document.querySelector('.events-subtitle').textContent = 'Events during your stay';
+            } else {
+                // Show events for both visible months
+                const month1Events = getEventsForMonth(currentYear, currentMonth);
+                let month2 = currentMonth + 1;
+                let year2 = currentYear;
+                if (month2 > 11) { month2 = 0; year2++; }
+                const month2Events = getEventsForMonth(year2, month2);
+                events = [...month1Events, ...month2Events];
+                // Remove duplicates
+                events = events.filter((e, i, arr) => arr.findIndex(x => x.name === e.name && x.start === e.start) === i);
+                document.querySelector('.events-subtitle').textContent = 'Upcoming events in New Orleans';
+            }
+
+            // Sort by date
+            events.sort((a, b) => a.start.localeCompare(b.start));
+
+            if (events.length > 0) {
+                eventsList.innerHTML = events.map(e => `
                     <div class="event-item ${e.type}">
-                        <span class="event-dot ${e.type}"></span>
-                        <span class="event-name">${e.name}</span>
+                        <div class="event-dot-wrapper"><span class="event-dot ${e.type}"></span></div>
+                        <div class="event-info">
+                            <span class="event-name">${e.name}</span>
+                            ${e.desc ? `<span class="event-desc">${e.desc}</span>` : ''}
+                        </div>
                         <span class="event-dates">${formatEventDates(e.start, e.end)}</span>
                     </div>
                 `).join('');
             } else {
-                eventsList.innerHTML = '<div class="no-events">No major events this month</div>';
+                eventsList.innerHTML = '<div class="no-events">No major events during this period</div>';
             }
         }
 
@@ -734,7 +994,6 @@
                 selectingFor = 'check-out';
             } else {
                 if (dateStr <= selectedCheckIn) {
-                    // If selecting a date before check-in, make it the new check-in
                     selectedCheckIn = dateStr;
                     selectedCheckOut = null;
                     document.getElementById('check-in').value = dateStr;
@@ -747,8 +1006,6 @@
                     document.getElementById('check-out-display').textContent = formatDisplayDate(dateStr);
                     document.getElementById('check-out-display').classList.add('has-value');
                     selectingFor = 'check-in';
-                    // Close calendar after selecting both dates
-                    setTimeout(() => calendarContainer.classList.add('hidden'), 300);
                 }
             }
             renderCalendar();
