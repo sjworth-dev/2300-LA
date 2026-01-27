@@ -76,10 +76,10 @@
     <section class="scene scene-space" id="space">
         <div class="space-gallery">
             <div class="space-image space-image-main">
-                <img src="Copy of 3.jpg" alt="Living Space">
+                <img src="Copy of 3.jpg" alt="Living Space" loading="lazy">
             </div>
             <div class="space-image space-image-secondary">
-                <img src="Copy of 6.jpg" alt="Interior Detail">
+                <img src="Copy of 6.jpg" alt="Interior Detail" loading="lazy">
             </div>
         </div>
         <div class="space-content">
@@ -92,7 +92,7 @@
     <!-- Scene 4: The Water - Pool Paradise -->
     <section class="scene scene-water" id="water">
         <div class="water-bg">
-            <img src="Copy of 50.jpg" alt="Pool">
+            <img src="Copy of 50.jpg" alt="Pool" loading="lazy">
         </div>
         <div class="water-overlay"></div>
         <div class="water-content">
@@ -111,7 +111,7 @@
                 <p>Two floors of thoughtfully designed space. Five bedrooms with king and queen beds, open living areas, and seamless flow between indoors and out.</p>
             </div>
             <div class="layout-image">
-                <img src="2300 floor sketch.jpg" alt="Floor Plan">
+                <img src="2300 floor sketch.jpg" alt="Floor Plan" loading="lazy">
             </div>
         </div>
     </section>
@@ -188,7 +188,7 @@
     <section class="scene scene-neighborhood" id="neighborhood">
         <div class="neighborhood-grid">
             <div class="neighborhood-image">
-                <img src="nola-magazine.jpg" alt="Magazine Street">
+                <img src="nola-magazine.jpg" alt="Magazine Street" loading="lazy">
             </div>
             <div class="neighborhood-content">
                 <span class="scene-label">The Neighborhood</span>
@@ -220,28 +220,28 @@
         </div>
         <div class="gallery-mosaic">
             <div class="mosaic-item mosaic-large">
-                <img src="Copy of 45.jpg" alt="Pool deck">
+                <img src="Copy of 45.jpg" alt="Pool deck" loading="lazy">
             </div>
             <div class="mosaic-item">
-                <img src="Copy of 10.jpg" alt="Bedroom">
+                <img src="Copy of 10.jpg" alt="Bedroom" loading="lazy">
             </div>
             <div class="mosaic-item">
-                <img src="Copy of 17.jpg" alt="Kitchen">
+                <img src="Copy of 17.jpg" alt="Kitchen" loading="lazy">
             </div>
             <div class="mosaic-item mosaic-tall">
-                <img src="Copy of 21.jpg" alt="Bathroom">
+                <img src="Copy of 21.jpg" alt="Bathroom" loading="lazy">
             </div>
             <div class="mosaic-item">
-                <img src="Copy of 35.jpg" alt="Outdoor">
+                <img src="Copy of 35.jpg" alt="Outdoor" loading="lazy">
             </div>
             <div class="mosaic-item mosaic-wide">
-                <img src="Copy of 40.jpg" alt="Evening">
+                <img src="Copy of 40.jpg" alt="Evening" loading="lazy">
             </div>
             <div class="mosaic-item">
-                <img src="Copy of 28.jpg" alt="Detail">
+                <img src="Copy of 28.jpg" alt="Detail" loading="lazy">
             </div>
             <div class="mosaic-item">
-                <img src="Copy of 32.jpg" alt="Living">
+                <img src="Copy of 32.jpg" alt="Living" loading="lazy">
             </div>
         </div>
     </section>
@@ -452,15 +452,14 @@
         // ============================================
         // LOADING SCREEN
         // ============================================
-        // Hide loader quickly - don't wait for all images
+        // Loading screen with 2 second branding moment
         const loader = document.getElementById('loader');
         const hideLoader = () => {
             loader.classList.add('loaded');
             document.body.classList.add('page-loaded');
         };
 
-        // Show content after brief branding moment (800ms max)
-        setTimeout(hideLoader, 800);
+        setTimeout(hideLoader, 2000);
 
         // ============================================
         // LIGHTBOX
