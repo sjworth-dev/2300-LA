@@ -97,44 +97,21 @@
                                 </div>
                             </div>
                             <div class="calendar-header">
-                                <button type="button" class="calendar-nav" id="cal-prev">&#8592;</button>
-                                <div class="calendar-titles">
-                                    <span class="calendar-title" id="calendar-title-1"></span>
-                                    <span class="calendar-title" id="calendar-title-2"></span>
-                                </div>
-                                <button type="button" class="calendar-nav" id="cal-next">&#8594;</button>
+                                <button type="button" class="calendar-nav" id="cal-prev">&#8249;</button>
+                                <span class="calendar-title" id="calendar-title-1"></span>
+                                <button type="button" class="calendar-nav" id="cal-next">&#8250;</button>
                             </div>
-                            <div class="calendar-grid-wrapper">
-                                <!-- Month 1 -->
-                                <div class="calendar-month">
-                                    <div class="calendar-weekdays">
-                                        <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
-                                    </div>
-                                    <div class="calendar-days" id="calendar-days-1"></div>
+                            <div class="calendar-month">
+                                <div class="calendar-weekdays">
+                                    <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
                                 </div>
-                                <!-- Month 2 -->
-                                <div class="calendar-month">
-                                    <div class="calendar-weekdays">
-                                        <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
-                                    </div>
-                                    <div class="calendar-days" id="calendar-days-2"></div>
-                                </div>
+                                <div class="calendar-days" id="calendar-days-1"></div>
                             </div>
                             <div class="calendar-legend">
                                 <span class="legend-item"><span class="legend-dot festival"></span> Festival</span>
                                 <span class="legend-item"><span class="legend-dot parade"></span> Parade</span>
                                 <span class="legend-item"><span class="legend-dot secondline"></span> Second Line</span>
-                                <span class="legend-item"><span class="legend-dot event"></span> Event</span>
                                 <span class="legend-item"><span class="legend-dot unavailable"></span> Booked</span>
-                            </div>
-                        </div>
-                        <div class="calendar-sidebar">
-                            <div class="calendar-events" id="calendar-events">
-                                <div class="events-header">
-                                    <h3>New Orleans Events</h3>
-                                    <p class="events-subtitle">What's happening during your stay</p>
-                                </div>
-                                <div class="events-list" id="events-list"></div>
                             </div>
                         </div>
                     </div>
@@ -937,14 +914,11 @@
         }
 
         // ============================================
-        // CUSTOM CALENDAR - TWO MONTH VIEW
+        // CUSTOM CALENDAR - SINGLE MONTH VIEW
         // ============================================
         const calendarContainer = document.getElementById('calendar-container');
         const calendarDays1 = document.getElementById('calendar-days-1');
-        const calendarDays2 = document.getElementById('calendar-days-2');
         const calendarTitle1 = document.getElementById('calendar-title-1');
-        const calendarTitle2 = document.getElementById('calendar-title-2');
-        const eventsList = document.getElementById('events-list');
 
         let currentMonth = new Date().getMonth();
         let currentYear = new Date().getFullYear();
@@ -1059,71 +1033,9 @@
         }
 
         function renderCalendar() {
-            // Render first month
+            // Render single month
             calendarTitle1.textContent = `${monthNames[currentMonth]} ${currentYear}`;
             renderMonth(calendarDays1, currentYear, currentMonth);
-
-            // Render second month
-            let month2 = currentMonth + 1;
-            let year2 = currentYear;
-            if (month2 > 11) {
-                month2 = 0;
-                year2++;
-            }
-            calendarTitle2.textContent = `${monthNames[month2]} ${year2}`;
-            renderMonth(calendarDays2, year2, month2);
-
-            // Render events list
-            updateEventsList();
-        }
-
-        function updateEventsList() {
-            let events = [];
-
-            if (selectedCheckIn && selectedCheckOut) {
-                // Show events during selected stay
-                events = getEventsForRange(selectedCheckIn, selectedCheckOut);
-                document.querySelector('.events-subtitle').textContent = 'Events during your stay';
-            } else {
-                // Show events for both visible months
-                const month1Events = getEventsForMonth(currentYear, currentMonth);
-                let month2 = currentMonth + 1;
-                let year2 = currentYear;
-                if (month2 > 11) { month2 = 0; year2++; }
-                const month2Events = getEventsForMonth(year2, month2);
-                events = [...month1Events, ...month2Events];
-                // Remove duplicates
-                events = events.filter((e, i, arr) => arr.findIndex(x => x.name === e.name && x.start === e.start) === i);
-                document.querySelector('.events-subtitle').textContent = 'Upcoming events in New Orleans';
-            }
-
-            // Sort by date
-            events.sort((a, b) => a.start.localeCompare(b.start));
-
-            if (events.length > 0) {
-                eventsList.innerHTML = events.map(e => `
-                    <div class="event-item ${e.type}">
-                        <div class="event-dot-wrapper"><span class="event-dot ${e.type}"></span></div>
-                        <div class="event-info">
-                            <span class="event-name">${e.name}</span>
-                            ${e.desc ? `<span class="event-desc">${e.desc}</span>` : ''}
-                        </div>
-                        <span class="event-dates">${formatEventDates(e.start, e.end)}</span>
-                    </div>
-                `).join('');
-            } else {
-                eventsList.innerHTML = '<div class="no-events">No major events during this period</div>';
-            }
-        }
-
-        function formatEventDates(start, end) {
-            const s = new Date(start + 'T00:00:00');
-            const e = new Date(end + 'T00:00:00');
-            const opts = { month: 'short', day: 'numeric' };
-            if (start === end) {
-                return s.toLocaleDateString('en-US', opts);
-            }
-            return `${s.toLocaleDateString('en-US', opts)} - ${e.toLocaleDateString('en-US', opts)}`;
         }
 
         function updateCalendarInstruction() {
@@ -1132,10 +1044,18 @@
             if (!selectedCheckIn) {
                 instructionEl.textContent = 'Select your arrival date';
             } else if (!selectedCheckOut) {
-                instructionEl.textContent = 'Now select your departure date';
+                instructionEl.textContent = 'Select your departure date';
             } else {
                 const nights = Math.round((new Date(selectedCheckOut) - new Date(selectedCheckIn)) / (1000 * 60 * 60 * 24));
-                instructionEl.textContent = `${nights} night${nights > 1 ? 's' : ''} selected — Click "Check Availability" above`;
+                instructionEl.textContent = `${nights} night${nights > 1 ? 's' : ''} selected`;
+            }
+        }
+
+        // Auto-fetch price when both dates selected
+        function autoFetchPrice() {
+            if (selectedCheckIn && selectedCheckOut) {
+                // Trigger price check automatically
+                document.getElementById('check-prices-btn').click();
             }
         }
 
@@ -1144,10 +1064,6 @@
                 selectedCheckIn = dateStr;
                 selectedCheckOut = null;
                 document.getElementById('check-in').value = dateStr;
-                document.getElementById('check-in-display').textContent = formatDisplayDate(dateStr);
-                document.getElementById('check-in-display').classList.add('has-value');
-                document.getElementById('check-out-display').textContent = 'Select date';
-                document.getElementById('check-out-display').classList.remove('has-value');
                 document.getElementById('check-out').value = '';
                 selectingFor = 'check-out';
             } else {
@@ -1156,26 +1072,19 @@
                     selectedCheckIn = dateStr;
                     selectedCheckOut = null;
                     document.getElementById('check-in').value = dateStr;
-                    document.getElementById('check-in-display').textContent = formatDisplayDate(dateStr);
-                    document.getElementById('check-out-display').textContent = 'Select date';
-                    document.getElementById('check-out-display').classList.remove('has-value');
                     document.getElementById('check-out').value = '';
                     selectingFor = 'check-out';
                 } else {
                     selectedCheckOut = dateStr;
                     document.getElementById('check-out').value = dateStr;
-                    document.getElementById('check-out-display').textContent = formatDisplayDate(dateStr);
-                    document.getElementById('check-out-display').classList.add('has-value');
+                    selectingFor = 'check-in';
+                    // Auto-fetch price after short delay for visual feedback
+                    setTimeout(autoFetchPrice, 300);
                 }
             }
             updateCalendarInstruction();
             renderCalendar();
         };
-
-        function formatDisplayDate(dateStr) {
-            const date = new Date(dateStr + 'T00:00:00');
-            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-        }
 
         // Calendar navigation
         document.getElementById('cal-prev').addEventListener('click', () => {
