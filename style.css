@@ -1648,31 +1648,33 @@ p {
     }
 }
 
-/* Mobile Calendar */
+/* Mobile Calendar - Calendar First, Events Below */
 @media (max-width: 768px) {
     .calendar-container {
         width: 100vw;
         height: 100vh;
+        height: 100dvh; /* Dynamic viewport height for mobile browsers */
         max-height: none;
         border-radius: 0;
         flex-direction: column;
+        overflow: hidden;
     }
 
     .calendar-main {
         flex: 0 0 auto;
-        padding: 1rem;
-        padding-bottom: 0.5rem;
+        padding: 0.75rem;
+        padding-top: 1rem;
     }
 
     .calendar-header {
-        margin-bottom: 1rem;
-        padding-bottom: 1rem;
+        margin-bottom: 0.75rem;
+        padding-bottom: 0.5rem;
     }
 
     .calendar-nav {
-        width: 40px;
-        height: 40px;
-        font-size: 1.25rem;
+        width: 36px;
+        height: 36px;
+        font-size: 1.1rem;
     }
 
     .calendar-grid-wrapper {
@@ -1694,135 +1696,143 @@ p {
     }
 
     .calendar-title {
-        font-size: 1.25rem;
+        font-size: 1.1rem;
         min-width: auto;
     }
 
     .calendar-weekdays {
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.25rem;
     }
 
     .calendar-weekdays span {
-        padding: 0.5rem 0.25rem;
-        font-size: 0.65rem;
+        padding: 0.35rem 0.25rem;
+        font-size: 0.6rem;
     }
 
     .calendar-days {
-        gap: 3px;
+        gap: 2px;
     }
 
     .calendar-day {
-        border-radius: 6px;
+        border-radius: 4px;
         aspect-ratio: 1;
+        min-height: 0;
     }
 
     .calendar-day .day-number {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
     }
 
     .calendar-day .event-dots {
-        margin-top: 2px;
+        margin-top: 1px;
     }
 
     .event-dot {
+        width: 4px;
+        height: 4px;
+    }
+
+    .calendar-legend {
+        gap: 0.5rem;
+        padding-top: 0.75rem;
+        margin-top: 0.5rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .legend-item {
+        font-size: 0.55rem;
+        gap: 0.25rem;
+    }
+
+    .legend-dot {
         width: 5px;
         height: 5px;
     }
 
-    .calendar-legend {
-        gap: 0.75rem;
-        padding-top: 1rem;
-        margin-top: 1rem;
-        justify-content: center;
-    }
-
-    .legend-item {
-        font-size: 0.65rem;
-        gap: 0.3rem;
-    }
-
-    .legend-dot {
-        width: 6px;
-        height: 6px;
-    }
-
-    /* Mobile Events Sidebar */
+    /* Mobile Events - Compact scrollable list */
     .calendar-sidebar {
         flex: 1;
-        min-height: 200px;
-        max-height: 45vh;
+        min-height: 0;
+        overflow: hidden;
     }
 
     .calendar-events {
-        padding: 1rem;
+        padding: 0.75rem;
         height: 100%;
         overflow-y: auto;
     }
 
     .events-header {
-        margin-bottom: 1rem;
-        padding-bottom: 0.75rem;
-        position: sticky;
-        top: 0;
-        background: var(--white);
-        z-index: 1;
+        margin-bottom: 0.5rem;
+        padding-bottom: 0.5rem;
     }
 
     .events-header h3 {
-        font-size: 1.1rem;
-        margin-bottom: 0.25rem;
+        font-size: 0.9rem;
+        margin-bottom: 0.15rem;
     }
 
     .events-subtitle {
-        font-size: 0.75rem;
+        font-size: 0.65rem;
     }
 
     .events-list {
-        gap: 0.5rem;
+        gap: 0.35rem;
     }
 
     .event-item {
-        padding: 0.75rem;
-        gap: 0.5rem;
+        padding: 0.5rem 0.6rem;
+        gap: 0.4rem;
     }
 
     .event-name {
-        font-size: 0.85rem;
+        font-size: 0.75rem;
     }
 
     .event-desc {
-        font-size: 0.7rem;
+        display: none;
     }
 
     .event-dates {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
     }
 
     .event-dot-wrapper {
         display: none;
+    }
+
+    .no-events {
+        padding: 1rem;
+        font-size: 0.8rem;
     }
 }
 
 /* Small phones */
 @media (max-width: 380px) {
     .calendar-main {
-        padding: 0.75rem;
+        padding: 0.5rem;
+        padding-top: 0.75rem;
     }
 
     .calendar-title {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
 
     .calendar-day .day-number {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
     }
 
     .legend-item {
-        font-size: 0.6rem;
+        font-size: 0.5rem;
     }
 
-    .calendar-sidebar {
-        max-height: 40vh;
+    .events-header h3 {
+        font-size: 0.85rem;
+    }
+
+    .event-name {
+        font-size: 0.7rem;
     }
 }
 
