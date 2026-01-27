@@ -2013,11 +2013,29 @@ p {
     }
 }
 
-/* Quote Display */
+/* Quote Display - Fixed Bottom Banner */
 .quote-display {
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--gray-lighter);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--charcoal);
+    color: var(--white);
+    padding: 1rem 2rem;
+    z-index: 1000;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+    animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .quote-loading {
@@ -2025,15 +2043,15 @@ p {
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    padding: 2rem;
-    color: var(--gray);
+    padding: 0.5rem;
+    color: rgba(255,255,255,0.7);
 }
 
 .loading-spinner {
-    width: 24px;
-    height: 24px;
-    border: 2px solid var(--gray-lighter);
-    border-top-color: var(--olive);
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: var(--white);
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -2043,31 +2061,89 @@ p {
 }
 
 .quote-result {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .quote-summary {
-    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
 }
 
 .quote-dates {
-    font-size: 0.9rem;
-    color: var(--gray);
-    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.7);
+}
+
+.quote-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
 }
 
 .price-total {
-    display: block;
     font-family: 'Cormorant Garamond', serif;
-    font-size: 3rem;
-    color: var(--charcoal);
-    line-height: 1;
-    margin-bottom: 0.25rem;
+    font-size: 2rem;
+    color: var(--white);
+    font-weight: 600;
 }
 
 .price-breakdown {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+}
+
+.quote-display .btn-continue {
+    background: var(--white);
+    color: var(--charcoal);
+    padding: 0.75rem 2rem;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
     font-size: 0.8rem;
-    color: var(--gray-light);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.quote-display .btn-continue:hover {
+    background: var(--cream);
+}
+
+/* Quote Banner - Mobile */
+@media (max-width: 768px) {
+    .quote-display {
+        padding: 1rem;
+    }
+
+    .quote-result {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    .quote-summary {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .quote-price {
+        justify-content: center;
+    }
+
+    .price-total {
+        font-size: 1.75rem;
+    }
+
+    .quote-display .btn-continue {
+        width: 100%;
+        padding: 1rem;
+    }
 }
 
 .btn-book-now {
