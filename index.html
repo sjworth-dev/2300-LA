@@ -1539,5 +1539,347 @@
             }
         }, { passive: true });
     </script>
+
+    <!-- Mardi Gras Theme Toggle -->
+    <button class="mardi-gras-toggle" id="mardi-gras-toggle" title="Toggle Mardi Gras Mode">
+        <span class="mask-icon">🎭</span>
+        <span class="toggle-text">Mardi Gras</span>
+    </button>
+
+    <!-- Mardi Gras Beads Container -->
+    <div class="mardi-gras-beads" id="mardi-gras-beads"></div>
+
+    <style>
+        /* Mardi Gras Toggle Button */
+        .mardi-gras-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 9998;
+            background: linear-gradient(135deg, #7B2D8E 0%, #1B5E20 50%, #F9A825 100%);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .mardi-gras-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 30px rgba(123, 45, 142, 0.5);
+        }
+
+        .mardi-gras-toggle .mask-icon {
+            font-size: 1.5em;
+        }
+
+        .mardi-gras-toggle .toggle-text {
+            color: white;
+            font-size: 0.8em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .mardi-gras-toggle.active {
+            animation: pulse-glow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 4px 20px rgba(123, 45, 142, 0.5); }
+            50% { box-shadow: 0 4px 40px rgba(249, 168, 37, 0.8), 0 0 60px rgba(27, 94, 32, 0.5); }
+        }
+
+        /* Mardi Gras Beads */
+        .mardi-gras-beads {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9997;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        body.mardi-gras .mardi-gras-beads {
+            opacity: 1;
+        }
+
+        .bead {
+            position: absolute;
+            top: -20px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: fall-bead linear infinite;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .bead.purple { background: linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%); }
+        .bead.gold { background: linear-gradient(135deg, #FFD700 0%, #FFA000 100%); }
+        .bead.green { background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%); }
+
+        @keyframes fall-bead {
+            0% {
+                transform: translateY(-20px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0.5;
+            }
+        }
+
+        /* ============================================
+           MARDI GRAS THEME OVERRIDES
+           ============================================ */
+        body.mardi-gras {
+            --charcoal: #1a0a1f;
+            --charcoal-light: #2d1a35;
+            --olive: #1B5E20;
+            --olive-dark: #0d3d12;
+            --olive-light: #2E7D32;
+            --cream: #FFF8E1;
+            --cream-dark: #FFECB3;
+            --coral: #F9A825;
+            --coral-light: #FFD54F;
+            --white: #ffffff;
+            --gray: #7B2D8E;
+            --gray-light: #9C27B0;
+            --gray-lighter: #CE93D8;
+        }
+
+        /* Loader */
+        body.mardi-gras .loader {
+            background: linear-gradient(135deg, #1a0a1f 0%, #0d3d12 100%);
+        }
+
+        body.mardi-gras .loader-location {
+            color: #F9A825;
+        }
+
+        body.mardi-gras .loader-title {
+            background: linear-gradient(135deg, #9C27B0 0%, #F9A825 50%, #4CAF50 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        body.mardi-gras .loader-line {
+            background: linear-gradient(90deg, #9C27B0, #F9A825, #4CAF50);
+        }
+
+        /* Events Ticker */
+        body.mardi-gras .events-ticker {
+            background: linear-gradient(90deg, #7B2D8E 0%, #1B5E20 50%, #F9A825 100%);
+            background-size: 200% 100%;
+            animation: ticker-gradient 10s ease infinite;
+        }
+
+        @keyframes ticker-gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        body.mardi-gras .ticker-item .event-dates {
+            color: #FFD700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Navigation */
+        body.mardi-gras .nav-minimal {
+            background: rgba(26, 10, 31, 0.95);
+        }
+
+        body.mardi-gras .nav-book-btn {
+            background: linear-gradient(135deg, #9C27B0 0%, #7B2D8E 100%);
+            color: #FFD700;
+        }
+
+        body.mardi-gras .nav-book-btn:hover {
+            background: linear-gradient(135deg, #F9A825 0%, #FF8F00 100%);
+            color: #1a0a1f;
+        }
+
+        /* Invitation Section */
+        body.mardi-gras .invitation-overlay {
+            background: linear-gradient(180deg,
+                rgba(123, 45, 142, 0.4) 0%,
+                rgba(27, 94, 32, 0.3) 50%,
+                rgba(26, 10, 31, 0.9) 100%
+            );
+        }
+
+        body.mardi-gras .invitation-title {
+            background: linear-gradient(135deg, #FFD700 0%, #F9A825 50%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: none;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+
+        body.mardi-gras .invitation-subtitle {
+            color: #CE93D8;
+        }
+
+        body.mardi-gras .invitation-location {
+            color: #4CAF50;
+        }
+
+        /* Book Section */
+        body.mardi-gras .scene-book {
+            background: linear-gradient(180deg, #1a0a1f 0%, #0d3d12 100%);
+        }
+
+        body.mardi-gras .book-card {
+            background: rgba(123, 45, 142, 0.1);
+            border: 1px solid rgba(156, 39, 176, 0.3);
+        }
+
+        body.mardi-gras .btn-check-prices {
+            background: linear-gradient(135deg, #9C27B0 0%, #7B2D8E 100%);
+        }
+
+        body.mardi-gras .btn-check-prices:hover {
+            background: linear-gradient(135deg, #F9A825 0%, #FF8F00 100%);
+            color: #1a0a1f;
+        }
+
+        /* Calendar */
+        body.mardi-gras .calendar-day.selected {
+            background: linear-gradient(135deg, #9C27B0 0%, #7B2D8E 100%);
+        }
+
+        body.mardi-gras .calendar-day.in-range {
+            background: rgba(156, 39, 176, 0.2);
+        }
+
+        body.mardi-gras .calendar-day.has-event::after {
+            background: #F9A825;
+        }
+
+        /* Sections */
+        body.mardi-gras .scene-label {
+            color: #F9A825;
+        }
+
+        body.mardi-gras h2, body.mardi-gras h3 {
+            color: #FFD700;
+        }
+
+        /* Fleur de lis decoration */
+        body.mardi-gras::before {
+            content: '⚜';
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            font-size: 3em;
+            color: rgba(249, 168, 37, 0.2);
+            transform: translateY(-50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        body.mardi-gras::after {
+            content: '⚜';
+            position: fixed;
+            top: 50%;
+            left: 20px;
+            font-size: 3em;
+            color: rgba(156, 39, 176, 0.2);
+            transform: translateY(-50%) scaleX(-1);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .mardi-gras-toggle {
+                bottom: 15px;
+                left: 15px;
+                padding: 10px 15px;
+            }
+
+            .mardi-gras-toggle .toggle-text {
+                display: none;
+            }
+
+            body.mardi-gras::before,
+            body.mardi-gras::after {
+                display: none;
+            }
+        }
+    </style>
+
+    <script>
+        // Mardi Gras Theme Toggle
+        const mardiGrasToggle = document.getElementById('mardi-gras-toggle');
+        const beadsContainer = document.getElementById('mardi-gras-beads');
+        let beadInterval = null;
+
+        function createBead() {
+            const bead = document.createElement('div');
+            bead.classList.add('bead');
+
+            const colors = ['purple', 'gold', 'green'];
+            bead.classList.add(colors[Math.floor(Math.random() * colors.length)]);
+
+            bead.style.left = Math.random() * 100 + 'vw';
+            bead.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            bead.style.animationDelay = Math.random() * 2 + 's';
+
+            beadsContainer.appendChild(bead);
+
+            setTimeout(() => {
+                bead.remove();
+            }, 8000);
+        }
+
+        function startBeads() {
+            beadInterval = setInterval(createBead, 200);
+        }
+
+        function stopBeads() {
+            if (beadInterval) {
+                clearInterval(beadInterval);
+                beadInterval = null;
+            }
+            beadsContainer.innerHTML = '';
+        }
+
+        mardiGrasToggle.addEventListener('click', () => {
+            document.body.classList.toggle('mardi-gras');
+            mardiGrasToggle.classList.toggle('active');
+
+            if (document.body.classList.contains('mardi-gras')) {
+                startBeads();
+                localStorage.setItem('mardiGrasMode', 'true');
+            } else {
+                stopBeads();
+                localStorage.setItem('mardiGrasMode', 'false');
+            }
+        });
+
+        // Check for saved preference
+        if (localStorage.getItem('mardiGrasMode') === 'true') {
+            document.body.classList.add('mardi-gras');
+            mardiGrasToggle.classList.add('active');
+            startBeads();
+        }
+    </script>
 </body>
 </html>
