@@ -514,56 +514,6 @@ p {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Egret Painting Animation */
-.egret-animation {
-    position: absolute;
-    bottom: 10%;
-    left: 0;
-    z-index: 3;
-    pointer-events: none;
-    animation: egretWaddle 20s ease-in-out infinite;
-}
-
-.egret-painting {
-    width: 350px;
-    height: auto;
-    opacity: 0.9;
-    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
-    animation: egretBob 1s ease-in-out infinite;
-}
-
-@keyframes egretWaddle {
-    0% {
-        transform: translateX(-400px);
-    }
-    15% {
-        transform: translateX(30vw);
-    }
-    35% {
-        transform: translateX(25vw);
-    }
-    50% {
-        transform: translateX(60vw);
-    }
-    70% {
-        transform: translateX(55vw);
-    }
-    85% {
-        transform: translateX(110vw);
-    }
-    100% {
-        transform: translateX(-400px);
-    }
-}
-
-@keyframes egretBob {
-    0%, 100% {
-        transform: translateY(0) rotate(-1deg);
-    }
-    50% {
-        transform: translateY(-8px) rotate(1deg);
-    }
-}
 
 @keyframes scrollPulse {
     0%, 100% { opacity: 0.4; }
@@ -2782,10 +2732,6 @@ p {
 }
 
 @media (max-width: 768px) {
-    .egret-animation {
-        display: none;
-    }
-
     .nav-minimal {
         padding: 1rem 1.5rem;
     }
