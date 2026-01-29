@@ -1598,35 +1598,110 @@
             cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='12' fill='%239C27B0'/%3E%3Ccircle cx='16' cy='16' r='8' fill='%23FFD700'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%234CAF50'/%3E%3C/svg%3E") 16 16, auto !important;
         }
 
-        /* THE DRUNK WOBBLE */
-        @keyframes drunk-wobble {
-            0%, 100% { transform: rotate(-0.3deg) translateX(-2px); }
-            25% { transform: rotate(0.3deg) translateX(2px); }
-            50% { transform: rotate(-0.2deg) translateX(-1px); }
-            75% { transform: rotate(0.4deg) translateX(1px); }
+        /* THE EARTHQUAKE WOBBLE - 10000X MORE SHAKE!!! */
+        @keyframes earthquake-shake {
+            0% { transform: translate(-8px, -6px) rotate(-2deg) skew(-1deg); }
+            10% { transform: translate(10px, 8px) rotate(3deg) skew(2deg); }
+            20% { transform: translate(-12px, -4px) rotate(-3deg) skew(-2deg); }
+            30% { transform: translate(8px, 10px) rotate(2deg) skew(1deg); }
+            40% { transform: translate(-6px, -10px) rotate(-4deg) skew(-1deg); }
+            50% { transform: translate(14px, 6px) rotate(4deg) skew(2deg); }
+            60% { transform: translate(-10px, -8px) rotate(-2deg) skew(-2deg); }
+            70% { transform: translate(6px, 12px) rotate(3deg) skew(1deg); }
+            80% { transform: translate(-14px, -6px) rotate(-3deg) skew(-1deg); }
+            90% { transform: translate(12px, 8px) rotate(2deg) skew(2deg); }
+            100% { transform: translate(-8px, -6px) rotate(-2deg) skew(-1deg); }
+        }
+
+        @keyframes bass-drop {
+            0%, 100% { transform: scale(1) translate(-8px, -6px) rotate(-2deg); }
+            5% { transform: scale(1.03) translate(10px, 8px) rotate(3deg); }
+            10% { transform: scale(0.98) translate(-12px, -4px) rotate(-3deg); }
+            15% { transform: scale(1.02) translate(8px, 10px) rotate(2deg); }
+            20% { transform: scale(1) translate(-6px, -10px) rotate(-4deg); }
+        }
+
+        @keyframes color-strobe {
+            0% { filter: hue-rotate(0deg) saturate(150%) brightness(1.1); }
+            25% { filter: hue-rotate(90deg) saturate(200%) brightness(1.3); }
+            50% { filter: hue-rotate(180deg) saturate(150%) brightness(1.0); }
+            75% { filter: hue-rotate(270deg) saturate(200%) brightness(1.2); }
+            100% { filter: hue-rotate(360deg) saturate(150%) brightness(1.1); }
         }
 
         body.mardi-gras {
-            animation: drunk-wobble 4s ease-in-out infinite;
+            animation: earthquake-shake 0.15s ease-in-out infinite, bass-drop 0.5s ease-in-out infinite, color-strobe 3s linear infinite;
         }
 
-        /* Screen Flash on Activation */
+        /* STROBE OVERLAY */
+        body.mardi-gras::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 99999;
+            animation: strobe-flash 0.2s linear infinite;
+            mix-blend-mode: overlay;
+        }
+
+        @keyframes strobe-flash {
+            0%, 49% { background: transparent; }
+            50%, 100% { background: rgba(255, 215, 0, 0.1); }
+        }
+
+        /* Screen Flash on Activation - MEGA VERSION */
         @keyframes screen-flash {
-            0% { opacity: 1; }
-            10% { opacity: 0; background: #9C27B0; }
-            20% { opacity: 1; }
-            30% { opacity: 0; background: #FFD700; }
-            40% { opacity: 1; }
-            50% { opacity: 0; background: #4CAF50; }
-            60% { opacity: 1; }
-            70% { opacity: 0; background: #FFD700; }
-            80% { opacity: 1; }
-            90% { opacity: 0; background: #9C27B0; }
-            100% { opacity: 1; }
+            0% { opacity: 1; transform: scale(1); }
+            5% { opacity: 0; background: #9C27B0; transform: scale(1.1); }
+            10% { opacity: 1; transform: scale(0.98); }
+            15% { opacity: 0; background: #FFD700; transform: scale(1.05); }
+            20% { opacity: 1; transform: scale(1); }
+            25% { opacity: 0; background: #4CAF50; transform: scale(1.08); }
+            30% { opacity: 1; transform: scale(0.97); }
+            35% { opacity: 0; background: #FFD700; transform: scale(1.03); }
+            40% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0; background: #9C27B0; transform: scale(1.1); }
+            60% { opacity: 1; transform: scale(0.95); }
+            70% { opacity: 0; background: #4CAF50; transform: scale(1.05); }
+            80% { opacity: 1; transform: scale(1); }
+            90% { opacity: 0; background: #FFD700; transform: scale(1.02); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
         body.mardi-gras.flash-active {
-            animation: screen-flash 0.5s ease-out, drunk-wobble 4s ease-in-out infinite 0.5s;
+            animation: screen-flash 0.8s ease-out, earthquake-shake 0.15s ease-in-out infinite 0.8s, bass-drop 0.5s ease-in-out infinite 0.8s, color-strobe 3s linear infinite 0.8s;
+        }
+
+        /* CHROMATIC ABERRATION */
+        body.mardi-gras section {
+            text-shadow: -2px 0 #9C27B0, 2px 0 #4CAF50;
+            animation: chromatic 0.3s ease-in-out infinite;
+        }
+
+        @keyframes chromatic {
+            0%, 100% { text-shadow: -2px 0 #9C27B0, 2px 0 #4CAF50; }
+            50% { text-shadow: 2px 0 #9C27B0, -2px 0 #4CAF50; }
+        }
+
+        /* PULSING VIGNETTE */
+        body.mardi-gras .scene::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            box-shadow: inset 0 0 150px rgba(156, 39, 176, 0.5), inset 0 0 100px rgba(255, 215, 0, 0.3);
+            animation: vignette-pulse 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes vignette-pulse {
+            from { box-shadow: inset 0 0 150px rgba(156, 39, 176, 0.5), inset 0 0 100px rgba(255, 215, 0, 0.3); }
+            to { box-shadow: inset 0 0 200px rgba(156, 39, 176, 0.7), inset 0 0 150px rgba(76, 175, 80, 0.4); }
         }
 
         /* Toggle Button - MEGA */
@@ -2081,16 +2156,16 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.5), inset 0 -3px 6px rgba(0,0,0,0.3), inset 0 3px 6px rgba(255,255,255,0.4);
         }
 
-        .bead.tiny { width: 6px; height: 6px; }
-        .bead.small { width: 10px; height: 10px; }
-        .bead.medium { width: 16px; height: 16px; }
-        .bead.large { width: 24px; height: 24px; }
-        .bead.xlarge { width: 32px; height: 32px; }
-        .bead.mega { width: 45px; height: 45px; }
+        .bead.tiny { width: 12px; height: 12px; }
+        .bead.small { width: 18px; height: 18px; }
+        .bead.medium { width: 28px; height: 28px; }
+        .bead.large { width: 40px; height: 40px; }
+        .bead.xlarge { width: 55px; height: 55px; }
+        .bead.mega { width: 70px; height: 70px; }
 
-        .bead.purple { background: radial-gradient(circle at 30% 30%, #E1BEE7, #9C27B0, #4A148C); }
-        .bead.gold { background: radial-gradient(circle at 30% 30%, #FFF59D, #FFD700, #FF8F00); }
-        .bead.green { background: radial-gradient(circle at 30% 30%, #A5D6A7, #4CAF50, #1B5E20); }
+        .bead.purple { background: radial-gradient(circle at 30% 30%, #E1BEE7, #9C27B0, #4A148C); box-shadow: 0 0 20px #9C27B0, 0 0 40px rgba(156, 39, 176, 0.5); }
+        .bead.gold { background: radial-gradient(circle at 30% 30%, #FFF59D, #FFD700, #FF8F00); box-shadow: 0 0 20px #FFD700, 0 0 40px rgba(255, 215, 0, 0.5); }
+        .bead.green { background: radial-gradient(circle at 30% 30%, #A5D6A7, #4CAF50, #1B5E20); box-shadow: 0 0 20px #4CAF50, 0 0 40px rgba(76, 175, 80, 0.5); }
 
         @keyframes fall-bead-crazy {
             0% { transform: translateY(-30px) rotate(0deg) translateX(0) scale(1); }
@@ -2125,11 +2200,11 @@
             animation: fall-confetti-crazy linear forwards;
         }
 
-        .confetti.purple { background: linear-gradient(135deg, #9C27B0, #7B1FA2); }
-        .confetti.gold { background: linear-gradient(135deg, #FFD700, #FFA000); }
-        .confetti.green { background: linear-gradient(135deg, #4CAF50, #2E7D32); }
-        .confetti.pink { background: linear-gradient(135deg, #E91E63, #C2185B); }
-        .confetti.blue { background: linear-gradient(135deg, #2196F3, #1565C0); }
+        .confetti.purple { background: linear-gradient(135deg, #9C27B0, #7B1FA2); box-shadow: 0 0 15px #9C27B0; }
+        .confetti.gold { background: linear-gradient(135deg, #FFD700, #FFA000); box-shadow: 0 0 15px #FFD700; }
+        .confetti.green { background: linear-gradient(135deg, #4CAF50, #2E7D32); box-shadow: 0 0 15px #4CAF50; }
+        .confetti.pink { background: linear-gradient(135deg, #E91E63, #C2185B); box-shadow: 0 0 15px #E91E63; }
+        .confetti.blue { background: linear-gradient(135deg, #2196F3, #1565C0); box-shadow: 0 0 15px #2196F3; }
 
         @keyframes fall-confetti-crazy {
             0% { transform: translateY(-20px) rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
@@ -2795,40 +2870,46 @@
         function startParty() {
             // Screen flash!
             document.body.classList.add('flash-active');
-            setTimeout(() => document.body.classList.remove('flash-active'), 500);
+            setTimeout(() => document.body.classList.remove('flash-active'), 800);
 
             // Try to play jazz (may be blocked by browser)
             try {
-                jazzAudio.volume = 0.3;
+                jazzAudio.volume = 0.5;
                 jazzAudio.play().catch(() => {});
             } catch(e) {}
 
-            // BEADS - TONS
-            intervals.beads = setInterval(createBead, 30);
+            // OPTIMIZED: Fewer particles but bigger/more visible
+            // BEADS - optimized (was 30ms, now 100ms = 70% less CPU)
+            intervals.beads = setInterval(createBead, 100);
 
-            // CONFETTI - EVERYWHERE
-            intervals.confetti = setInterval(createConfetti, 50);
+            // CONFETTI - optimized (was 50ms, now 150ms = 66% less CPU)
+            intervals.confetti = setInterval(createConfetti, 150);
 
-            // DOUBLOONS
-            intervals.doubloons = setInterval(createDoubloon, 500);
+            // DOUBLOONS - kept same, already reasonable
+            intervals.doubloons = setInterval(createDoubloon, 400);
 
-            // MASKS
-            intervals.masks = setInterval(createMask, 800);
+            // MASKS - kept same
+            intervals.masks = setInterval(createMask, 600);
 
-            // FIREWORKS
-            intervals.fireworks = setInterval(createFirework, 1500);
+            // FIREWORKS - more frequent for impact
+            intervals.fireworks = setInterval(createFirework, 800);
 
             // PARADE
-            intervals.parade = setInterval(createParadeFloat, 3000);
+            intervals.parade = setInterval(createParadeFloat, 2500);
 
             // DANCERS
-            intervals.dancers = setInterval(createDancer, 2000);
+            intervals.dancers = setInterval(createDancer, 1500);
 
-            // Create initial elements
-            for (let i = 0; i < 10; i++) {
-                setTimeout(createMask, i * 200);
-                setTimeout(createParadeFloat, i * 500);
-                setTimeout(createDancer, i * 300);
+            // Create initial burst of elements
+            for (let i = 0; i < 15; i++) {
+                setTimeout(createMask, i * 100);
+                setTimeout(createBead, i * 50);
+                setTimeout(createConfetti, i * 50);
+            }
+            for (let i = 0; i < 5; i++) {
+                setTimeout(createParadeFloat, i * 300);
+                setTimeout(createDancer, i * 200);
+                setTimeout(createFirework, i * 150);
             }
 
             // Streamers
